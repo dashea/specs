@@ -18,6 +18,8 @@ Patch2: 0002-Remove-the-version-number-from-setup.py.patch
 Patch3: 0003-Use-pkgconfig-to-find-nss-and-nspr.patch
 Patch4: 0004-Switch-to-setuptools.patch
 Patch5: 0005-Convert-the-tests-to-pytest.patch
+Patch6: 0006-Set-the-doc-language-to-en.patch
+Patch7: 0007-Add-dynamic-fields-to-pyproject.toml.patch
 
 BuildRequires: gcc
 BuildRequires: python3-devel

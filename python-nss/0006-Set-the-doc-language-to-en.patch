@@ -1,0 +1,25 @@
+From a300df80269b76ec9e8c00c13ff335ec1020cc2d Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Thu, 6 Oct 2022 15:40:41 -0400
+Subject: [PATCH 6/6] Set the doc language to en
+
+---
+ doc/sphinx/source/conf.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/doc/sphinx/source/conf.py b/doc/sphinx/source/conf.py
+index 511e70b..185624d 100644
+--- a/doc/sphinx/source/conf.py
++++ b/doc/sphinx/source/conf.py
+@@ -63,7 +63,7 @@ master_doc = 'index'
+ #
+ # This is also used if you do content translation via gettext catalogs.
+ # Usually you set "language" from the command line for these cases.
+-language = None
++language = 'en'
+ 
+ # List of patterns, relative to source directory, that match files and
+ # directories to ignore when looking for source files.
+-- 
+2.37.3
+
