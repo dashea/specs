@@ -1,4 +1,4 @@
-From 2a0a252d793170d1c2cac81c15506454e1e658df Mon Sep 17 00:00:00 2001
+From 41dd686e4bec18590a8b2e65d95d218f9909e593 Mon Sep 17 00:00:00 2001
 From: David Shea <reallylongword@gmail.com>
 Date: Wed, 5 Oct 2022 22:36:16 -0400
 Subject: [PATCH 5/5] Convert the tests to pytest
@@ -7,6 +7,7 @@ Get rid of the test runner and run the tests using tox. Fix the more
 obvious bugs in the tests.
 ---
  MANIFEST.in                  |   2 +-
+ pyproject.toml               |   2 +-
  test/conftest.py             |  82 ++++
  test/run_tests               |  78 ----
  test/setup_certs.py          | 840 +++++++++++++++--------------------
@@ -20,7 +21,7 @@ obvious bugs in the tests.
  test/test_pkcs12.py          | 345 +++++++-------
  test/util.py                 |  44 +-
  tox.ini                      |   9 +
- 14 files changed, 1205 insertions(+), 1618 deletions(-)
+ 15 files changed, 1206 insertions(+), 1619 deletions(-)
  create mode 100644 test/conftest.py
  delete mode 100755 test/run_tests
  mode change 100755 => 100644 test/setup_certs.py
@@ -43,6 +44,17 @@ index 186b2fc..f79cbb1 100644
 -include test/run_tests test/setup_certs.py test/util.py
 +include test/setup_certs.py test/util.py
  include src/*.h
+diff --git a/pyproject.toml b/pyproject.toml
+index 6652980..d302ddc 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -16,5 +16,5 @@ email = "jdennis@redhat.com"
+ homepage = "http://www.mozilla.org/projects/security/pki/python-nss"
+ 
+ [project.optional-dependencies]
+-test = ["six"]
++test = []
+ docs = ["sphinx"]
 diff --git a/test/conftest.py b/test/conftest.py
 new file mode 100644
 index 0000000..1a93459
