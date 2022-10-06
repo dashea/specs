@@ -23,6 +23,12 @@ BuildRequires: gcc
 BuildRequires: python3-devel
 BuildRequires: nss-devel
 
+# Needed for tests
+BuildRequires: nss-tools
+
+# Needed for docs
+BuildRequires: /usr/bin/sphinx-build
+
 %global _description %{expand:
 This package provides Python bindings for Network Security Services
 (NSS) and the Netscape Portable Runtime (NSPR).
