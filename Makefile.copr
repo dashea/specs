@@ -1,4 +1,0 @@
-srpm:
-	spectool --get '$(spec)'
-	sha512sum -c sources
-	rpmbuild -bs --define '_sourcedir .' --define '_srcrpmdir $(outdir)' '$(spec)'
