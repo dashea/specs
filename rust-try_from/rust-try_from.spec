@@ -13,8 +13,6 @@ License:        MIT
 URL:            https://crates.io/crates/try_from
 Source:         %{crates_source}
 
-Patch0:         try-from-no-false-shebang.patch
-
 ExclusiveArch:  %{rust_arches}
 
 BuildRequires:  rust-packaging >= 21
