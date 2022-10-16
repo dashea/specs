@@ -12,7 +12,7 @@ Summary:        Procedural functionlike!() macros using only Macros 1.1
 # Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/proc-macro-hack-impl
-Source0         %{crates_source}
+Source0:        %{crates_source}
 
 # Use license files from the upstream project
 # commit is the tag for 0.4.3
