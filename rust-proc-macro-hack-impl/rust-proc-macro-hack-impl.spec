@@ -17,7 +17,7 @@ Source0         %{crates_source}
 # Use license files from the upstream project
 # commit is the tag for 0.4.3
 Source1:        https://raw.githubusercontent.com/dtolnay/proc-macro-hack/ed464c1a24528cbf270fd9f14cf22e851daa6870/LICENSE-APACHE
-Source2:        https://github.com/dtolnay/proc-macro-hack/blob/ed464c1a24528cbf270fd9f14cf22e851daa6870/LICENSE-MIT
+Source2:        https://raw.githubusercontent.com/dtolnay/proc-macro-hack/ed464c1a24528cbf270fd9f14cf22e851daa6870/LICENSE-MIT
 
 ExclusiveArch:  %{rust_arches}
 
