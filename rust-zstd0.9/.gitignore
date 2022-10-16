@@ -1,0 +1,8 @@
+zstd-0.9.2+zstd.1.5.1.crate
+bindings.rs
+example.txt
+example.txt.zst
+example.txt.v5.zst
+example.txt.v6.zst
+example.txt.v7.zst
+example.txt.v8.zst

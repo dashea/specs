@@ -1,0 +1,8 @@
+--- aes-0.6.0/Cargo.toml	2020-10-16T14:24:30+00:00
++++ aes-0.6.0/Cargo.toml	2020-10-16T14:24:30+00:00
+@@ -30,5 +30,3 @@
+ [target."cfg(all(target_feature=\"aes\", target_feature = \"sse2\", any(target_arch = \"x86_64\", target_arch = \"x86\")))".dependencies.aesni]
+ version = "0.10"
+ default-features = false
+-[target."cfg(not(all(target_feature=\"aes\", target_feature = \"sse2\", any(target_arch = \"x86_64\", target_arch = \"x86\"))))".dependencies.aes-soft]
+-version = "0.6"

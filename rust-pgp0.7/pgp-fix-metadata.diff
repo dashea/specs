@@ -1,0 +1,11 @@
+--- pgp-0.7.2/Cargo.toml	2021-08-27T18:50:57+00:00
++++ pgp-0.7.2/Cargo.toml	2022-10-15T21:45:53.535302+00:00
+@@ -163,7 +163,7 @@
+ default-features = false
+ 
+ [dependencies.zeroize]
+-version = "=1.3.0"
++version = "1.3.0"
+ features = ["zeroize_derive"]
+ [dev-dependencies.glob]
+ version = "^0.3"

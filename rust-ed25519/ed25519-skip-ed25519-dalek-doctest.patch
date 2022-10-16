@@ -1,0 +1,26 @@
+diff -purN ed25519-1.5.2.orig/Cargo.toml ed25519-1.5.2/Cargo.toml
+--- ed25519-1.5.2.orig/Cargo.toml	1969-12-31 19:00:01.000000000 -0500
++++ ed25519-1.5.2/Cargo.toml	2022-10-15 09:18:09.679630840 -0400
+@@ -70,8 +70,8 @@ default-features = false
+ [dev-dependencies.bincode]
+ version = "1"
+ 
+-[dev-dependencies.ed25519-dalek]
+-version = "1"
++# [dev-dependencies.ed25519-dalek]
++# version = "1"
+ 
+ [dev-dependencies.hex-literal]
+ version = "0.3"
+diff -purN ed25519-1.5.2.orig/src/lib.rs ed25519-1.5.2/src/lib.rs
+--- ed25519-1.5.2.orig/src/lib.rs	1973-11-29 16:33:09.000000000 -0500
++++ ed25519-1.5.2/src/lib.rs	2022-10-15 09:20:48.051357482 -0400
+@@ -78,7 +78,7 @@
+ //! instantiate and use the previously defined `HelloSigner` and `HelloVerifier`
+ //! types with [`ed25519-dalek`] as the signing/verification provider:
+ //!
+-//! ```
++//! ```ignore
+ //! use ed25519_dalek::{Signer, Verifier, Signature};
+ //! #
+ //! # pub struct HelloSigner<S>

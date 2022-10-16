@@ -1,0 +1,11 @@
+--- zstd-sys-1.6.3+zstd.1.5.2/Cargo.toml	1970-01-01T00:00:01+00:00
++++ zstd-sys-1.6.3+zstd.1.5.2/Cargo.toml	2022-10-16T02:56:38.339800+00:00
+@@ -16,7 +16,7 @@
+ authors = ["Alexandre Bury <alexandre.bury@gmail.com>"]
+ build = "build.rs"
+ links = "zstd"
+-include = ["/LICENSE", "/*.*", "/src/", "/zstd/LICENSE", "/zstd/COPYING", "/zstd/lib/**/*.c", "/zstd/lib/**/*.h", "/zstd/lib/**/*.S"]
++include = ["/LICENSE", "/Cargo.toml", "/LICENSE*", "/Readme.md", "/build.rs", "/test_it.sh", "/update_bindings.sh", "/update_zstd.sh", "/zstd.h", "/src/", "/zstd/LICENSE", "/zstd/COPYING", "/zstd/lib/**/*.c", "/zstd/lib/**/*.h", "/zstd/lib/**/*.S"]
+ description = "Low-level bindings for the zstd compression library."
+ readme = "Readme.md"
+ keywords = ["zstd", "zstandard", "compression"]

@@ -1,0 +1,14 @@
+--- aes-0.5.0/Cargo.toml	2020-08-07T19:24:57+00:00
++++ aes-0.5.0/Cargo.toml	2022-10-15T18:33:40.451389+00:00
+@@ -24,9 +24,8 @@
+ repository = "https://github.com/RustCrypto/block-ciphers"
+ [dependencies.block-cipher]
+ version = "0.8"
++[dependencies.aes-soft]
++version = "0.5"
+ [dev-dependencies.block-cipher]
+ version = "0.8"
+ features = ["dev"]
+-[target."cfg(all(target_feature=\"aes\", target_feature = \"sse2\", any(target_arch = \"x86_64\", target_arch = \"x86\")))".dependencies.aesni]
+-version = "0.8"
+-default-features = false

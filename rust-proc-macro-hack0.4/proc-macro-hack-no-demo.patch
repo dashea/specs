@@ -1,0 +1,35 @@
+diff -purN proc-macro-hack-0.4.3.orig/Cargo.toml proc-macro-hack-0.4.3/Cargo.toml
+--- proc-macro-hack-0.4.3.orig/Cargo.toml	1969-12-31 19:00:00.000000000 -0500
++++ proc-macro-hack-0.4.3/Cargo.toml	2022-10-15 20:27:29.313719098 -0400
+@@ -19,10 +19,5 @@ license = "MIT/Apache-2.0"
+ repository = "https://github.com/dtolnay/proc-macro-hack"
+ [dependencies.proc-macro-hack-impl]
+ version = "=0.4.3"
+-[dev-dependencies.demo-hack]
+-version = "0.0.4"
+-
+-[dev-dependencies.demo-hack-impl]
+-version = "0.0.4"
+ [badges.travis-ci]
+ repository = "dtolnay/proc-macro-hack"
+diff -purN proc-macro-hack-0.4.3.orig/src/lib.rs proc-macro-hack-0.4.3/src/lib.rs
+--- proc-macro-hack-0.4.3.orig/src/lib.rs	1969-12-31 19:00:00.000000000 -0500
++++ proc-macro-hack-0.4.3/src/lib.rs	2022-10-15 20:27:57.404870967 -0400
+@@ -9,7 +9,7 @@
+ //!
+ //! https://github.com/dtolnay/proc-macro-hack/tree/master/demo-hack
+ //!
+-//! ```rust
++//! ```rust,ignore
+ //! #[macro_use]
+ //! extern crate proc_macro_hack;
+ //!
+@@ -82,7 +82,7 @@
+ //!
+ //! https://github.com/dtolnay/proc-macro-hack/tree/master/example
+ //!
+-//! ```rust
++//! ```rust,ignore
+ //! #[macro_use]
+ //! extern crate demo_hack;
+ //!
