@@ -1,0 +1,11 @@
+--- rsa-0.5.0/Cargo.toml	1970-01-01T00:00:00+00:00
++++ rsa-0.5.0/Cargo.toml	2022-10-17T15:08:27.268999+00:00
+@@ -87,7 +87,7 @@
+ default-features = false
+ 
+ [dependencies.zeroize]
+-version = ">=1, <1.5"
++version = ">=1"
+ features = ["alloc", "zeroize_derive"]
+ [dev-dependencies.base64]
+ version = "0.13.0"

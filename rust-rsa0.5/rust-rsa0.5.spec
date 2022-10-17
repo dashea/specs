@@ -12,6 +12,8 @@ Summary:        Pure Rust RSA implementation
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/rsa
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+Patch:          rsa-fix-metadata.diff
 
 ExclusiveArch:  %{rust_arches}
 
