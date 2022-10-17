@@ -10,7 +10,9 @@ Source0: https://pagure.io/releases/sigul/sigul-%{version}.tar.bz2
 Source1: sigul_bridge.service
 Source2: sigul_server.service
 Source3: sigul.logrotate
+Source4: sigul.conf
 
+BuildRequires: systemd-rpm-macros
 BuildRequires: make
 BuildRequires: nss-tools
 BuildRequires: python3-pycodestyle
@@ -115,13 +117,10 @@ mkdir -p $RPM_BUILD_ROOT%{_unitdir} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
 install -m 0644 -p %{SOURCE1} $RPM_BUILD_ROOT%{_unitdir}/sigul_bridge.service
 install -m 0644 -p %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/sigul_server.service
 install -m 0644 -p %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/sigul
+install -p -D -m 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/sigul.conf
 
 %pre
-getent group sigul >/dev/null || groupadd -r sigul
-getent passwd sigul >/dev/null || \
-useradd -r -g sigul -d %{_localstatedir}/lib/sigul -s /sbin/nologin \
-        -c "Signing server or bridge" sigul
-exit 0
+%sysusers_create_compat %{SOURCE4}
 
 %post bridge
 %systemd_post sigul_bridge.service
@@ -164,6 +163,7 @@ exit 0
 %{_datadir}/sigul/__pycache__/errors.*
 %{_datadir}/sigul/__pycache__/settings.*
 %{_datadir}/sigul/__pycache__/utils.*
+%{_sysusersdir}/sigul.conf
 
 %files bridge
 %config(noreplace) %attr(640,root,sigul) %{_sysconfdir}/sigul/bridge.conf
