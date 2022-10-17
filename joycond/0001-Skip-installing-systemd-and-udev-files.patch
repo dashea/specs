@@ -1,0 +1,30 @@
+From 779b25b913ea9e96c6ba7910a8b24b9953938ca8 Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Sun, 14 Aug 2022 18:30:10 -0400
+Subject: [PATCH] Skip installing systemd and udev files
+
+These are the wrong directories; just install them in the spec file.
+---
+ CMakeLists.txt | 9 ---------
+ 1 file changed, 9 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index f9d6e93..2a068ba 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -28,12 +28,3 @@ add_subdirectory(src)
+ install(TARGETS joycond DESTINATION /usr/bin/
+         PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+         )
+-install(FILES udev/89-joycond.rules udev/72-joycond.rules DESTINATION /lib/udev/rules.d/
+-        PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ WORLD_READ 
+-        )
+-install(FILES systemd/joycond.service DESTINATION /etc/systemd/system
+-        PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ WORLD_READ
+-        )
+-install(FILES systemd/joycond.conf DESTINATION /etc/modules-load.d
+-        PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ WORLD_READ
+-        )
+-- 
+2.37.1
+
