@@ -13,6 +13,9 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/buf_redux
 Source:         %{crates_source}
 
+# The capacity checks fail on ppc64le due to the returned buffer being 64k instead of the capacity (8k or 4k) requested
+Patch0:         buf_redux-minimum-alloc.patch
+
 ExclusiveArch:  %{rust_arches}
 
 BuildRequires:  rust-packaging >= 21
