@@ -9,8 +9,8 @@ License: GPLv2
 URL: https://pagure.io/sigul/
 
 # The github repo is a fork of https://pagure.io/sigul.git from commit a6dc475
-%global commit 19d4fb787fffdad0af3fadc800e3837d8398d203
-%global shortcommit 19d4fb7
+%global commit 56752710d3d0d8f5b90fbb3a10961644238e0738
+%global shortcommit 5675271
 Source0: https://github.com/dashea/sigul/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
 Source1: sigul_bridge.service
@@ -19,7 +19,8 @@ Source3: sigul.logrotate
 Source4: sigul.conf
 
 # Since this package is building python via autotools, it uses the "legacy" packaging standard,
-# and also the automatic dependency generation is not helpful. Make everything manual.
+# and also the python files are in a non-standard directory making automatic dependency generation is not helpful.
+# Make everything manual.
 %{?python_disable_dependency_generator}
 
 BuildRequires: systemd-rpm-macros
@@ -257,6 +258,10 @@ install -p -D -m 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/sigul.conf
 %{_bindir}/sigul-ostree-helper
 
 %changelog
+* Tue Oct 18 2022 David Shea <reallylongword@gmail.com> - 1.1^20220718gita6dc475-1.dshea1
+- Rebuild with various fixes
+- Re-enabled tests
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
