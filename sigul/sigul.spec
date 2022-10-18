@@ -74,8 +74,9 @@ BuildRequires: skopeo
 # Required by extract_img_signatures in testtools
 BuildRequires: rust-srpm-macros
 %ifarch %{rust_arches}
-BuildRequires: (crate(rpm-rs) >= 0.8.1 with crate(rpm-rs) < 0.9.0~)
-BuildRequires: (crate(hex) >= 0.4.2 with crate(hex) < 0.5.0~)
+%generate_buildrequires
+cd testtools
+%cargo_generate_buildrequires
 %endif
 
 %description
@@ -160,7 +161,15 @@ PYTHON=/usr/bin/python3 %configure --with-ostree
 %make_build
 
 %check
-make check CARGO_OPTS="--offline"
+# Build the testtools manually in order to use Fedora's rust build options
+%ifarch %{rust_arches}
+(
+  cd testtools
+  %cargo_prep
+  %cargo_build
+)
+%endif
+make check
 
 %install
 %make_install
