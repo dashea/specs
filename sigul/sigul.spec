@@ -64,6 +64,8 @@ BuildRequires: /usr/bin/evmctl
 BuildRequires: /usr/bin/ostree
 # sign-rpms.at
 BuildRequires: /usr/bin/rpmbuild
+# bound-passphrase-keyring.at
+BuildRequires: /usr/bin/keyctl
 
 # Skopeo uses go and is only built on arches where go is supported
 BuildRequires: go-srpm-macros
