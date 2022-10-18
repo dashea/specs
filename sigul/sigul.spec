@@ -9,8 +9,8 @@ License: GPLv2
 URL: https://pagure.io/sigul/
 
 # The github repo is a fork of https://pagure.io/sigul.git from commit a6dc475
-%global commit d5e58a069ab482b6b4ca23d495cb400e1f32f20f
-%global shortcommit d5e58a0
+%global commit 19d4fb787fffdad0af3fadc800e3837d8398d203
+%global shortcommit 19d4fb7
 Source0: https://github.com/dashea/sigul/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
 Source1: sigul_bridge.service
@@ -160,7 +160,7 @@ PYTHON=/usr/bin/python3 %configure --with-ostree
 %make_build
 
 %check
-make check
+make check CARGO_OPTS="--offline"
 
 %install
 %make_install
