@@ -223,7 +223,6 @@ install -p -D -m 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/sigul.conf
 %{_unitdir}/sigul_bridge.service
 %{_sbindir}/sigul_bridge
 %{_datadir}/sigul/bridge*
-%{_datadir}/sigul/bridge.py*
 %{_datadir}/sigul/__pycache__/bridge.*
 %{_mandir}/man8/sigul_bridge.8*
 
