@@ -74,8 +74,11 @@ BuildRequires: skopeo
 # Required by extract_img_signatures in testtools
 BuildRequires: rust-srpm-macros
 %ifarch %{rust_arches}
-BuildRequires: (crate(rpm-rs/default) >= 0.8.1 with crate(rpm-rs/default) < 0.9.0~)
-BuildRequires: (crate(hex/default) >= 0.4.2 with crate(hex/default) < 0.5.0~)
+BuildRequires: rust-packaging
+
+%generate_buildrequires
+cd testtools
+%cargo_generate_buildrequires
 %endif
 
 %description
