@@ -1,46 +1,81 @@
 Summary: A signing server and related software client
 Name: sigul
 
-Version: 1.1
-Release: 6%{?dist}
+# Using the upstream master commit as the snapshot ID
+Version: 1.1^20220718gita6dc475
+Release: 1.dshea1%{?dist}
 License: GPLv2
 
 URL: https://pagure.io/sigul/
-Source0: https://pagure.io/releases/sigul/sigul-%{version}.tar.bz2
+
+# The github repo is a fork of https://pagure.io/sigul.git from commit a6dc475
+%global commit d5e58a069ab482b6b4ca23d495cb400e1f32f20f
+%global shortcommit d5e58a0
+Source0: https://github.com/dashea/sigul/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+
 Source1: sigul_bridge.service
 Source2: sigul_server.service
 Source3: sigul.logrotate
 Source4: sigul.conf
 
-BuildRequires: systemd-rpm-macros
-BuildRequires: make
-BuildRequires: nss-tools
-BuildRequires: python3-pycodestyle
-Requires: python3
-Requires: python3-nss >= 0.11
-BuildRequires: python3-nss, gnupg, koji, python3-pexpect, python3-gpg, python3, python3-fedora
-BuildRequires: rpm-sign python3-urlgrabber python3-sqlalchemy git
+# Since this package is building python via autotools, it uses the "legacy" packaging standard,
+# and also the automatic dependency generation is not helpful. Make everything manual.
+%{?python_disable_dependency_generator}
 
-Requires: logrotate
-Requires: koji
-# For sigul_setup_client
-Requires: coreutils nss-tools
-Requires(pre): shadow-utils
-BuildRequires:  gcc
-# To detect the path correctly in configure
-BuildRequires: gnupg
-# To run the test suite
-BuildRequires: systemd
-BuildRequires: ostree
-BuildRequires: ostree-devel
-%ifnarch ppc64
-# Skopeo is not built on ppc64
+BuildRequires: systemd-rpm-macros
+BuildRequires: autoconf
+BuildRequires: automake
+BuildRequires: gcc
+BuildRequires: python3-devel
+
+# Programs called from python and sigul_setup_client
+BuildRequires: /usr/bin/certutil
+BuildRequires: /usr/bin/pk12util
+BuildRequires: /usr/bin/gpg
+BuildRequires: /usr/bin/tpm_sealdata
+BuildRequires: /usr/bin/tpm_unsealdata
+BuildRequires: /usr/bin/openssl
+BuildRequires: /usr/bin/keyctl
+BuildRequires: /usr/bin/rpm
+BuildRequires: /usr/bin/rpmsign
+BuildRequires: /usr/bin/gpg
+
+# Python requirements
+BuildRequires: %{py3_dist cryptography}
+BuildRequires: %{py3_dist gpg}
+BuildRequires: %{py3_dist koji}
+BuildRequires: %{py3_dist python-nss}
+BuildRequires: %{py3_dist requests}
+BuildRequires: %{py3_dist rpm}
+BuildRequires: %{py3_dist six}
+BuildRequires: %{py3_dist six}
+BuildRequires: %{py3_dist sqlalchemy}
+
+# Requirement for ostree helper
+BuildRequires: pkgconfig(ostree-1)
+
+# Additional test requirements:
+# analysis.at
+BuildRequires: /usr/bin/bandit
+BuildRequires: /usr/bin/pycodestyle-3
+# file-signing.at
+BuildRequires: /usr/bin/evmctl
+# ostree.at
+BuildRequires: /usr/bin/ostree
+# sign-rpms.at
+BuildRequires: /usr/bin/rpmbuild
+
+# Skopeo uses go and is only built on arches where go is supported
+BuildRequires: go-srpm-macros
+%ifarch %{go_arches}
 BuildRequires: skopeo
 %endif
 
-%if 0%{?rhel}
-# There is no ostree package for RHEL other than x86_64, as that's in Atomic Host
-ExclusiveArch: x86_64
+# Required by extract_img_signatures in testtools
+BuildRequires: rust-srpm-macros
+%ifarch %{rust_arches}
+BuildRequires: (crate(rpm-rs) >= 0.8.1 with crate(rpm-rs) < 0.9.0~)
+BuildRequires: (crate(hex) >= 0.4.2 with crate(hex) < 0.5.0~)
 %endif
 
 %description
@@ -48,25 +83,29 @@ A signing server, which lets authorized users sign data without having any
 access to the necessary private key, a client for the server, and a "bridge"
 that connects the two.
 
+%package ostree-helper
+Summary: Sigul OSTree helper
+
+%description ostree-helper
+This package contains a OSTree helper program used by sigul-server.
 
 %package server
 Summary: Sigul server component
-Requires: %{name}%{?_isa} = %{version}-%{release}
-%if 0%{?rhel} && 0%{?rhel} <= 5
-Requires: python-sqlite2
-%endif
-Requires: gnupg
+Requires: %{name}-common = %{version}-%{release}
+Requires: %{name}-ostree-helper = %{version}-%{release}
+BuildArch: noarch
 
-Requires: python3-gpg
-Requires: python3-pexpect
-Requires: python3-sqlalchemy >= 0.5
+Requires: /usr/bin/rpm
+Requires: /usr/bin/rpmsign
+Requires: /usr/bin/gpg
 
-Requires: ostree
-Requires: rpm-sign
-# For systemd unit macros
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
+Requires: %{py3_dist six}
+Requires: %{py3_dist cryptography}
+Requires: %{py3_dist python-nss}
+Requires: %{py3_dist rpm}
+Requires: %{py3_dist sqlalchemy}
+Requires: %{py3_dist gpg}
+Requires: python(abi) = %{python3_version}
 
 %description server
 The server part of sigul that keeps the keys and performs the actual signing.
@@ -74,49 +113,61 @@ The server part of sigul that keeps the keys and performs the actual signing.
 
 %package bridge
 Summary: Sigul bridge
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}-common = %{version}-%{release}
+BuildArch: noarch
 
-Requires: python3-fedora
-Requires: python3-urlgrabber
-
-# For systemd unit macros
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
+Requires: %{py3_dist six}
+Requires: %{py3_dist fedora}
+Requires: %{py3_dist python-nss}
+Requires: %{py3_dist koji}
+Requires: %{py3_dist rpm}
+Requires: python(abi) = %{python3_version}
 
 %description bridge
 The bridge part of sigul that facilitates connection between the client and server.
 
+%package common
+Summary: Sigul common files
+BuildArch: noarch
+
+Requires: /usr/bin/tpm_sealdata
+Requires: /usr/bin/tpm_unsealdata
+Requires: /usr/bin/openssl
+Requires: /usr/bin/keyctl
+
+Requires: %{py3_dist six}
+Requires: %{py3_dist python-nss}
+Requires: %{py3_dist koji}
+Requires: python(abi) = %{python3_version}
+
+%description common
+Common files for sigul.
+
+%package client
+Summary: Sigul client
+Requires: %{name}-common = %{version}-%{release}
+BuildArch: noarch
+
+%description client
+The client CLI for Sigul.
 
 %prep
-%setup -q
+%setup -q -n sigul-%{commit}
 
 %build
-%configure
-make %{?_smp_mflags}
+autoreconf -i
+PYTHON=/usr/bin/python3 %configure --with-ostree
+%make_build
 
 %check
-exit 0
-%ifnarch ppc64
-# Skopeo is not built on ppc64
-%if 0%{?fedora}
-    if make check; then
-        echo "Tests passed"
-    else
-        echo "Tests failed. Log output follows"
-        cat testsuite.log
-        cat testsuite.dir/*/{testsuite.log,bridge/sigul_bridge.log,server/sigul_server.log}
-        exit 1
-    fi
-%endif
-%endif
+make check
 
 %install
-make DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p' install
-mkdir -p $RPM_BUILD_ROOT%{_unitdir} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
-install -m 0644 -p %{SOURCE1} $RPM_BUILD_ROOT%{_unitdir}/sigul_bridge.service
-install -m 0644 -p %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/sigul_server.service
-install -m 0644 -p %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/sigul
+%make_install
+mkdir -p %{buildroot}%{_unitdir} %{buildroot}%{_sysconfdir}/logrotate.d
+install -m 0644 -p %{SOURCE1} %{buildroot}%{_unitdir}/sigul_bridge.service
+install -m 0644 -p %{SOURCE2} %{buildroot}%{_unitdir}/sigul_server.service
+install -m 0644 -p %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/sigul
 install -p -D -m 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/sigul.conf
 
 %pre
@@ -141,41 +192,44 @@ install -p -D -m 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/sigul.conf
 %systemd_postun_with_restart sigul_server.service
 
 
-%files
+%files common
 %doc AUTHORS COPYING NEWS README
-%dir %{_sysconfdir}/sigul
-%config(noreplace) %{_sysconfdir}/sigul/client.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/sigul
-%{_bindir}/sigul
-%{_bindir}/sigul_setup_client
-%{_mandir}/man1/sigul*.1*
-%{_mandir}/man8/sigul*.8*
 %dir %{_datadir}/sigul
+%dir %{_sysconfdir}/sigul
 %{_datadir}/sigul/bind_methods.py*
-%{_datadir}/sigul/client.py*
 %{_datadir}/sigul/double_tls.py*
 %{_datadir}/sigul/errors.py*
 %{_datadir}/sigul/settings.py*
 %{_datadir}/sigul/utils.py*
 %{_datadir}/sigul/__pycache__/bind_methods.*
-%{_datadir}/sigul/__pycache__/client.*
 %{_datadir}/sigul/__pycache__/double_tls.*
 %{_datadir}/sigul/__pycache__/errors.*
 %{_datadir}/sigul/__pycache__/settings.*
 %{_datadir}/sigul/__pycache__/utils.*
 %{_sysusersdir}/sigul.conf
 
+%files client
+%config(noreplace) %{_sysconfdir}/sigul/client.conf
+%{_bindir}/sigul
+%{_bindir}/sigul_setup_client
+%{_mandir}/man1/sigul.1*
+%{_mandir}/man1/sigul_setup_client.1*
+%{_datadir}/sigul/client.py*
+%{_datadir}/sigul/__pycache__/client.*
+
 %files bridge
 %config(noreplace) %attr(640,root,sigul) %{_sysconfdir}/sigul/bridge.conf
 %{_unitdir}/sigul_bridge.service
 %{_sbindir}/sigul_bridge
 %{_datadir}/sigul/bridge*
+%{_datadir}/sigul/bridge.py*
 %{_datadir}/sigul/__pycache__/bridge.*
+%{_mandir}/man8/sigul_bridge.8*
 
 %files server
 %config(noreplace) %attr(640,root,sigul) %{_sysconfdir}/sigul/server.conf
 %{_unitdir}/sigul_server.service
-%{_bindir}/sigul-ostree-helper
 %{_sbindir}/sigul_server
 %{_sbindir}/sigul_server_add_admin
 %{_sbindir}/sigul_server_create_db
@@ -183,7 +237,12 @@ install -p -D -m 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/sigul.conf
 %dir %attr(700,sigul,sigul) %{_localstatedir}/lib/sigul/gnupg
 %{_datadir}/sigul/server*
 %{_datadir}/sigul/__pycache__/server*
+%{_mandir}/man8/sigul_server.8*
+%{_mandir}/man8/sigul_server_add_admin.8*
+%{_mandir}/man8/sigul_server_create_db.8*
 
+%files ostree-helper
+%{_bindir}/sigul-ostree-helper
 
 %changelog
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-6
