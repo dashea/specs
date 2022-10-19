@@ -158,7 +158,11 @@ BuildArch: noarch
 The client CLI for Sigul.
 
 %prep
-%setup -q -n sigul-%{commit}
+# The long directory name breaks tests, since the tests create sockets for the gpg-agent,
+# and the maximum path length for a socket is 108. Just hack around it until tests can
+# be fixed.
+%setup -c -T
+gzip -cd "%{SOURCE0}" | tar --strip-components=1 -xf -
 
 %build
 autoreconf -i
