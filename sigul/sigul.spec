@@ -3,14 +3,14 @@ Name: sigul
 
 # Using the upstream master commit as the snapshot ID
 Version: 1.1^20220718gita6dc475
-Release: 1.dshea3%{?dist}
+Release: 1.dshea4%{?dist}
 License: GPLv2
 
 URL: https://pagure.io/sigul/
 
 # The github repo is a fork of https://pagure.io/sigul.git from commit a6dc475
-%global commit 5c3e7165c7319c1356e238283c6ae95f2f2855a3
-%global shortcommit 5c3e716
+%global commit fbcae5fc696a751f59e8e714e6c4133f636ad99c
+%global shortcommit fbcae5f
 Source0: https://github.com/dashea/sigul/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
 Source1: sigul_bridge.service
@@ -266,6 +266,9 @@ install -p -D -m 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/sigul.conf
 %{_bindir}/sigul-ostree-helper
 
 %changelog
+* Wed Oct 19 2022 David Shea <reallylongword@gmail.com> - 1.1^20220718gita6dc475-1.dshea4
+- Add support for v4 RPM signatures
+
 * Tue Oct 18 2022 David Shea <reallylongword@gmail.com> - 1.1^20220718gita6dc475-1.dshea3
 - Fix the python3-fedora requirement
 
