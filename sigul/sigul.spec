@@ -3,7 +3,7 @@ Name: sigul
 
 # Using the upstream master commit as the snapshot ID
 Version: 1.1^20220718gita6dc475
-Release: 1.dshea1%{?dist}
+Release: 1.dshea3%{?dist}
 License: GPLv2
 
 URL: https://pagure.io/sigul/
@@ -127,7 +127,7 @@ Requires: %{name}-common = %{version}-%{release}
 BuildArch: noarch
 
 Requires: %{py3_dist six}
-Requires: %{py3_dist fedora}
+Requires: %{py3_dist python-fedora}
 Requires: %{py3_dist python-nss}
 Requires: %{py3_dist koji}
 Requires: %{py3_dist rpm}
@@ -266,6 +266,12 @@ install -p -D -m 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/sigul.conf
 %{_bindir}/sigul-ostree-helper
 
 %changelog
+* Tue Oct 18 2022 David Shea <reallylongword@gmail.com> - 1.1^20220718gita6dc475-1.dshea3
+- Fix the python3-fedora requirement
+
+* Tue Oct 18 2022 David Shea <reallylongword@gmail.com> - 1.1^20220718gita6dc475-1.dshea2
+- Fix issues with the Fedora 37 build
+
 * Tue Oct 18 2022 David Shea <reallylongword@gmail.com> - 1.1^20220718gita6dc475-1.dshea1
 - Rebuild with various fixes
 - Re-enabled tests
