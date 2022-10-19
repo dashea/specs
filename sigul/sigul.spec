@@ -9,8 +9,8 @@ License: GPLv2
 URL: https://pagure.io/sigul/
 
 # The github repo is a fork of https://pagure.io/sigul.git from commit a6dc475
-%global commit 56752710d3d0d8f5b90fbb3a10961644238e0738
-%global shortcommit 5675271
+%global commit 5c3e7165c7319c1356e238283c6ae95f2f2855a3
+%global shortcommit 5c3e716
 Source0: https://github.com/dashea/sigul/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
 Source1: sigul_bridge.service
@@ -67,6 +67,10 @@ BuildRequires: /usr/bin/ostree
 BuildRequires: /usr/bin/rpmbuild
 # bound-passphrase-keyring.at
 BuildRequires: /usr/bin/keyctl
+
+# Bandit requires pbr but the package doesn't pull this in
+# See https://bugzilla.redhat.com/show_bug.cgi?id=2136143
+BuildRequires: %{py3_dist pbr}
 
 # Skopeo uses go and is only built on arches where go is supported
 BuildRequires: go-srpm-macros
