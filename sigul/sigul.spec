@@ -3,7 +3,7 @@ Name: sigul
 
 # Using the upstream master commit as the snapshot ID
 Version: 1.1^20220718gita6dc475
-Release: 1.dshea4%{?dist}
+Release: 1.dshea5%{?dist}
 License: GPLv2
 
 URL: https://pagure.io/sigul/
@@ -150,6 +150,13 @@ Requires: %{py3_dist python-nss}
 Requires: %{py3_dist koji}
 Requires: python(abi) = %{python3_version}
 
+# In the old package, where most everything was put in the top-level "sigul" package, this set of common
+# files is usually what was meant. The one part that will be missing is the /usr/bin/sigul client and the
+# related sigul_setup_client. On the other hand this package hasn't worked since Fedora 34 and hasn't built since
+# 35, who cares.
+Obsoletes: sigul < 1.1-6%{?dist}
+Provides:  sigul = %{version}-%{release}
+
 %description common
 Common files for sigul.
 
@@ -266,6 +273,9 @@ install -p -D -m 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/sigul.conf
 %{_bindir}/sigul-ostree-helper
 
 %changelog
+* Thu Oct 20 2022 David Shea <reallylongword@gmail.com> - 1.1^20220718gita6dc475-1.dshea5
+- Add an upgrade path from the old sigul package
+
 * Wed Oct 19 2022 David Shea <reallylongword@gmail.com> - 1.1^20220718gita6dc475-1.dshea4
 - Add support for v4 RPM signatures
 
