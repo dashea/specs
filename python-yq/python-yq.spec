@@ -18,6 +18,7 @@ BuildRequires: python3-devel
 BuildRequires: make
 BuildRequires: %{py3_dist flake8}
 BuildRequires: %{py3_dist coverage}
+BuildRequires: /usr/bin/jq
 BuildRequires: %{py3_dist guzzle-sphinx-theme}
 BuildRequires: /usr/bin/sphinx-build
 
