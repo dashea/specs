@@ -18,6 +18,9 @@ Patch0:  0001-Handle-long-data-type-in-koji-fedmsg-plugin.py.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  make
+BuildRequires:  /usr/bin/sphinx-build
+BuildRequires:  python3dist(pytest)
 
 %global _description %{expand:
 A koji plugin to send message on fedora-messaging.}
