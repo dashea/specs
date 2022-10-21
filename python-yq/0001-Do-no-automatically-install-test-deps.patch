@@ -1,0 +1,29 @@
+From df399e7dca2b5ba755268d9ba913f8ef6476c013 Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Fri, 21 Oct 2022 13:15:31 -0400
+Subject: [PATCH] Do no automatically install test deps
+
+---
+ Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 8afed14..da9f598 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,10 +1,10 @@
+ test_deps:
+ 	pip install .[tests]
+ 
+-lint: test_deps
++lint:
+ 	flake8 $$(python setup.py --name)
+ 
+-test: test_deps lint
++test: lint
+ 	coverage run --source=$$(python setup.py --name) ./test/test.py -v
+ 
+ docs:
+-- 
+2.37.3
+
