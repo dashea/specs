@@ -3,7 +3,7 @@
 
 Name:           koji-fedmsg-plugin
 Version:        0.1.0^20220713git%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Koji plugin to send messages on fedora-messaging
 
 License:        GPLv3+
@@ -20,7 +20,16 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  make
 BuildRequires:  /usr/bin/sphinx-build
-BuildRequires:  python3dist(pytest)
+BuildRequires:  %{py3_dist pytest}
+
+# Use explicit requires for the top-level package, containing the actual plugin, since it lives outside of the python directories
+Requires: %{py3_dist six}
+Requires: %{py3_dist koji}
+Requires: %{py3_dist fedora-messaging}
+Requires: python3-koji-hub
+
+# Use in %%check to test all requirements are met
+BuildRequires: python3-koji-hub
 
 %global _description %{expand:
 A koji plugin to send message on fedora-messaging.}
@@ -62,6 +71,9 @@ install -D -m 0644 koji-fedmsg-plugin.py %{buildroot}%{_prefix}/lib/koji-hub-plu
 %check
 %pytest
 
+# Check that all requirements are available for the plugin
+PYTHONPATH=%{_datadir}/koji-hub %{__python3} ./koji-fedmsg-plugin.py
+
 %files
 %license COPYING
 %{_prefix}/lib/koji-hub-plugins/fedmsg.py
@@ -72,5 +84,8 @@ install -D -m 0644 koji-fedmsg-plugin.py %{buildroot}%{_prefix}/lib/koji-hub-plu
 %doc README.md TODO.md docs/build/html
 
 %changelog
+* Fri Oct 21 2022 David Shea <reallylongword@gmail.com> - 0.1.0^20220713git52ace35-1
+- Add missing runtime requirements for the plugin
+
 * Fri Oct 21 2022 David Shea <reallylongword@gmail.com> - 0.1.0^20220713git52ace35-1
 - Initial package
