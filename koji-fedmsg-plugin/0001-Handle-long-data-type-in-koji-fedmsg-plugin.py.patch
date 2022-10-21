@@ -1,0 +1,39 @@
+From 54a5751620576d6312c48eb37a52b32614cbfde6 Mon Sep 17 00:00:00 2001
+From: Ralf Ertzinger <ralf@skytale.net>
+Date: Wed, 13 Jul 2022 10:25:03 +0200
+Subject: [PATCH] Handle `long` data type in koji-fedmsg-plugin.py
+
+koji-fedmsg-plugin.py checks input against a number of numerical types,
+including `long`. For python3, alias `long` to `int`.
+
+Signed-off-by: Ralf Ertzinger <ralf@skytale.net>
+---
+ koji_fedmsg_plugin/koji-fedmsg-plugin.py | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/koji_fedmsg_plugin/koji-fedmsg-plugin.py b/koji_fedmsg_plugin/koji-fedmsg-plugin.py
+index c645349..0ca34ab 100644
+--- a/koji_fedmsg_plugin/koji-fedmsg-plugin.py
++++ b/koji_fedmsg_plugin/koji-fedmsg-plugin.py
+@@ -9,6 +9,7 @@
+ 
+ import logging
+ import re
++import six
+ import time
+ 
+ from koji.context import context
+@@ -23,6 +24,10 @@ import kojihub
+ MAX_KEY_LENGTH = 255
+ log = logging.getLogger(__name__)
+ 
++# Python3 does not have a long type
++if six.PY3:
++    long = int
++
+ 
+ def camel_to_dots(name):
+     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1.\2', name)
+-- 
+2.37.3
+
