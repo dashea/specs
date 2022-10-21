@@ -1,0 +1,37 @@
+From b4a9e63cfa9b8ad62e238aa942f88eaed9830403 Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Fri, 21 Oct 2022 14:17:03 -0400
+Subject: [PATCH 2/2] Use versioned python executable
+
+---
+ Makefile | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index da9f598..52214ae 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,17 +2,17 @@ test_deps:
+ 	pip install .[tests]
+ 
+ lint:
+-	flake8 $$(python setup.py --name)
++	flake8 $$(python3 setup.py --name)
+ 
+ test: lint
+-	coverage run --source=$$(python setup.py --name) ./test/test.py -v
++	coverage run --source=$$(python3 setup.py --name) ./test/test.py -v
+ 
+ docs:
+ 	sphinx-build docs docs/html
+ 
+ install: clean
+ 	pip install build
+-	python -m build
++	python3 -m build
+ 	pip install --upgrade dist/*.whl
+ 
+ clean:
+-- 
+2.37.3
+

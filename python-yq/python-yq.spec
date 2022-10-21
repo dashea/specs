@@ -8,6 +8,7 @@ URL:     https://github.com/kislyuk/yq
 Source0: %{pypi_source yq}
 
 Patch0:  0001-Do-no-automatically-install-test-deps.patch
+Patch1:  0002-Use-versioned-python-executable.patch
 
 BuildArch: noarch
 
