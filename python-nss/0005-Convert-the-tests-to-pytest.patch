@@ -1,7 +1,7 @@
-From 41dd686e4bec18590a8b2e65d95d218f9909e593 Mon Sep 17 00:00:00 2001
+From e2c3d31cee414174a598dfbbcfa0038e73a3a5c2 Mon Sep 17 00:00:00 2001
 From: David Shea <reallylongword@gmail.com>
 Date: Wed, 5 Oct 2022 22:36:16 -0400
-Subject: [PATCH 5/5] Convert the tests to pytest
+Subject: [PATCH 5/7] Convert the tests to pytest
 
 Get rid of the test runner and run the tests using tox. Fix the more
 obvious bugs in the tests.
@@ -3576,7 +3576,7 @@ index 2cf7535..1234876 100644
 +        raise RuntimeError("%s not found" % program)
 +    return prog_path
 diff --git a/tox.ini b/tox.ini
-index 1b77153..6feb44f 100644
+index 049437e..06f7251 100644
 --- a/tox.ini
 +++ b/tox.ini
 @@ -1,3 +1,12 @@
@@ -3591,7 +3591,7 @@ index 1b77153..6feb44f 100644
 +
  [testenv:docs]
  description = invoke sphinx-build to build the HTML docs
- deps = sphinx >= 4.4.0, < 5
+ deps = sphinx >= 4.4.0, < 6
 -- 
 2.37.3
 

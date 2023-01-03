@@ -1,7 +1,7 @@
-From e6329a0437b2e530b5d48f36fa43b7c3ba1a35f7 Mon Sep 17 00:00:00 2001
+From e55f675d85501dd013e2908a3e82a584e7efd3dc Mon Sep 17 00:00:00 2001
 From: David Shea <reallylongword@gmail.com>
 Date: Wed, 5 Oct 2022 21:35:56 -0400
-Subject: [PATCH 4/5] Switch to setuptools
+Subject: [PATCH 4/7] Switch to setuptools
 
 Migrate the build to the new thing, with PEP-517/518 style metadata
 where possible, and a setuptools setup.py to fill in the gaps of

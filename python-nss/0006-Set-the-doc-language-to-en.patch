@@ -1,7 +1,7 @@
-From a300df80269b76ec9e8c00c13ff335ec1020cc2d Mon Sep 17 00:00:00 2001
+From eada363301df7b7d00f7e3087ddb97dca379ce1d Mon Sep 17 00:00:00 2001
 From: David Shea <reallylongword@gmail.com>
 Date: Thu, 6 Oct 2022 15:40:41 -0400
-Subject: [PATCH 6/6] Set the doc language to en
+Subject: [PATCH 6/7] Set the doc language to en
 
 ---
  doc/sphinx/source/conf.py | 2 +-

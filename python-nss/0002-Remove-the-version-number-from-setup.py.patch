@@ -1,7 +1,7 @@
-From c4f2262d51066de16406b15e2023ba744cc7acb9 Mon Sep 17 00:00:00 2001
+From a7f8d8e1aa3700ed70d5397ec8f276d061d14933 Mon Sep 17 00:00:00 2001
 From: David Shea <reallylongword@gmail.com>
 Date: Mon, 3 Oct 2022 22:57:03 -0400
-Subject: [PATCH 2/5] Remove the version number from setup.py
+Subject: [PATCH 2/7] Remove the version number from setup.py
 
 Read the version number using __init__.py using the example code in the
 python packaging guide. Remove the update_version steps from setup.py

@@ -1,7 +1,7 @@
-From 9de3052f52cb22ea0b4f0c7088c86ea5830185f8 Mon Sep 17 00:00:00 2001
+From f680949d4878f776fc50d1cf957d9ae382c1c6a5 Mon Sep 17 00:00:00 2001
 From: David Shea <reallylongword@gmail.com>
 Date: Mon, 3 Oct 2022 22:49:47 -0400
-Subject: [PATCH 1/5] Remove the docs build from setup.py
+Subject: [PATCH 1/7] Remove the docs build from setup.py
 
 Use tox to generate docs. All of the sphinx distutils/setuputils stuff
 is deprecated since with PEP517/518 these tools are getting out of the
@@ -279,13 +279,13 @@ index 8d984f6..5f23615 100644
      return 0
 diff --git a/tox.ini b/tox.ini
 new file mode 100644
-index 0000000..1b77153
+index 0000000..049437e
 --- /dev/null
 +++ b/tox.ini
 @@ -0,0 +1,5 @@
 +[testenv:docs]
 +description = invoke sphinx-build to build the HTML docs
-+deps = sphinx >= 4.4.0, < 5
++deps = sphinx >= 4.4.0, < 6
 +commands = sphinx-build -d "{toxworkdir}/docs_doctree" doc/sphinx/source "{toxworkdir}/docs_out" --color -W -bhtml {posargs}
 +           python -c 'import pathlib; print("documentation available under file://\{0\}".format(pathlib.Path(r"{toxworkdir}") / "docs_out" / "index.html"))'
 -- 

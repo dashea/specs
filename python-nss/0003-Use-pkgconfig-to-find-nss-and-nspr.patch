@@ -1,7 +1,7 @@
-From 1c9b4132c30615a76055499ebb17f7906083c043 Mon Sep 17 00:00:00 2001
+From d2cf15b97b2f9277d91d93a218ce58bd4738458a Mon Sep 17 00:00:00 2001
 From: David Shea <reallylongword@gmail.com>
 Date: Mon, 3 Oct 2022 23:01:30 -0400
-Subject: [PATCH 3/5] Use pkgconfig to find nss and nspr
+Subject: [PATCH 3/7] Use pkgconfig to find nss and nspr
 
 Remove the custom include path determination code.
 ---
