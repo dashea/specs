@@ -3,7 +3,7 @@
 
 Name:    python-nss
 Version: 1.0.1^20210803hg%{hgshortrev}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Python bindings for Network Security Services (NSS)
 
 License: MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.1-or-later
@@ -49,7 +49,7 @@ Summary: %{summary}
 %autosetup -n python-nss-%{hgrev} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -t -x docs
+%pyproject_buildrequires -e %{default_toxenv},docs
 
 %build
 %pyproject_wheel
@@ -61,7 +61,6 @@ Summary: %{summary}
 # The tox macro uses buildroot as the env, so this needs to happen after install
 %tox -e docs
 
-mkdir -p %{buildroot}%{_docdir}%{name}/html
 mv .tox/docs_out html
 rm html/.buildinfo
 
@@ -73,6 +72,10 @@ rm html/.buildinfo
 %doc README html
 
 %changelog
+* Tue Jan  3 2023 David Shea <reallylongword@gmail.com> - 1.0.1^20210803hg9de14a6f77e2-4
+- Use the tox docs environment for buildrequires
+- Remove an unnecessary mkdir
+
 * Tue Jan  3 2023 David Shea <reallylongword@gmail.com> - 1.0.1^20210803hg9de14a6f77e2-3
 - Fix the license to indicate the correct tri-license
 - Allow sphinx 5 for the docs
