@@ -3,10 +3,10 @@
 
 Name:    python-nss
 Version: 1.0.1^20210803hg%{hgshortrev}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Python bindings for Network Security Services (NSS)
 
-License: MPLv2.0 or GPLv2+ or LGPLv2+
+License: MPL-2.0
 URL:     https://firefox-source-docs.mozilla.org/security/nss/legacy/python_binding_for_nss/index.html
 
 # There is a pypi package, but it does not include docs. hg.mozilla.org is the upstream VCS.
@@ -66,6 +66,7 @@ Summary: %{summary}
 
 mkdir -p %{buildroot}%{_docdir}%{name}/html
 mv .tox/docs_out html
+rm html/.buildinfo
 
 %check
 %tox
@@ -75,6 +76,10 @@ mv .tox/docs_out html
 %doc README html
 
 %changelog
+* Tue Jan  3 2023 David Shea <reallylongword@gmail.com> - 1.0.1^20210803hg9de14a6f77e2-2
+- Update the license to use an SPDX identifier
+- Remove the sphinx .buildinfo file
+
 * Fri Sep 30 2022 David Shea <reallylongword@gmail.com> - 1.0.1^20210803hg9de14a6f77e2
 - Restore the python-nss package
 - Start from the upstream hg tip
