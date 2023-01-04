@@ -3,7 +3,7 @@
 
 Name:    python-nss
 Version: 1.0.1^20210803hg%{hgshortrev}
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Python bindings for Network Security Services (NSS)
 
 License: MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.1-or-later
@@ -62,10 +62,12 @@ Summary: %{summary}
 %tox
 
 %files -n python3-nss -f %{pyproject_files}
-%license LICENSE.gpl LICENSE.lgpl LICENSE.mpl
 %doc README
 
 %changelog
+* Wed Jan  4 2023 David Shea <reallylongword@gmail.com> - 1.0.1^20210803hg9de14a6f77e2-6
+- Correct the license files
+
 * Tue Jan  3 2023 David Shea <reallylongword@gmail.com> - 1.0.1^20210803hg9de14a6f77e2-5
 - Fix ChangeLog in the MANIFEST file
 - Remove the .c and .h files from the python module
