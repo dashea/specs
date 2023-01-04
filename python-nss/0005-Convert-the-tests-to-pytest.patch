@@ -1,4 +1,4 @@
-From e2c3d31cee414174a598dfbbcfa0038e73a3a5c2 Mon Sep 17 00:00:00 2001
+From d3ef189e28af1f688d874d9e0ff06c058a884481 Mon Sep 17 00:00:00 2001
 From: David Shea <reallylongword@gmail.com>
 Date: Wed, 5 Oct 2022 22:36:16 -0400
 Subject: [PATCH 5/7] Convert the tests to pytest
@@ -7,7 +7,7 @@ Get rid of the test runner and run the tests using tox. Fix the more
 obvious bugs in the tests.
 ---
  MANIFEST.in                  |   2 +-
- pyproject.toml               |   2 +-
+ pyproject.toml               |   3 -
  test/conftest.py             |  82 ++++
  test/run_tests               |  78 ----
  test/setup_certs.py          | 840 +++++++++++++++--------------------
@@ -20,8 +20,8 @@ obvious bugs in the tests.
  test/test_ocsp.py            |  70 +--
  test/test_pkcs12.py          | 345 +++++++-------
  test/util.py                 |  44 +-
- tox.ini                      |   9 +
- 15 files changed, 1206 insertions(+), 1619 deletions(-)
+ tox.ini                      |   8 +
+ 15 files changed, 1204 insertions(+), 1621 deletions(-)
  create mode 100644 test/conftest.py
  delete mode 100755 test/run_tests
  mode change 100755 => 100644 test/setup_certs.py
@@ -32,29 +32,29 @@ obvious bugs in the tests.
  mode change 100755 => 100644 test/test_digest.py
  mode change 100755 => 100644 test/test_misc.py
  mode change 100755 => 100644 test/test_pkcs12.py
+ create mode 100644 tox.ini
 
 diff --git a/MANIFEST.in b/MANIFEST.in
-index 186b2fc..f79cbb1 100644
+index 75a9006..32a7ee6 100644
 --- a/MANIFEST.in
 +++ b/MANIFEST.in
-@@ -1,5 +1,5 @@
- include doc/Changelog
+@@ -1,4 +1,4 @@
+ include doc/ChangeLog
  include doc/examples/*.py
- include doc/sphinx/source/conf.py doc/sphinx/source/index.rst
 -include test/run_tests test/setup_certs.py test/util.py
 +include test/setup_certs.py test/util.py
  include src/*.h
 diff --git a/pyproject.toml b/pyproject.toml
-index 6652980..d302ddc 100644
+index e21ab33..5697aca 100644
 --- a/pyproject.toml
 +++ b/pyproject.toml
-@@ -16,5 +16,5 @@ email = "jdennis@redhat.com"
- homepage = "http://www.mozilla.org/projects/security/pki/python-nss"
+@@ -14,6 +14,3 @@ email = "jdennis@redhat.com"
  
- [project.optional-dependencies]
+ [project.urls]
+ homepage = "http://www.mozilla.org/projects/security/pki/python-nss"
+-
+-[project.optional-dependencies]
 -test = ["six"]
-+test = []
- docs = ["sphinx"]
 diff --git a/test/conftest.py b/test/conftest.py
 new file mode 100644
 index 0000000..1a93459
@@ -3576,10 +3576,11 @@ index 2cf7535..1234876 100644
 +        raise RuntimeError("%s not found" % program)
 +    return prog_path
 diff --git a/tox.ini b/tox.ini
-index 049437e..06f7251 100644
---- a/tox.ini
+new file mode 100644
+index 0000000..6ace640
+--- /dev/null
 +++ b/tox.ini
-@@ -1,3 +1,12 @@
+@@ -0,0 +1,8 @@
 +[tox]
 +envlist = py310
 +
@@ -3588,10 +3589,6 @@ index 049437e..06f7251 100644
 +    pytest
 +    pkgconfig
 +commands = pytest {posargs}
-+
- [testenv:docs]
- description = invoke sphinx-build to build the HTML docs
- deps = sphinx >= 4.4.0, < 6
 -- 
 2.37.3
 

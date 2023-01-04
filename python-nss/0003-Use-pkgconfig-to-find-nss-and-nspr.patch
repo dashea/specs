@@ -1,4 +1,4 @@
-From d2cf15b97b2f9277d91d93a218ce58bd4738458a Mon Sep 17 00:00:00 2001
+From cd18dea3c46d6a63e521d59219826a35c1af8874 Mon Sep 17 00:00:00 2001
 From: David Shea <reallylongword@gmail.com>
 Date: Mon, 3 Oct 2022 23:01:30 -0400
 Subject: [PATCH 3/7] Use pkgconfig to find nss and nspr

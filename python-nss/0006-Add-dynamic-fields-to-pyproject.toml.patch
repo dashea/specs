@@ -1,7 +1,7 @@
-From 893bed4610d3b0e0fb259302f322903e4f249762 Mon Sep 17 00:00:00 2001
+From 19341ef37778dfc75ddeb1fdfc32e6f2b6650106 Mon Sep 17 00:00:00 2001
 From: David Shea <reallylongword@gmail.com>
 Date: Thu, 6 Oct 2022 15:51:11 -0400
-Subject: [PATCH 7/7] Add dynamic fields to pyproject.toml
+Subject: [PATCH 6/7] Add dynamic fields to pyproject.toml
 
 This corrects the license and version field handling.
 ---
@@ -9,7 +9,7 @@ This corrects the license and version field handling.
  1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/pyproject.toml b/pyproject.toml
-index d302ddc..ef4c42d 100644
+index 5697aca..6dbaf15 100644
 --- a/pyproject.toml
 +++ b/pyproject.toml
 @@ -4,10 +4,13 @@ build-backend = "setuptools.build_meta"

@@ -3,7 +3,7 @@
 
 Name:    python-nss
 Version: 1.0.1^20210803hg%{hgshortrev}
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Python bindings for Network Security Services (NSS)
 
 License: MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.1-or-later
@@ -18,8 +18,8 @@ Patch2: 0002-Remove-the-version-number-from-setup.py.patch
 Patch3: 0003-Use-pkgconfig-to-find-nss-and-nspr.patch
 Patch4: 0004-Switch-to-setuptools.patch
 Patch5: 0005-Convert-the-tests-to-pytest.patch
-Patch6: 0006-Set-the-doc-language-to-en.patch
-Patch7: 0007-Add-dynamic-fields-to-pyproject.toml.patch
+Patch6: 0006-Add-dynamic-fields-to-pyproject.toml.patch
+Patch7: 0007-Separate-C-and-python-sources.patch
 
 BuildRequires: gcc
 BuildRequires: python3-devel
@@ -49,7 +49,7 @@ Summary: %{summary}
 %autosetup -n python-nss-%{hgrev} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -e %{default_toxenv},docs
+%pyproject_buildrequires -t
 
 %build
 %pyproject_wheel
@@ -58,20 +58,19 @@ Summary: %{summary}
 %pyproject_install
 %pyproject_save_files nss
 
-# The tox macro uses buildroot as the env, so this needs to happen after install
-%tox -e docs
-
-mv .tox/docs_out html
-rm html/.buildinfo
-
 %check
 %tox
 
 %files -n python3-nss -f %{pyproject_files}
 %license LICENSE.gpl LICENSE.lgpl LICENSE.mpl
-%doc README html
+%doc README
 
 %changelog
+* Tue Jan  3 2023 David Shea <reallylongword@gmail.com> - 1.0.1^20210803hg9de14a6f77e2-5
+- Fix ChangeLog in the MANIFEST file
+- Remove the .c and .h files from the python module
+- Remove the sphinx docs
+
 * Tue Jan  3 2023 David Shea <reallylongword@gmail.com> - 1.0.1^20210803hg9de14a6f77e2-4
 - Use the tox docs environment for buildrequires
 - Remove an unnecessary mkdir
