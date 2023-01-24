@@ -6,7 +6,7 @@
 
 Name:           rust-signature
 Version:        1.6.4
-Release:        %autorelease
+Release:        2
 Summary:        Traits for cryptographic signature algorithms (e.g
 
 License:        Apache-2.0 OR MIT
@@ -165,4 +165,8 @@ use the "std" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 1.6.4-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 1.6.4-1
+- Initial package

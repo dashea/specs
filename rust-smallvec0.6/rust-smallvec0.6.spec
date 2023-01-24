@@ -6,7 +6,7 @@
 
 Name:           rust-smallvec0.6
 Version:        0.6.14
-Release:        %autorelease
+Release:        2
 Summary:        'Small vector' optimization: store up to a small number of items on the stack
 
 # Upstream license specification: MIT/Apache-2.0
@@ -129,4 +129,8 @@ use the "union" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.6.14-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.6.14-1
+- Initial package

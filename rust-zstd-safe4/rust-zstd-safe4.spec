@@ -6,7 +6,7 @@
 
 Name:           rust-zstd-safe4
 Version:        4.1.6+zstd.1.5.2
-Release:        %autorelease
+Release:        2
 Summary:        Safe low-level bindings for the zstd compression library
 
 # Upstream license specification: MIT/Apache-2.0
@@ -202,4 +202,8 @@ use the "zstdmt" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 4.1.6+zstd.1.5.2-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 4.1.6+zstd.1.5.2-1
+- Initial package

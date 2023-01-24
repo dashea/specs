@@ -6,7 +6,7 @@
 
 Name:           rust-sha-1_0.8
 Version:        0.8.2
-Release:        %autorelease
+Release:        2
 Summary:        SHA-1 hash function
 
 License:        MIT OR Apache-2.0
@@ -127,4 +127,8 @@ use the "std" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.8.2-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.8.2-1
+- Initial package

@@ -6,7 +6,7 @@
 
 Name:           rust-try_from
 Version:        0.3.2
-Release:        %autorelease
+Release:        2
 Summary:        TryFrom and TryInto traits for failable conversions that return a Result
 
 License:        MIT
@@ -80,4 +80,8 @@ chmod -x src/lib.rs
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.3.2-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.3.2-1
+- Initial package

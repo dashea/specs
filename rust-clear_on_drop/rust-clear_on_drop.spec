@@ -6,7 +6,7 @@
 
 Name:           rust-clear_on_drop
 Version:        0.2.5
-Release:        %autorelease
+Release:        2
 Summary:        Helpers for clearing sensitive data on the stack and heap
 
 License:        MIT OR Apache-2.0
@@ -92,4 +92,8 @@ use the "no_cc" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.2.5-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.2.5-1
+- Initial package

@@ -6,7 +6,7 @@
 
 Name:           rust-ed25519
 Version:        1.5.2
-Release:        %autorelease
+Release:        2
 Summary:        Edwards Digital Signature Algorithm (EdDSA) over Curve25519 (as specified in RFC 8032) support library providing signature type definitions and PKCS#8 private key decoding/encoding support
 
 License:        Apache-2.0 OR MIT
@@ -170,4 +170,8 @@ use the "zeroize" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 1.5.2-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 1.5.2-1
+- Initial package

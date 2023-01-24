@@ -6,7 +6,7 @@
 
 Name:           rust-aes-soft0.6
 Version:        0.6.4
-Release:        %autorelease
+Release:        2
 Summary:        AES (Rijndael) block ciphers bit-sliced implementation
 
 License:        MIT OR Apache-2.0
@@ -80,4 +80,8 @@ use the "semi_fixslice" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.6.4-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.6.4-1
+- Initial package

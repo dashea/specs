@@ -6,7 +6,7 @@
 
 Name:           rust-buf_redux
 Version:        0.8.4
-Release:        %autorelease
+Release:        3
 Summary:        Drop-in replacements for buffered I/O in `std::io` with extra features
 
 License:        MIT OR Apache-2.0
@@ -95,4 +95,11 @@ use the "slice-deque" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.8.4-3
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.8.4-2
+- Disable the capacity checks
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.8.4-1
+- Initial package

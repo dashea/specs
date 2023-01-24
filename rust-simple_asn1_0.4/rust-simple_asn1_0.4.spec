@@ -6,7 +6,7 @@
 
 Name:           rust-simple_asn1_0.4
 Version:        0.4.1
-Release:        %autorelease
+Release:        2
 Summary:        Simple DER/ASN.1 encoding/decoding library
 
 License:        ISC
@@ -67,4 +67,8 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.4.1-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.4.1-1
+- Initial package

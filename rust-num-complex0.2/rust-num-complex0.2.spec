@@ -6,7 +6,7 @@
 
 Name:           rust-num-complex0.2
 Version:        0.2.4
-Release:        %autorelease
+Release:        2
 Summary:        Complex numbers implementation for Rust
 
 # Upstream license specification: MIT/Apache-2.0
@@ -118,4 +118,8 @@ use the "std" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.2.4-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.2.4-1
+- Initial package

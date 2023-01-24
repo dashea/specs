@@ -6,7 +6,7 @@
 
 Name:           rust-x25519-dalek
 Version:        1.2.0
-Release:        %autorelease
+Release:        2
 Summary:        X25519 elliptic curve Diffie-Hellman key exchange in pure-Rust, using curve25519-dalek
 
 License:        BSD-3-Clause
@@ -181,4 +181,8 @@ use the "u64_backend" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 1.2.0-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 1.2.0-1
+- Initial package

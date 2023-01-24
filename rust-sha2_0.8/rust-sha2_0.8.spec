@@ -6,7 +6,7 @@
 
 Name:           rust-sha2_0.8
 Version:        0.8.2
-Release:        %autorelease
+Release:        2
 Summary:        Pure Rust implementation of the SHA-2 hash function family including SHA-224, SHA-256, SHA-384, and SHA-512
 
 License:        MIT OR Apache-2.0
@@ -141,4 +141,8 @@ use the "std" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.8.2-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.8.2-1
+- Initial package

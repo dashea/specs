@@ -6,7 +6,7 @@
 
 Name:           rust-enum-display-derive
 Version:        0.1.1
-Release:        %autorelease
+Release:        2
 Summary:        Display trait's custom derive for simple enums
 
 # Upstream license specification: MIT/Apache-2.0
@@ -69,4 +69,8 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.1.1-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.1.1-1
+- Initial package

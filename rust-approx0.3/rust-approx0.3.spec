@@ -6,7 +6,7 @@
 
 Name:           rust-approx0.3
 Version:        0.3.2
-Release:        %autorelease
+Release:        2
 Summary:        Approximate floating point equality comparisons and assertions
 
 License:        Apache-2.0
@@ -91,4 +91,8 @@ use the "std" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.3.2-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.3.2-1
+- Initial package

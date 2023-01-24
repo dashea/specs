@@ -6,7 +6,7 @@
 
 Name:           rust-rsa0.5
 Version:        0.5.0
-Release:        %autorelease
+Release:        3
 Summary:        Pure Rust RSA implementation
 
 License:        MIT OR Apache-2.0
@@ -166,4 +166,11 @@ use the "std" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.5.0-3
+- Remove rpmautospec macros
+
+* Mon Oct 17 2022 David Shea <reallylongword@gmail.com> - 0.5.0-2
+- Relax the zeroize requirement
+
+* Sun Oct 17 2022 David Shea <reallylongword@gmail.com> - 0.5.0-1
+- Initial package

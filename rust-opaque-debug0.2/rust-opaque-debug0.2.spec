@@ -6,7 +6,7 @@
 
 Name:           rust-opaque-debug0.2
 Version:        0.2.3
-Release:        %autorelease
+Release:        2
 Summary:        Macro for opaque Debug trait implementation
 
 License:        MIT OR Apache-2.0
@@ -67,4 +67,8 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.2.3-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.2.3-1
+- Initial package

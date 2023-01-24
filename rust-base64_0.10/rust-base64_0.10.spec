@@ -6,7 +6,7 @@
 
 Name:           rust-base64_0.10
 Version:        0.10.1
-Release:        %autorelease
+Release:        2
 Summary:        Encodes and decodes base64 as bytes or utf8
 
 # Upstream license specification: MIT/Apache-2.0
@@ -70,4 +70,8 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.10.1-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.10.1-1
+- Initial package

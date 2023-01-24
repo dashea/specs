@@ -6,7 +6,7 @@
 
 Name:           rust-enum-primitive-derive
 Version:        0.2.2
-Release:        %autorelease
+Release:        2
 Summary:        Enum_primitive implementation using procedural macros to have a custom derive
 
 License:        MIT
@@ -68,4 +68,8 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.2.2-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.2.2-1
+- Initial package

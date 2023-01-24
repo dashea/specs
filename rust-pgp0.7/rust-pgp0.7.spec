@@ -6,7 +6,7 @@
 
 Name:           rust-pgp0.7
 Version:        0.7.2
-Release:        %autorelease
+Release:        2
 Summary:        OpenPGP implementation in Rust
 
 License:        MIT OR Apache-2.0
@@ -151,4 +151,8 @@ gzip -cd "%{SOURCE1}" | tar -C tests/tests --strip-components=1 -xvf -
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.7.2-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.7.2-1
+- Initial package

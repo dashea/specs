@@ -6,7 +6,7 @@
 
 Name:           rust-block-padding0.1
 Version:        0.1.5
-Release:        %autorelease
+Release:        2
 Summary:        Padding and unpadding of messages divided into blocks
 
 License:        MIT OR Apache-2.0
@@ -67,4 +67,8 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.1.5-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.1.5-1
+- Initial package

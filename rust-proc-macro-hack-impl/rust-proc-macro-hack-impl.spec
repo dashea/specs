@@ -6,7 +6,7 @@
 
 Name:           rust-proc-macro-hack-impl
 Version:        0.4.3
-Release:        %autorelease
+Release:        2
 Summary:        Procedural functionlike!() macros using only Macros 1.1
 
 # Upstream license specification: MIT/Apache-2.0
@@ -75,4 +75,8 @@ cp "%{SOURCE2}" .
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.4.3-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.4.3-1
+- Initial package

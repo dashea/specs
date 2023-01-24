@@ -6,7 +6,7 @@
 
 Name:           rust-cast0.2
 Version:        0.2.7
-Release:        %autorelease
+Release:        2
 Summary:        Ergonomic, checked cast functions for primitive types
 
 License:        MIT OR Apache-2.0
@@ -93,4 +93,8 @@ use the "x128" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.2.7-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.2.7-1
+- Initial package

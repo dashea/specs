@@ -6,7 +6,7 @@
 
 Name:           rust-hex-literal-impl0.1
 Version:        0.1.2
-Release:        %autorelease
+Release:        2
 Summary:        Internal implementation of the hex-literal crate
 
 License:        MIT OR Apache-2.0
@@ -67,4 +67,8 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.1.2-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.1.2-1
+- Initial package

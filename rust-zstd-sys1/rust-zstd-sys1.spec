@@ -6,7 +6,7 @@
 
 Name:           rust-zstd-sys1
 Version:        1.6.3+zstd.1.5.2
-Release:        %autorelease
+Release:        2
 Summary:        Low-level bindings for the zstd compression library
 
 # Upstream license specification: MIT/Apache-2.0
@@ -196,4 +196,8 @@ mv LICENSE LICENSE.top
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 1.6.3+zstd.1.5.2-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 1.6.3+zstd.1.5.2-1
+- Initial package

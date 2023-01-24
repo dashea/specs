@@ -6,7 +6,7 @@
 
 Name:           rust-autocfg0.1
 Version:        0.1.8
-Release:        %autorelease
+Release:        2
 Summary:        Automatic cfg for Rust compiler features
 
 License:        Apache-2.0 OR MIT
@@ -68,4 +68,8 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.1.8-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.1.8-1
+- Initial package

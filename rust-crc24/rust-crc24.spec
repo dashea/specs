@@ -6,7 +6,7 @@
 
 Name:           rust-crc24
 Version:        0.1.6
-Release:        %autorelease
+Release:        2
 Summary:        CRC-24 implementation (IETF RFC2440-compatible)
 
 # Upstream license specification: MIT/Apache-2.0
@@ -76,4 +76,8 @@ cp "%{SOURCE2}" .
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.1.6-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.1.6-1
+- Initial package

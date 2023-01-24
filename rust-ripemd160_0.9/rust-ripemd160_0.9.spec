@@ -6,7 +6,7 @@
 
 Name:           rust-ripemd160_0.9
 Version:        0.9.1
-Release:        %autorelease
+Release:        2
 Summary:        RIPEMD-160 hash function
 
 License:        MIT OR Apache-2.0
@@ -81,4 +81,8 @@ use the "std" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.9.1-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.9.1-1
+- Initial package

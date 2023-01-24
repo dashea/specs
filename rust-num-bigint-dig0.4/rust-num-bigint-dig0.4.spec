@@ -6,7 +6,7 @@
 
 Name:           rust-num-bigint-dig0.4
 Version:        0.4.0
-Release:        %autorelease
+Release:        2
 Summary:        Big integer implementation for Rust
 
 # Upstream license specification: MIT/Apache-2.0
@@ -166,4 +166,8 @@ use the "zeroize" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.4.0-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.4.0-1
+- Initial package

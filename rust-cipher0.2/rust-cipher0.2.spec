@@ -6,7 +6,7 @@
 
 Name:           rust-cipher0.2
 Version:        0.2.5
-Release:        %autorelease
+Release:        2
 Summary:        Traits for describing block ciphers and stream ciphers
 
 License:        MIT OR Apache-2.0
@@ -105,4 +105,8 @@ use the "std" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.2.5-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.2.5-1
+- Initial package

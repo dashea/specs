@@ -6,7 +6,7 @@
 
 Name:           rust-ed25519-dalek
 Version:        1.0.1
-Release:        %autorelease
+Release:        2
 Summary:        Fast and efficient ed25519 EdDSA key generations, signing, and verification in pure Rust
 
 License:        BSD-3-Clause
@@ -266,4 +266,8 @@ cp %{SOURCE1} .
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 1.0.1-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 1.0.1-1
+- Initial package

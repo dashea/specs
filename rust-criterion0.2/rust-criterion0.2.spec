@@ -6,7 +6,7 @@
 
 Name:           rust-criterion0.2
 Version:        0.2.11
-Release:        %autorelease
+Release:        2
 Summary:        Statistics-driven micro-benchmarking library
 
 # Upstream license specification: Apache-2.0/MIT
@@ -119,4 +119,8 @@ use the "tinytemplate" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.2.11-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.2.11-1
+- Initial package

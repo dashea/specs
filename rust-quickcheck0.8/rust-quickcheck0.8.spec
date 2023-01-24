@@ -6,7 +6,7 @@
 
 Name:           rust-quickcheck0.8
 Version:        0.8.5
-Release:        %autorelease
+Release:        2
 Summary:        Automatic property based testing with shrinking
 
 # Upstream license specification: Unlicense/MIT
@@ -130,4 +130,8 @@ use the "use_logging" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.8.5-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.8.5-1
+- Initial package

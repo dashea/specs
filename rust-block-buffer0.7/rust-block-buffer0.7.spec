@@ -6,7 +6,7 @@
 
 Name:           rust-block-buffer0.7
 Version:        0.7.3
-Release:        %autorelease
+Release:        2
 Summary:        Fixed size buffer for block processing of data
 
 License:        MIT OR Apache-2.0
@@ -67,4 +67,8 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.7.3-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.7.3-1
+- Initial package

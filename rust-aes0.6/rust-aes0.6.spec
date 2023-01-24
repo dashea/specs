@@ -6,7 +6,7 @@
 
 Name:           rust-aes0.6
 Version:        0.6.0
-Release:        %autorelease
+Release:        2
 Summary:        Facade for AES (Rijndael) block ciphers implementations
 
 License:        MIT OR Apache-2.0
@@ -73,4 +73,8 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.6.0-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.6.0-1
+- Initial package

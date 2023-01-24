@@ -6,7 +6,7 @@
 
 Name:           rust-criterion-plot0.3
 Version:        0.3.1
-Release:        %autorelease
+Release:        2
 Summary:        Criterion's plotting library
 
 # Upstream license specification: MIT/Apache-2.0
@@ -72,4 +72,8 @@ find . -type f | xargs chmod -x
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.3.1-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.3.1-1
+- Initial package

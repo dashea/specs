@@ -6,7 +6,7 @@
 
 Name:           rust-hex0.3
 Version:        0.3.2
-Release:        %autorelease
+Release:        2
 Summary:        Encoding and decoding data into/from hexadecimal representation
 
 License:        MIT OR Apache-2.0
@@ -80,4 +80,8 @@ use the "benchmarks" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.3.2-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.3.2-1
+- Initial package

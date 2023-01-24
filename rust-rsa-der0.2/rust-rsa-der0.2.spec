@@ -6,7 +6,7 @@
 
 Name:           rust-rsa-der0.2
 Version:        0.2.1
-Release:        %autorelease
+Release:        2
 Summary:        Crate to encode and decode public RSA keys using DER
 
 # Upstream license specification: MIT/Apache-2.0
@@ -69,4 +69,8 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Jan 24 2023 David Shea <reallylongword@gmail.com> - 0.2.1-2
+- Remove rpmautospec macros
+
+* Sun Oct 16 2022 David Shea <reallylongword@gmail.com> - 0.2.1-1
+- Initial package
