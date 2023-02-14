@@ -12,10 +12,10 @@ URL:     http://fest.easytesting.org/
 Source0: https://github.com/alexruiz/fest-swing-1.x/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
 BuildRequires: maven-local
+BuildRequires: mvn(org.easytesting:fest:pom:) >= 1.0.1
 BuildRequires: mvn(junit:junit) >= 4.7
 
-Requires: java-headless
-Requires: javapackages-filesystem
+Requires: mvn(org.easytesting:fest:pom:)
 
 BuildArch:     noarch
 ExclusiveArch: %{java_arches} noarch
@@ -23,11 +23,14 @@ ExclusiveArch: %{java_arches} noarch
 %description
 Utility methods used by FEST modules
 
+%package javadoc
+Summary: Javadoc for %{name}
+
+%description javadoc
+This package contains the API documentation for %{name}.
+
 %prep
 %autosetup -n fest-swing-1.x-%{commit}/fest-util
-
-# Allow newer versions of junit
-%pom_change_dep junit:junit:4.7 junit:junit:any
 
 %build
 %mvn_build
@@ -38,6 +41,8 @@ Utility methods used by FEST modules
 %files -f .mfiles
 %license LICENSE.txt
 
+%files javadoc -f .mfiles-javadoc
+
 %changelog
-* Mon Feb 13 2023 David Shea <reallylongword@gmail.com> 1.2-1
+* Tue Feb 14 2023 David Shea <reallylongword@gmail.com> 1.1.4-1
 - Initial package
