@@ -1,0 +1,25 @@
+From b7c5d5ae5320a72d1f54f0f8bebda82fc46c1110 Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Mon, 13 Feb 2023 11:42:06 -0500
+Subject: [PATCH] Remove an invalid entity
+
+---
+ fest/pom.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fest/pom.xml b/fest/pom.xml
+index e6b997e6..1f5f27b0 100644
+--- a/fest/pom.xml
++++ b/fest/pom.xml
+@@ -82,7 +82,7 @@
+       </roles>
+     </developer>
+     <developer>
+-      <id>&nbsp;</id>
++      <id>sfitch</id>
+       <name>Simeon Fitch</name>
+       <url>http://www.mseedsoft.com/</url>
+       <roles>
+-- 
+2.37.3
+
