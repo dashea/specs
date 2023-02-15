@@ -1,0 +1,41 @@
+From cfd410729b2d9ea9addef6378965a23e7f0f0a4e Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Tue, 14 Feb 2023 18:41:48 -0500
+Subject: [PATCH 2/2] Fix cglib for newer Java versions
+
+Set a target of Java 17. The --add-opens option does not exist in Java
+<= 8.
+---
+ fest-mocks/pom.xml | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/fest-mocks/pom.xml b/fest-mocks/pom.xml
+index 51f65d0b..28197ae8 100644
+--- a/fest-mocks/pom.xml
++++ b/fest-mocks/pom.xml
+@@ -44,4 +44,22 @@
+     	<scope>compile</scope>
+     </dependency>
+   </dependencies>
++  <build>
++    <plugins>
++      <plugin>
++        <groupId>org.apache.maven.plugins</groupId>
++        <artifactId>maven-surefire-plugin</artifactId>
++        <configuration>
++          <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
++        </configuration>
++      </plugin>
++      <plugin>
++        <groupId>org.apache.maven.plugins</groupId>
++        <artifactId>maven-compiler-plugin</artifactId>
++        <configuration>
++          <target>17</target>
++        </configuration>
++      </plugin>
++    </plugins>
++  </build>
+ </project>
+-- 
+2.37.3
+
