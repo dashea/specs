@@ -1,0 +1,47 @@
+From cde36e1d141cecf85c302ed4f6922b7ecad3bf75 Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Sat, 18 Feb 2023 09:59:28 -0500
+Subject: [PATCH 5/5] Fix the calendar testing code
+
+Someone didn't understand time zones. Also setting AM_PM messes with the
+hour for some reason, so do that part before setting the date.
+---
+ .../junit/ant/TimestampFormatter_format_Test.java      | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/TimestampFormatter_format_Test.java b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/TimestampFormatter_format_Test.java
+index 47eb4f72..e55b8d62 100644
+--- a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/TimestampFormatter_format_Test.java
++++ b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/TimestampFormatter_format_Test.java
+@@ -20,7 +20,7 @@ import static org.fest.assertions.Assertions.assertThat;
+ 
+ import java.util.Calendar;
+ import java.util.GregorianCalendar;
+-
++import java.util.TimeZone;
+ import org.junit.BeforeClass;
+ import org.junit.Test;
+ 
+@@ -40,14 +40,16 @@ public class TimestampFormatter_format_Test {
+   @Test
+   public void should_format_date_using_ISO8601_pattern() {
+     String formatted = formatter.format(due().getTime());
+-    assertThat(formatted).isEqualTo("2009-06-13T15:06:10");
++    assertThat(formatted).isEqualTo("2009-06-13T08:06:10");
+   }
+ 
+   private Calendar due() {
+     // June 13th 2009 08:06:10 AM
+-    Calendar calendar = new GregorianCalendar(2009, JUNE, 13, 8, 6, 10);
+-    calendar.set(MILLISECOND, 0);
++    TimeZone zone = TimeZone.getTimeZone("UTC");
++    Calendar calendar = new GregorianCalendar(zone);
+     calendar.set(AM_PM, AM);
++    calendar.set(2009, JUNE, 13, 8, 6, 10);
++    calendar.set(MILLISECOND, 0);
+     return calendar;
+   }
+ }
+-- 
+2.39.1
+

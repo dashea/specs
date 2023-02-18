@@ -1,0 +1,25 @@
+From 6a970449bcea51127ad95ab9809661a08044c05c Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Sat, 18 Feb 2023 09:42:21 -0500
+Subject: [PATCH 4/5] Fix the proxy class name test
+
+---
+ .../fest/swing/junit/ant/XmlJUnitResultFormatter_TestCase.java  | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/XmlJUnitResultFormatter_TestCase.java b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/XmlJUnitResultFormatter_TestCase.java
+index cb835ba0..89e0bcd2 100644
+--- a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/XmlJUnitResultFormatter_TestCase.java
++++ b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/XmlJUnitResultFormatter_TestCase.java
+@@ -114,7 +114,7 @@ public abstract class XmlJUnitResultFormatter_TestCase {
+   final void assertThatTestCaseNodeWasAddedTo(XmlNode root) {
+     XmlNode testNode = firstTestCaseNodeIn(root);
+     assertThat(testNode.name()).isEqualTo("testcase");
+-    assertThat(testNode.valueOfAttribute("classname")).startsWith("$Proxy");
++    assertThat(testNode.valueOfAttribute("classname")).matches(".*\\$Proxy.*");
+     assertThat(testNode.valueOfAttribute("name")).isEqualTo("unknown");
+     double executionTime = Double.parseDouble(testNode.valueOfAttribute("time"));
+     assertThat(executionTime).isGreaterThanOrEqualTo(0d);
+-- 
+2.39.1
+

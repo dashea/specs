@@ -1,0 +1,39 @@
+From 96be854bd410fa9493d2928675dea55a4b2dab77 Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Sat, 18 Feb 2023 09:21:31 -0500
+Subject: [PATCH 3/5] Fix the cglib tests for java 17
+
+---
+ fest-swing-junit/pom.xml | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/fest-swing-junit/pom.xml b/fest-swing-junit/pom.xml
+index 2fa8d2a2..317f8b79 100644
+--- a/fest-swing-junit/pom.xml
++++ b/fest-swing-junit/pom.xml
+@@ -112,4 +112,22 @@
+       </plugin>
+     </plugins>
+   </reporting>
++  <build>
++    <plugins>
++      <plugin>
++        <groupId>org.apache.maven.plugins</groupId>
++        <artifactId>maven-surefire-plugin</artifactId>
++        <configuration>
++          <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
++        </configuration>
++      </plugin>
++      <plugin>
++        <groupId>org.apache.maven.plugins</groupId>
++        <artifactId>maven-compiler-plugin</artifactId>
++        <configuration>
++          <target>17</target>
++        </configuration>
++      </plugin>
++    </plugins>
++  </build>
+ </project>
+-- 
+2.39.1
+

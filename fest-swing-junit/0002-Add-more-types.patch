@@ -1,0 +1,27 @@
+From 42272923f67e6f9973dcf309c9e70c44a506a79e Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Sat, 18 Feb 2023 09:10:05 -0500
+Subject: [PATCH 2/5] Add more types
+
+The compiler can't figure this one out without a little help
+---
+ ...reenshotOnFailureResultFormatter_onFailureOrError_Test.java | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ScreenshotOnFailureResultFormatter_onFailureOrError_Test.java b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ScreenshotOnFailureResultFormatter_onFailureOrError_Test.java
+index 75e4f84b..011ff0ca 100644
+--- a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ScreenshotOnFailureResultFormatter_onFailureOrError_Test.java
++++ b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ScreenshotOnFailureResultFormatter_onFailureOrError_Test.java
+@@ -88,7 +88,8 @@ public class ScreenshotOnFailureResultFormatter_onFailureOrError_Test {
+   @Test
+   public void should_not_take_screenshot_when_test_fails_if_ScreenshotWriter_is_null() {
+     updateWriterInFormatter(null);
+-    formatter.onFailureOrError(failingTest(), new Throwable(), createMock(XmlNode.class));
++    XmlNode mockNode = createMock(XmlNode.class);
++    formatter.onFailureOrError(failingTest(), new Throwable(), mockNode);
+     // no assertions to be made...are we sure this test is meaningful?
+   }
+ 
+-- 
+2.39.1
+

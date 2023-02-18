@@ -1,0 +1,219 @@
+From f86f4ce7b54bbda6d73dd484df7f06f3f4e194ed Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Sat, 18 Feb 2023 09:08:00 -0500
+Subject: [PATCH 1/5] Switch to easymock 3
+
+Add the missing easymock dependency
+---
+ fest-swing-junit/pom.xml                                  | 8 +++++++-
+ .../junit/ant/EnvironmentXmlNodeWriter_TestCase.java      | 2 +-
+ .../org/fest/swing/junit/ant/ImageHandler_TestCase.java   | 2 +-
+ ...odeBase64_withImageDecoderAndImageFileWriter_Test.java | 2 +-
+ .../ImageHandler_encodeBase64_withImageEncoder_Test.java  | 2 +-
+ ...hotOnFailureResultFormatter_onFailureOrError_Test.java | 2 +-
+ .../ant/ScreenshotXmlWriter_writeScreenshot_Test.java     | 2 +-
+ .../fest/swing/junit/ant/SuiteXmlNodeWriter_TestCase.java | 2 +-
+ .../fest/swing/junit/ant/TestXmlNodeWriter_TestCase.java  | 2 +-
+ .../XmlOutputWriter_writeWithDOMElementWriter_Test.java   | 2 +-
+ .../fest/swing/junit/ant/XmlOutputWriter_write_Test.java  | 2 +-
+ .../FailureScreenshotTaker_saveScreenshot_Test.java       | 2 +-
+ .../junit/runner/FolderCreator_createFolder_Test.java     | 2 +-
+ .../runner/ImageFolderCreator_createImageFolder_Test.java | 2 +-
+ 14 files changed, 20 insertions(+), 14 deletions(-)
+
+diff --git a/fest-swing-junit/pom.xml b/fest-swing-junit/pom.xml
+index c23335b8..2fa8d2a2 100644
+--- a/fest-swing-junit/pom.xml
++++ b/fest-swing-junit/pom.xml
+@@ -69,6 +69,12 @@
+       <version>1.1</version>
+       <scope>test</scope>
+     </dependency>
++    <dependency>
++      <groupId>org.easymock</groupId>
++      <artifactId>easymock</artifactId>
++      <version>3.0</version>
++      <scope>test</scope>
++    </dependency>
+   </dependencies>
+   <reporting>
+     <plugins>
+@@ -106,4 +112,4 @@
+       </plugin>
+     </plugins>
+   </reporting>
+-</project>
+\ No newline at end of file
++</project>
+diff --git a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/EnvironmentXmlNodeWriter_TestCase.java b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/EnvironmentXmlNodeWriter_TestCase.java
+index b73a6ae1..cf96e180 100644
+--- a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/EnvironmentXmlNodeWriter_TestCase.java
++++ b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/EnvironmentXmlNodeWriter_TestCase.java
+@@ -15,7 +15,7 @@
+  */
+ package org.fest.swing.junit.ant;
+ 
+-import static org.easymock.classextension.EasyMock.createMock;
++import static org.easymock.EasyMock.createMock;
+ 
+ import org.fest.swing.junit.xml.XmlNode;
+ import org.junit.Before;
+diff --git a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ImageHandler_TestCase.java b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ImageHandler_TestCase.java
+index 1728a5c1..8f4dad2f 100644
+--- a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ImageHandler_TestCase.java
++++ b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ImageHandler_TestCase.java
+@@ -15,7 +15,7 @@
+  */
+ package org.fest.swing.junit.ant;
+ 
+-import static org.easymock.classextension.EasyMock.createMock;
++import static org.easymock.EasyMock.createMock;
+ 
+ import java.awt.image.BufferedImage;
+ import java.io.IOException;
+diff --git a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ImageHandler_decodeBase64_withImageDecoderAndImageFileWriter_Test.java b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ImageHandler_decodeBase64_withImageDecoderAndImageFileWriter_Test.java
+index 1a4d7445..15d7a049 100644
+--- a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ImageHandler_decodeBase64_withImageDecoderAndImageFileWriter_Test.java
++++ b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ImageHandler_decodeBase64_withImageDecoderAndImageFileWriter_Test.java
+@@ -16,7 +16,7 @@ package org.fest.swing.junit.ant;
+ 
+ import static org.easymock.EasyMock.expect;
+ import static org.easymock.EasyMock.expectLastCall;
+-import static org.easymock.classextension.EasyMock.createMock;
++import static org.easymock.EasyMock.createMock;
+ import static org.fest.assertions.Assertions.assertThat;
+ 
+ import java.awt.image.BufferedImage;
+diff --git a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ImageHandler_encodeBase64_withImageEncoder_Test.java b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ImageHandler_encodeBase64_withImageEncoder_Test.java
+index f28d57ad..188ab1eb 100644
+--- a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ImageHandler_encodeBase64_withImageEncoder_Test.java
++++ b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ImageHandler_encodeBase64_withImageEncoder_Test.java
+@@ -16,7 +16,7 @@
+ package org.fest.swing.junit.ant;
+ 
+ import static org.easymock.EasyMock.expect;
+-import static org.easymock.classextension.EasyMock.createMock;
++import static org.easymock.EasyMock.createMock;
+ import static org.fest.assertions.Assertions.assertThat;
+ 
+ import java.awt.image.BufferedImage;
+diff --git a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ScreenshotOnFailureResultFormatter_onFailureOrError_Test.java b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ScreenshotOnFailureResultFormatter_onFailureOrError_Test.java
+index 32c9e4cc..75e4f84b 100644
+--- a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ScreenshotOnFailureResultFormatter_onFailureOrError_Test.java
++++ b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ScreenshotOnFailureResultFormatter_onFailureOrError_Test.java
+@@ -18,7 +18,7 @@ package org.fest.swing.junit.ant;
+ import static java.lang.String.valueOf;
+ import static java.security.AccessController.doPrivileged;
+ import static org.easymock.EasyMock.expectLastCall;
+-import static org.easymock.classextension.EasyMock.createMock;
++import static org.easymock.EasyMock.createMock;
+ import static org.fest.assertions.Assertions.assertThat;
+ import static org.fest.reflect.core.Reflection.field;
+ 
+diff --git a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ScreenshotXmlWriter_writeScreenshot_Test.java b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ScreenshotXmlWriter_writeScreenshot_Test.java
+index d07b08ee..d04dd089 100644
+--- a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ScreenshotXmlWriter_writeScreenshot_Test.java
++++ b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/ScreenshotXmlWriter_writeScreenshot_Test.java
+@@ -17,7 +17,7 @@ package org.fest.swing.junit.ant;
+ 
+ import static java.awt.image.BufferedImage.TYPE_BYTE_BINARY;
+ import static org.easymock.EasyMock.expect;
+-import static org.easymock.classextension.EasyMock.createMock;
++import static org.easymock.EasyMock.createMock;
+ import static org.fest.assertions.Assertions.assertThat;
+ import static org.fest.swing.junit.ant.ImageHandler.encodeBase64;
+ import static org.fest.swing.junit.ant.Tests.testClassNameFrom;
+diff --git a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/SuiteXmlNodeWriter_TestCase.java b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/SuiteXmlNodeWriter_TestCase.java
+index d69952f8..8ea18c78 100644
+--- a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/SuiteXmlNodeWriter_TestCase.java
++++ b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/SuiteXmlNodeWriter_TestCase.java
+@@ -18,7 +18,7 @@ package org.fest.swing.junit.ant;
+ import static org.apache.tools.ant.taskdefs.optional.junit.XMLConstants.*;
+ import static org.easymock.EasyMock.expect;
+ import static org.easymock.EasyMock.expectLastCall;
+-import static org.easymock.classextension.EasyMock.createMock;
++import static org.easymock.EasyMock.createMock;
+ import static org.fest.assertions.Assertions.assertThat;
+ import static org.fest.swing.junit.xml.XmlAttribute.name;
+ import static org.fest.swing.junit.xml.XmlAttributes.attributes;
+diff --git a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/TestXmlNodeWriter_TestCase.java b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/TestXmlNodeWriter_TestCase.java
+index 42504c4f..94f21e9c 100644
+--- a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/TestXmlNodeWriter_TestCase.java
++++ b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/TestXmlNodeWriter_TestCase.java
+@@ -17,7 +17,7 @@ package org.fest.swing.junit.ant;
+ 
+ import static org.easymock.EasyMock.expect;
+ import static org.easymock.EasyMock.expectLastCall;
+-import static org.easymock.classextension.EasyMock.createMock;
++import static org.easymock.EasyMock.createMock;
+ import static org.fest.assertions.Assertions.assertThat;
+ import junit.framework.TestResult;
+ 
+diff --git a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/XmlOutputWriter_writeWithDOMElementWriter_Test.java b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/XmlOutputWriter_writeWithDOMElementWriter_Test.java
+index ff18a151..b9b2294a 100644
+--- a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/XmlOutputWriter_writeWithDOMElementWriter_Test.java
++++ b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/XmlOutputWriter_writeWithDOMElementWriter_Test.java
+@@ -15,7 +15,7 @@
+  */
+ package org.fest.swing.junit.ant;
+ 
+-import static org.easymock.classextension.EasyMock.createMock;
++import static org.easymock.EasyMock.createMock;
+ import static org.fest.assertions.Assertions.assertThat;
+ import static org.fest.assertions.Fail.fail;
+ 
+diff --git a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/XmlOutputWriter_write_Test.java b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/XmlOutputWriter_write_Test.java
+index ccd772dd..77bf8be4 100644
+--- a/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/XmlOutputWriter_write_Test.java
++++ b/fest-swing-junit/src/test/java/org/fest/swing/junit/ant/XmlOutputWriter_write_Test.java
+@@ -16,7 +16,7 @@
+ package org.fest.swing.junit.ant;
+ 
+ import static org.easymock.EasyMock.expect;
+-import static org.easymock.classextension.EasyMock.createMock;
++import static org.easymock.EasyMock.createMock;
+ import static org.fest.assertions.Assertions.assertThat;
+ import static org.fest.swing.util.System.LINE_SEPARATOR;
+ 
+diff --git a/fest-swing-junit/src/test/java/org/fest/swing/junit/runner/FailureScreenshotTaker_saveScreenshot_Test.java b/fest-swing-junit/src/test/java/org/fest/swing/junit/runner/FailureScreenshotTaker_saveScreenshot_Test.java
+index 5967ee8a..90a94484 100644
+--- a/fest-swing-junit/src/test/java/org/fest/swing/junit/runner/FailureScreenshotTaker_saveScreenshot_Test.java
++++ b/fest-swing-junit/src/test/java/org/fest/swing/junit/runner/FailureScreenshotTaker_saveScreenshot_Test.java
+@@ -18,7 +18,7 @@ package org.fest.swing.junit.runner;
+ import static java.io.File.separator;
+ import static org.easymock.EasyMock.expect;
+ import static org.easymock.EasyMock.expectLastCall;
+-import static org.easymock.classextension.EasyMock.createMock;
++import static org.easymock.EasyMock.createMock;
+ import static org.fest.util.Strings.concat;
+ 
+ import java.io.File;
+diff --git a/fest-swing-junit/src/test/java/org/fest/swing/junit/runner/FolderCreator_createFolder_Test.java b/fest-swing-junit/src/test/java/org/fest/swing/junit/runner/FolderCreator_createFolder_Test.java
+index 462aff3c..cc683cbe 100644
+--- a/fest-swing-junit/src/test/java/org/fest/swing/junit/runner/FolderCreator_createFolder_Test.java
++++ b/fest-swing-junit/src/test/java/org/fest/swing/junit/runner/FolderCreator_createFolder_Test.java
+@@ -15,7 +15,7 @@
+  */
+ package org.fest.swing.junit.runner;
+ 
+-import static org.easymock.classextension.EasyMock.createMock;
++import static org.easymock.EasyMock.createMock;
+ import static org.fest.assertions.Assertions.assertThat;
+ import static org.fest.assertions.Fail.fail;
+ import static org.fest.util.Files.newTemporaryFolder;
+diff --git a/fest-swing-junit/src/test/java/org/fest/swing/junit/runner/ImageFolderCreator_createImageFolder_Test.java b/fest-swing-junit/src/test/java/org/fest/swing/junit/runner/ImageFolderCreator_createImageFolder_Test.java
+index 23fc94cd..83761195 100644
+--- a/fest-swing-junit/src/test/java/org/fest/swing/junit/runner/ImageFolderCreator_createImageFolder_Test.java
++++ b/fest-swing-junit/src/test/java/org/fest/swing/junit/runner/ImageFolderCreator_createImageFolder_Test.java
+@@ -16,7 +16,7 @@
+ package org.fest.swing.junit.runner;
+ 
+ import static org.easymock.EasyMock.expect;
+-import static org.easymock.classextension.EasyMock.createMock;
++import static org.easymock.EasyMock.createMock;
+ import static org.fest.assertions.Assertions.assertThat;
+ import static org.fest.util.Files.currentFolder;
+ 
+-- 
+2.39.1
+
