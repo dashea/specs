@@ -1,0 +1,116 @@
+From 6250cef7412452f86b9f2da2d5ea8c55dbb38c06 Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Sat, 18 Feb 2023 08:37:45 -0500
+Subject: [PATCH 3/4] Add more type annotations
+
+For some reason the generics aren't being resolved
+---
+ .../fixture/JTableCellFixture_constructor_Test.java      | 5 +++--
+ .../JTableCellFixture_withMockDriver_TestCase.java       | 9 +++++----
+ .../fixture/JTableHeaderFixture_constructor_Test.java    | 5 +++--
+ .../test/java/org/fest/swing/util/Platform_TestCase.java | 5 +++--
+ 4 files changed, 14 insertions(+), 10 deletions(-)
+
+diff --git a/fest-swing/src/test/java/org/fest/swing/fixture/JTableCellFixture_constructor_Test.java b/fest-swing/src/test/java/org/fest/swing/fixture/JTableCellFixture_constructor_Test.java
+index d578637e..a21ead14 100644
+--- a/fest-swing/src/test/java/org/fest/swing/fixture/JTableCellFixture_constructor_Test.java
++++ b/fest-swing/src/test/java/org/fest/swing/fixture/JTableCellFixture_constructor_Test.java
+@@ -15,7 +15,8 @@
+  */
+ package org.fest.swing.fixture;
+ 
+-import static org.easymock.EasyMock.createMock;
++import org.easymock.EasyMock;
++
+ import static org.fest.swing.data.TableCell.row;
+ 
+ import org.junit.Test;
+@@ -34,6 +35,6 @@ public class JTableCellFixture_constructor_Test {
+ 
+   @Test(expected = NullPointerException.class)
+   public void should_throw_error_if_TableCell_is_null() {
+-    new JTableCellFixture(createMock(JTableFixture.class), null);
++    new JTableCellFixture(EasyMock.<JTableFixture>createMock(JTableFixture.class), null);
+   }
+ }
+diff --git a/fest-swing/src/test/java/org/fest/swing/fixture/JTableCellFixture_withMockDriver_TestCase.java b/fest-swing/src/test/java/org/fest/swing/fixture/JTableCellFixture_withMockDriver_TestCase.java
+index 647898e1..e0d05bf3 100644
+--- a/fest-swing/src/test/java/org/fest/swing/fixture/JTableCellFixture_withMockDriver_TestCase.java
++++ b/fest-swing/src/test/java/org/fest/swing/fixture/JTableCellFixture_withMockDriver_TestCase.java
+@@ -14,7 +14,8 @@
+  */
+ package org.fest.swing.fixture;
+ 
+-import static org.easymock.EasyMock.createMock;
++import org.easymock.EasyMock;
++
+ import static org.fest.assertions.Assertions.assertThat;
+ import static org.fest.swing.core.TestRobots.singletonRobotMock;
+ import static org.fest.swing.data.TableCell.row;
+@@ -39,8 +40,8 @@ public class JTableCellFixture_withMockDriver_TestCase {
+ 
+   @Before
+   public final void setUp() {
+-    table = new JTableFixture(singletonRobotMock(), createMock(JTable.class));
+-    driver = createMock(JTableDriver.class);
++    table = new JTableFixture(singletonRobotMock(), EasyMock.<JTable>createMock(JTable.class));
++    driver = EasyMock.createMock(JTableDriver.class);
+     table.driver(driver);
+     cell = row(8).column(6);
+     fixture = new JTableCellFixture(table, cell);
+@@ -50,4 +51,4 @@ public class JTableCellFixture_withMockDriver_TestCase {
+     assertThat(result).isSameAs(fixture);
+   }
+ 
+-}
+\ No newline at end of file
++}
+diff --git a/fest-swing/src/test/java/org/fest/swing/fixture/JTableHeaderFixture_constructor_Test.java b/fest-swing/src/test/java/org/fest/swing/fixture/JTableHeaderFixture_constructor_Test.java
+index e2a88203..6470b019 100644
+--- a/fest-swing/src/test/java/org/fest/swing/fixture/JTableHeaderFixture_constructor_Test.java
++++ b/fest-swing/src/test/java/org/fest/swing/fixture/JTableHeaderFixture_constructor_Test.java
+@@ -15,7 +15,8 @@
+  */
+ package org.fest.swing.fixture;
+ 
+-import static org.easymock.EasyMock.createMock;
++import org.easymock.EasyMock;
++
+ import static org.fest.swing.core.TestRobots.singletonRobotMock;
+ 
+ import javax.swing.table.JTableHeader;
+@@ -32,7 +33,7 @@ public class JTableHeaderFixture_constructor_Test {
+ 
+   @Test(expected = NullPointerException.class)
+   public void should_throw_error_if_Robot_is_null() {
+-    new JTableHeaderFixture(null, createMock(JTableHeader.class));
++    new JTableHeaderFixture(null, EasyMock.<JTableHeader>createMock(JTableHeader.class));
+   }
+ 
+   @Test(expected = NullPointerException.class)
+diff --git a/fest-swing/src/test/java/org/fest/swing/util/Platform_TestCase.java b/fest-swing/src/test/java/org/fest/swing/util/Platform_TestCase.java
+index 44810f65..ea71757a 100644
+--- a/fest-swing/src/test/java/org/fest/swing/util/Platform_TestCase.java
++++ b/fest-swing/src/test/java/org/fest/swing/util/Platform_TestCase.java
+@@ -15,7 +15,8 @@
+  */
+ package org.fest.swing.util;
+ 
+-import static org.easymock.EasyMock.createMock;
++import org.easymock.EasyMock;
++
+ import static org.fest.swing.util.OSIdentifierStub.windowsXP;
+ 
+ import java.awt.Toolkit;
+@@ -41,7 +42,7 @@ public abstract class Platform_TestCase extends SequentialEDTSafeTestCase {
+ 
+   protected final Toolkit wireMockToolkit() {
+     Platform.initialize(windowsXP(), toolkitProvider);
+-    return toolkitProvider.toolkit(createMock(Toolkit.class));
++    return toolkitProvider.toolkit(EasyMock.<Toolkit>createMock(Toolkit.class));
+   }
+ 
+   public static class ToolkitProviderStub extends ToolkitProvider {
+-- 
+2.39.1
+

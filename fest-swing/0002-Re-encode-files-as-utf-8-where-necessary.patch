@@ -1,0 +1,91 @@
+From 4ecaf4f9e85fc92330daa0689bb260f9a64a4014 Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Fri, 17 Feb 2023 23:53:01 -0500
+Subject: [PATCH 2/4] Re-encode files as utf-8 where necessary
+
+What year is it?!
+---
+ .../keystroke/KeyStrokeMappingProvider_de.java     | 14 +++++++-------
+ .../keystroke/KeyStrokeMappingProvider_fr.java     |  8 ++++----
+ 2 files changed, 11 insertions(+), 11 deletions(-)
+
+diff --git a/fest-swing/src/main/java/org/fest/swing/keystroke/KeyStrokeMappingProvider_de.java b/fest-swing/src/main/java/org/fest/swing/keystroke/KeyStrokeMappingProvider_de.java
+index 882793f7..c4216b90 100644
+--- a/fest-swing/src/main/java/org/fest/swing/keystroke/KeyStrokeMappingProvider_de.java
++++ b/fest-swing/src/main/java/org/fest/swing/keystroke/KeyStrokeMappingProvider_de.java
+@@ -48,10 +48,10 @@ public class KeyStrokeMappingProvider_de implements KeyStrokeMappingProvider {
+     mappings.add(mapping('!', VK_1, SHIFT_MASK));
+     mappings.add(mapping('2', VK_2, NO_MASK));
+     mappings.add(mapping('"', VK_2, SHIFT_MASK));
+-    mappings.add(mapping('²', VK_2, ALT_GRAPH_MASK));
++    mappings.add(mapping('Â²', VK_2, ALT_GRAPH_MASK));
+     mappings.add(mapping('3', VK_3, NO_MASK));
+-    mappings.add(mapping('§', VK_3, SHIFT_MASK));
+-    mappings.add(mapping('³', VK_0, ALT_GRAPH_MASK));
++    mappings.add(mapping('Â§', VK_3, SHIFT_MASK));
++    mappings.add(mapping('Â³', VK_0, ALT_GRAPH_MASK));
+     mappings.add(mapping('4', VK_4, NO_MASK));
+     mappings.add(mapping('$', VK_4, SHIFT_MASK));
+     mappings.add(mapping('5', VK_5, NO_MASK));
+@@ -72,7 +72,7 @@ public class KeyStrokeMappingProvider_de implements KeyStrokeMappingProvider {
+     mappings.add(mapping('b', VK_B, NO_MASK));
+     mappings.add(mapping('B', VK_B, SHIFT_MASK));
+     mappings.add(mapping('^', VK_BACK_QUOTE, NO_MASK));
+-    mappings.add(mapping('°', VK_BACK_QUOTE, SHIFT_MASK));
++    mappings.add(mapping('Â°', VK_BACK_QUOTE, SHIFT_MASK));
+     mappings.add(mapping('<', VK_BACK_SLASH, NO_MASK));
+     mappings.add(mapping('>', VK_BACK_SLASH, SHIFT_MASK));
+     mappings.add(mapping('|', VK_BACK_SLASH, ALT_GRAPH_MASK));
+@@ -88,8 +88,8 @@ public class KeyStrokeMappingProvider_de implements KeyStrokeMappingProvider {
+     mappings.add(mapping('', VK_DELETE, NO_MASK));
+     mappings.add(mapping('e', VK_E, NO_MASK));
+     mappings.add(mapping('E', VK_E, SHIFT_MASK));
+-    mappings.add(mapping('€', VK_E, ALT_GRAPH_MASK));
+-    mappings.add(mapping('´', VK_EQUALS, NO_MASK));
++    mappings.add(mapping('Â€', VK_E, ALT_GRAPH_MASK));
++    mappings.add(mapping('Â´', VK_EQUALS, NO_MASK));
+     mappings.add(mapping('`', VK_EQUALS, SHIFT_MASK));
+     mappings.add(mapping('f', VK_F, NO_MASK));
+     mappings.add(mapping('F', VK_F, SHIFT_MASK));
+@@ -107,7 +107,7 @@ public class KeyStrokeMappingProvider_de implements KeyStrokeMappingProvider {
+     mappings.add(mapping('L', VK_L, SHIFT_MASK));
+     mappings.add(mapping('m', VK_M, NO_MASK));
+     mappings.add(mapping('M', VK_M, SHIFT_MASK));
+-    mappings.add(mapping('µ', VK_M, ALT_GRAPH_MASK));
++    mappings.add(mapping('Âµ', VK_M, ALT_GRAPH_MASK));
+     mappings.add(mapping('?', VK_SLASH, SHIFT_MASK));
+     mappings.add(mapping('\\', VK_SLASH, ALT_GRAPH_MASK));
+     mappings.add(mapping('n', VK_N, NO_MASK));
+diff --git a/fest-swing/src/main/java/org/fest/swing/keystroke/KeyStrokeMappingProvider_fr.java b/fest-swing/src/main/java/org/fest/swing/keystroke/KeyStrokeMappingProvider_fr.java
+index 819b613b..94cbbf17 100644
+--- a/fest-swing/src/main/java/org/fest/swing/keystroke/KeyStrokeMappingProvider_fr.java
++++ b/fest-swing/src/main/java/org/fest/swing/keystroke/KeyStrokeMappingProvider_fr.java
+@@ -57,7 +57,7 @@ public class KeyStrokeMappingProvider_fr implements KeyStrokeMappingProvider {
+     mappings.add(mapping('\r', VK_ENTER, NO_MASK));
+     mappings.add(mapping('&', VK_1, NO_MASK));
+     mappings.add(mapping('1', VK_1, SHIFT_MASK));
+-    mappings.add(mapping('é', VK_2, NO_MASK));
++    mappings.add(mapping('Ã©', VK_2, NO_MASK));
+     mappings.add(mapping('2', VK_2, SHIFT_MASK));
+     mappings.add(mapping('"', VK_3, NO_MASK));
+     mappings.add(mapping('3', VK_3, SHIFT_MASK));
+@@ -67,13 +67,13 @@ public class KeyStrokeMappingProvider_fr implements KeyStrokeMappingProvider {
+     mappings.add(mapping('5', VK_5, SHIFT_MASK));
+     mappings.add(mapping('-', VK_6, NO_MASK));
+     mappings.add(mapping('6', VK_6, SHIFT_MASK));
+-    mappings.add(mapping('è', VK_7, NO_MASK));
++    mappings.add(mapping('Ã¨', VK_7, NO_MASK));
+     mappings.add(mapping('7', VK_7, SHIFT_MASK));
+     mappings.add(mapping('_', VK_8, NO_MASK));
+     mappings.add(mapping('8', VK_8, SHIFT_MASK));
+-    mappings.add(mapping('Ç', VK_9, NO_MASK));
++    mappings.add(mapping('Ã‡', VK_9, NO_MASK));
+     mappings.add(mapping('9', VK_9, SHIFT_MASK));
+-    mappings.add(mapping('à', VK_0, NO_MASK));
++    mappings.add(mapping('Ã ', VK_0, NO_MASK));
+     mappings.add(mapping('0', VK_0, SHIFT_MASK));
+     mappings.add(mapping('=', VK_EQUALS, NO_MASK));
+     mappings.add(mapping('+', VK_EQUALS, SHIFT_MASK));
+-- 
+2.39.1
+

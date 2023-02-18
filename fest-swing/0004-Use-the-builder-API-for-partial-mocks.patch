@@ -1,0 +1,64 @@
+From 3e69e4093fa5256c1b02d3f1cf0c7fbaaa4611e5 Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Sat, 18 Feb 2023 08:46:09 -0500
+Subject: [PATCH 4/4] Use the builder API for partial mocks
+
+Passing a list of methods to createMock() has been removed in newer
+versions
+---
+ .../org/fest/swing/core/RobotEventGenerator_TestCase.java  | 7 +++++--
+ .../src/test/java/org/fest/swing/test/awt/ToolkitStub.java | 6 ++++--
+ 2 files changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/fest-swing/src/test/java/org/fest/swing/core/RobotEventGenerator_TestCase.java b/fest-swing/src/test/java/org/fest/swing/core/RobotEventGenerator_TestCase.java
+index 54ec6fc3..1c16d24c 100644
+--- a/fest-swing/src/test/java/org/fest/swing/core/RobotEventGenerator_TestCase.java
++++ b/fest-swing/src/test/java/org/fest/swing/core/RobotEventGenerator_TestCase.java
+@@ -16,7 +16,7 @@
+ package org.fest.swing.core;
+ 
+ import static org.easymock.EasyMock.expect;
+-import static org.easymock.EasyMock.createMock;
++import static org.easymock.EasyMock.createMockBuilder;
+ import static org.fest.swing.util.TestRobotFactories.newRobotFactoryMock;
+ 
+ import java.awt.Robot;
+@@ -38,7 +38,10 @@ public abstract class RobotEventGenerator_TestCase {
+ 
+   @Before public final void setUp() throws Exception {
+     final RobotFactory robotFactory = newRobotFactoryMock();
+-    robot = createMock(Robot.class, methodsToMockInRobot());
++
++    robot = createMockBuilder(Robot.class)
++        .addMockedMethods(methodsToMockInRobot())
++        .createMock();
+     new EasyMockTemplate(robotFactory) {
+       protected void expectations() throws Throwable {
+         expect(robotFactory.newRobotInPrimaryScreen()).andReturn(robot);
+diff --git a/fest-swing/src/test/java/org/fest/swing/test/awt/ToolkitStub.java b/fest-swing/src/test/java/org/fest/swing/test/awt/ToolkitStub.java
+index 5a5141dd..39de92e1 100644
+--- a/fest-swing/src/test/java/org/fest/swing/test/awt/ToolkitStub.java
++++ b/fest-swing/src/test/java/org/fest/swing/test/awt/ToolkitStub.java
+@@ -14,7 +14,7 @@
+  */
+ package org.fest.swing.test.awt;
+ 
+-import static org.easymock.EasyMock.createMock;
++import static org.easymock.EasyMock.createMockBuilder;
+ import static org.fest.util.Collections.list;
+ 
+ import java.awt.*;
+@@ -49,7 +49,9 @@ public abstract class ToolkitStub extends Toolkit {
+   }
+ 
+   static ToolkitStub createNew(EventQueue eventQueue) {
+-    ToolkitStub stub =  createMock(ToolkitStub.class, METHODS_TO_MOCK);
++    ToolkitStub stub = createMockBuilder(ToolkitStub.class)
++            .addMockedMethods(METHODS_TO_MOCK)
++            .createMock();
+     stub.eventQueue(eventQueue);
+     stub.eventListeners = new HashMap<AWTEventListener, Long>();
+     return stub;
+-- 
+2.39.1
+
