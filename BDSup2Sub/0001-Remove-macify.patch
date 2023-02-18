@@ -1,0 +1,177 @@
+From 5c4bcd88128f2db6d42c7cf30e3acc4171393da4 Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Sun, 12 Feb 2023 20:21:01 -0500
+Subject: [PATCH 1/3] Remove macify
+
+For one, not building for Mac so don't care. For two, upstream is dead
+and gone and I don't care to reconstruct it from what exists in
+mvnrepository.
+---
+ pom.xml                                       | 12 -----
+ src/main/java/bdsup2sub/BDSup2Sub.java        |  4 --
+ .../java/bdsup2sub/gui/main/MainFrame.java    |  6 ---
+ .../gui/main/MainFrameController.java         | 54 -------------------
+ 4 files changed, 76 deletions(-)
+
+diff --git a/pom.xml b/pom.xml
+index d920d8b..261ab39 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -17,13 +17,6 @@
+     </properties>
+ 
+ 
+-    <repositories>
+-        <repository>
+-            <id>macify</id>
+-            <url>http://simplericity.org/repository/</url>
+-        </repository>
+-    </repositories>
+-
+     <dependencies>
+         <dependency>
+             <groupId>com.mortennobel</groupId>
+@@ -41,11 +34,6 @@
+             <artifactId>commons-cli</artifactId>
+             <version>1.2</version>
+         </dependency>
+-        <dependency>
+-            <groupId>org.simplericity.macify</groupId>
+-            <artifactId>macify</artifactId>
+-            <version>1.4</version>
+-        </dependency>
+         <dependency>
+             <groupId>junit</groupId>
+             <artifactId>junit</artifactId>
+diff --git a/src/main/java/bdsup2sub/BDSup2Sub.java b/src/main/java/bdsup2sub/BDSup2Sub.java
+index a42916b..51d2c7f 100644
+--- a/src/main/java/bdsup2sub/BDSup2Sub.java
++++ b/src/main/java/bdsup2sub/BDSup2Sub.java
+@@ -21,8 +21,6 @@ import bdsup2sub.gui.main.MainFrame;
+ import bdsup2sub.tools.Props;
+ import bdsup2sub.utils.*;
+ import org.apache.commons.cli.ParseException;
+-import org.simplericity.macify.eawt.Application;
+-import org.simplericity.macify.eawt.DefaultApplication;
+ 
+ import javax.swing.*;
+ import java.awt.*;
+@@ -223,9 +221,7 @@ public class BDSup2Sub {
+                 SwingUtilities.invokeLater(new Runnable() {
+                     public void run() {
+                         configuration.setCliMode(false);
+-                        Application app = new DefaultApplication();
+                         MainFrame mainFrame = new MainFrame(options.getInputFile());
+-                        app.addApplicationListener(mainFrame.getApplicationListener());
+                         mainFrame.setVisible(true);
+                     }
+                 });
+diff --git a/src/main/java/bdsup2sub/gui/main/MainFrame.java b/src/main/java/bdsup2sub/gui/main/MainFrame.java
+index 4a812fc..7ebe17a 100644
+--- a/src/main/java/bdsup2sub/gui/main/MainFrame.java
++++ b/src/main/java/bdsup2sub/gui/main/MainFrame.java
+@@ -15,8 +15,6 @@
+  */
+ package bdsup2sub.gui.main;
+ 
+-import org.simplericity.macify.eawt.ApplicationListener;
+-
+ import java.io.File;
+ 
+ public class MainFrame {
+@@ -38,8 +36,4 @@ public class MainFrame {
+     public void setVisible(boolean visible) {
+         view.setVisible(visible);
+     }
+-
+-    public ApplicationListener getApplicationListener() {
+-        return controller.getApplicationListener();
+-    }
+ }
+diff --git a/src/main/java/bdsup2sub/gui/main/MainFrameController.java b/src/main/java/bdsup2sub/gui/main/MainFrameController.java
+index ce96d4c..7c79ddc 100644
+--- a/src/main/java/bdsup2sub/gui/main/MainFrameController.java
++++ b/src/main/java/bdsup2sub/gui/main/MainFrameController.java
+@@ -26,8 +26,6 @@ import bdsup2sub.gui.palette.FramePaletteDialog;
+ import bdsup2sub.utils.FilenameUtils;
+ import bdsup2sub.utils.StreamUtils;
+ import bdsup2sub.utils.ToolBox;
+-import org.simplericity.macify.eawt.ApplicationEvent;
+-import org.simplericity.macify.eawt.ApplicationListener;
+ 
+ import javax.swing.*;
+ import javax.swing.event.DocumentEvent;
+@@ -48,7 +46,6 @@ class MainFrameController {
+ 
+     private final MainFrameView view;
+     private final MainFrameModel model;
+-    private final ApplicationListener applicationListener = new MacOSXApplicationListener();
+ 
+     public MainFrameController(MainFrameModel model, MainFrameView view) {
+         this.view = view;
+@@ -75,10 +72,6 @@ class MainFrameController {
+         }
+     }
+ 
+-    public ApplicationListener getApplicationListener() {
+-        return applicationListener;
+-    }
+-
+     private void addFileMenuActionListeners() {
+         view.addLoadMenuItemActionListener(new LoadMenuItemActionListener());
+         view.addRecentFilesMenuItemActionListener(new RecentMenuItemActionListener());
+@@ -1101,51 +1094,4 @@ class MainFrameController {
+             }
+         }
+     }
+-
+-    public class MacOSXApplicationListener implements ApplicationListener {
+-
+-        private void handle(ApplicationEvent event, String message) {
+-            event.setHandled(true);
+-            JOptionPane.showMessageDialog(view,
+-                    message,
+-                    Constants.APP_NAME,
+-                    JOptionPane.INFORMATION_MESSAGE,
+-                    new ImageIcon(getClass().getClassLoader().getResource("icons/bdsup2sub_32.png")));
+-        }
+-
+-        public void handleAbout(ApplicationEvent event) {
+-            event.setHandled(true);
+-            showAboutDialog();
+-        }
+-
+-        public void handleOpenApplication(ApplicationEvent event) {
+-            event.setHandled(true);
+-            // application open, nothing to do
+-        }
+-
+-        public void handleOpenFile(ApplicationEvent event) {
+-            event.setHandled(true);
+-            loadFile();
+-        }
+-
+-        public void handlePreferences(ApplicationEvent event) {
+-            event.setHandled(true);
+-            handle(event, "Preferences not implemented");
+-        }
+-
+-        public void handlePrintFile(ApplicationEvent event) {
+-            event.setHandled(true);
+-            handle(event, "Printing not implemented");
+-        }
+-
+-        public void handleQuit(ApplicationEvent event) {
+-            event.setHandled(true);
+-            exit();
+-        }
+-
+-        public void handleReOpenApplication(ApplicationEvent event) {
+-            event.setHandled(true);
+-            view.setVisible(true);
+-        }
+-    }
+ }
+-- 
+2.39.1
+

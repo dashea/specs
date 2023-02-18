@@ -1,0 +1,44 @@
+From 8b8eb2c9a5a3be77617ae7484b482d4e527c3bfc Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Sat, 18 Feb 2023 11:09:41 -0500
+Subject: [PATCH 2/3] Separate filtered and non-filtered resources
+
+---
+ pom.xml                                               | 11 +++++++++++
+ .../version.properties                                |  0
+ 2 files changed, 11 insertions(+)
+ rename src/main/{resources => resources-filtered}/version.properties (100%)
+
+diff --git a/pom.xml b/pom.xml
+index 261ab39..2ba0c59 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -59,10 +59,21 @@
+         <resources>
+             <resource>
+                 <directory>src/main/resources</directory>
++            </resource>
++            <resource>
++                <directory>src/main/resources-filtered</directory>
+                 <filtering>true</filtering>
+             </resource>
+         </resources>
+         <plugins>
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-resources-plugin</artifactId>
++                <version>3.2.0</version>
++                <configuration>
++                  <propertiesEncoding>UTF-8</propertiesEncoding>
++                </configuration>
++            </plugin>
+             <plugin>
+                 <artifactId>maven-assembly-plugin</artifactId>
+                 <configuration>
+diff --git a/src/main/resources/version.properties b/src/main/resources-filtered/version.properties
+similarity index 100%
+rename from src/main/resources/version.properties
+rename to src/main/resources-filtered/version.properties
+-- 
+2.39.1
+

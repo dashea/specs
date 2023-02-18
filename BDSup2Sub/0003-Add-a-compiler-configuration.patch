@@ -1,0 +1,32 @@
+From a61eadeecea8f3a16272510057fee447939fe4ab Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Sat, 18 Feb 2023 11:21:37 -0500
+Subject: [PATCH 3/3] Add a compiler configuration
+
+---
+ pom.xml | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/pom.xml b/pom.xml
+index 2ba0c59..cf46961 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -66,6 +66,15 @@
+             </resource>
+         </resources>
+         <plugins>
++            <plugin>
++              <groupId>org.apache.maven.plugins</groupId>
++              <artifactId>maven-compiler-plugin</artifactId>
++              <version>3.8.1</version>
++              <configuration>
++                <source>1.7</source>
++                <target>1.7</target>
++              </configuration>
++            </plugin>
+             <plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-resources-plugin</artifactId>
+-- 
+2.39.1
+
