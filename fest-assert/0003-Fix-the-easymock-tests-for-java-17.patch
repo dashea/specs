@@ -1,0 +1,41 @@
+From 0da83234f492d7f9da5150dd787a4c0ee804926f Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Fri, 17 Feb 2023 23:09:49 -0500
+Subject: [PATCH 3/3] Fix the easymock tests for java 17
+
+Require java 17
+---
+ fest-assert/pom.xml | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/fest-assert/pom.xml b/fest-assert/pom.xml
+index fb809e9d..e52f071d 100644
+--- a/fest-assert/pom.xml
++++ b/fest-assert/pom.xml
+@@ -70,4 +70,23 @@
+       <scope>test</scope>
+     </dependency>
+   </dependencies>
++  <build>
++    <plugins>
++      <plugin>
++        <groupId>org.apache.maven.plugins</groupId>
++        <artifactId>maven-surefire-plugin</artifactId>
++        <configuration>
++          <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
++        </configuration>
++      </plugin>
++      <plugin>
++        <groupId>org.apache.maven.plugins</groupId>
++        <artifactId>maven-compiler-plugin</artifactId>
++        <configuration>
++          <source>17</source>
++          <target>17</target>
++        </configuration>
++      </plugin>
++    </plugins>
++  </build>
+ </project>
+-- 
+2.39.1
+

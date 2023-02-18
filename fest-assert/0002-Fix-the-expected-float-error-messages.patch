@@ -1,0 +1,59 @@
+From 09879546e55a04e7e4f168a2eee3c5efcd6c2d66 Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Fri, 17 Feb 2023 21:23:15 -0500
+Subject: [PATCH 2/3] Fix the expected float error messages
+
+There's nothing formatting these numbers so I don't know where they
+expect the extra 0's to come from.
+---
+ .../assertions/DoubleAssert_isEqualTo_withDelta_Test.java     | 4 ++--
+ .../fest/assertions/FloatAssert_isEqualTo_withDelta_Test.java | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/fest-assert/src/test/java/org/fest/assertions/DoubleAssert_isEqualTo_withDelta_Test.java b/fest-assert/src/test/java/org/fest/assertions/DoubleAssert_isEqualTo_withDelta_Test.java
+index a1b660bd..a4eb3503 100644
+--- a/fest-assert/src/test/java/org/fest/assertions/DoubleAssert_isEqualTo_withDelta_Test.java
++++ b/fest-assert/src/test/java/org/fest/assertions/DoubleAssert_isEqualTo_withDelta_Test.java
+@@ -41,7 +41,7 @@ public class DoubleAssert_isEqualTo_withDelta_Test {
+ 
+   @Test
+   public void should_fail_if_actual_and_expected_are_not_equal() {
+-    expectAssertionError("expected:<8.888> but was:<8.688> using delta:<0.0090>").on(new CodeToTest() {
++    expectAssertionError("expected:<8.888> but was:<8.688> using delta:<0.009>").on(new CodeToTest() {
+       public void run() {
+         new DoubleAssert(8.688).isEqualTo(8.888, delta(0.009));
+       }
+@@ -50,7 +50,7 @@ public class DoubleAssert_isEqualTo_withDelta_Test {
+ 
+   @Test
+   public void should_fail_and_display_description_of_assertion_if_actual_and_expected_are_not_equal() {
+-    expectAssertionError("[A Test] expected:<8.888> but was:<8.688> using delta:<0.0090>").on(new CodeToTest() {
++    expectAssertionError("[A Test] expected:<8.888> but was:<8.688> using delta:<0.009>").on(new CodeToTest() {
+       public void run() {
+         new DoubleAssert(8.688).as("A Test")
+                                .isEqualTo(8.888, delta(0.009));
+diff --git a/fest-assert/src/test/java/org/fest/assertions/FloatAssert_isEqualTo_withDelta_Test.java b/fest-assert/src/test/java/org/fest/assertions/FloatAssert_isEqualTo_withDelta_Test.java
+index 093da314..be5de76c 100644
+--- a/fest-assert/src/test/java/org/fest/assertions/FloatAssert_isEqualTo_withDelta_Test.java
++++ b/fest-assert/src/test/java/org/fest/assertions/FloatAssert_isEqualTo_withDelta_Test.java
+@@ -41,7 +41,7 @@ public class FloatAssert_isEqualTo_withDelta_Test {
+ 
+   @Test
+   public void should_fail_if_actual_and_expected_are_not_equal() {
+-    expectAssertionError("expected:<8.888> but was:<8.688> using delta:<0.0090>").on(new CodeToTest() {
++    expectAssertionError("expected:<8.888> but was:<8.688> using delta:<0.009>").on(new CodeToTest() {
+       public void run() {
+         new FloatAssert(8.688f).isEqualTo(8.888f, delta(0.009f));
+       }
+@@ -50,7 +50,7 @@ public class FloatAssert_isEqualTo_withDelta_Test {
+ 
+   @Test
+   public void should_fail_and_display_description_of_assertion_if_actual_and_expected_are_not_equal() {
+-    expectAssertionError("[A Test] expected:<8.888> but was:<8.688> using delta:<0.0090>").on(new CodeToTest() {
++    expectAssertionError("[A Test] expected:<8.888> but was:<8.688> using delta:<0.009>").on(new CodeToTest() {
+       public void run() {
+         new FloatAssert(8.688f).as("A Test")
+                                .isEqualTo(8.888f, delta(0.009f));
+-- 
+2.39.1
+

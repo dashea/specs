@@ -1,0 +1,45 @@
+From 30f1450aa6ca5f5278efb434e35af3f2ec36d51e Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Fri, 17 Feb 2023 21:18:14 -0500
+Subject: [PATCH 1/3] Use easymock 3
+
+Remove the use of deprecated easymockclassextension. Add the missing
+easymock dependency.
+---
+ fest-assert/pom.xml                                         | 6 ++++++
+ ...isonFailureFactory_comparisonFailure_withMocks_Test.java | 2 +-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/fest-assert/pom.xml b/fest-assert/pom.xml
+index 9e8e25c7..fb809e9d 100644
+--- a/fest-assert/pom.xml
++++ b/fest-assert/pom.xml
+@@ -63,5 +63,11 @@
+       <version>4.7</version>
+       <scope>test</scope>
+     </dependency>
++    <dependency>
++      <groupId>org.easymock</groupId>
++      <artifactId>easymock</artifactId>
++      <version>3.0</version>
++      <scope>test</scope>
++    </dependency>
+   </dependencies>
+ </project>
+diff --git a/fest-assert/src/test/java/org/fest/assertions/ComparisonFailureFactory_comparisonFailure_withMocks_Test.java b/fest-assert/src/test/java/org/fest/assertions/ComparisonFailureFactory_comparisonFailure_withMocks_Test.java
+index 2590e5e9..74ed290a 100644
+--- a/fest-assert/src/test/java/org/fest/assertions/ComparisonFailureFactory_comparisonFailure_withMocks_Test.java
++++ b/fest-assert/src/test/java/org/fest/assertions/ComparisonFailureFactory_comparisonFailure_withMocks_Test.java
+@@ -14,8 +14,8 @@
+  */
+ package org.fest.assertions;
+ 
++import static org.easymock.EasyMock.createMock;
+ import static org.easymock.EasyMock.expect;
+-import static org.easymock.classextension.EasyMock.createMock;
+ import static org.fest.assertions.Mocks.createComparisonFailureFrom;
+ import static org.junit.Assert.assertNull;
+ 
+-- 
+2.39.1
+
