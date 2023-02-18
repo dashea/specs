@@ -1,0 +1,165 @@
+From a191058c0516eba0cd594261db7cc34d46ea48ef Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Fri, 17 Feb 2023 20:47:02 -0500
+Subject: [PATCH] Use assertj instead of fest-assert
+
+This breaks the circular dependency between fest-reflect and
+fest-assert, and assertj is a drop-in replacement for what's being done
+here.
+---
+ fest-reflect/pom.xml                                     | 9 ++++-----
+ .../org/fest/reflect/beanproperty/Property_Test.java     | 2 +-
+ .../org/fest/reflect/constructor/Constructor_Test.java   | 4 ++--
+ .../test/java/org/fest/reflect/core/Reflection_Test.java | 2 +-
+ .../java/org/fest/reflect/field/Field_field_Test.java    | 2 +-
+ .../org/fest/reflect/field/Field_staticField_Test.java   | 2 +-
+ .../fest/reflect/innerclass/StaticInnerClass_Test.java   | 2 +-
+ .../java/org/fest/reflect/method/Method_method_Test.java | 4 ++--
+ .../fest/reflect/method/Method_staticMethod_Test.java    | 2 +-
+ .../src/test/java/org/fest/reflect/type/Type_Test.java   | 2 +-
+ 10 files changed, 15 insertions(+), 16 deletions(-)
+
+diff --git a/fest-reflect/pom.xml b/fest-reflect/pom.xml
+index e93e8c54..d8505c2a 100644
+--- a/fest-reflect/pom.xml
++++ b/fest-reflect/pom.xml
+@@ -40,11 +40,10 @@
+     	<type>jar</type>
+     </dependency>
+     <dependency>
+-    	<groupId>org.easytesting</groupId>
+-    	<artifactId>fest-assert</artifactId>
+-    	<version>1.2</version>
+-    	<type>jar</type>
+-    	<scope>test</scope>
++        <groupId>org.assertj</groupId>
++        <artifactId>assertj-core</artifactId>
++        <version>3.19.0</version>
++        <scope>test</scope>
+     </dependency>
+     <dependency>
+     	<groupId>org.easytesting</groupId>
+diff --git a/fest-reflect/src/test/java/org/fest/reflect/beanproperty/Property_Test.java b/fest-reflect/src/test/java/org/fest/reflect/beanproperty/Property_Test.java
+index c5d38dbe..42c521cf 100644
+--- a/fest-reflect/src/test/java/org/fest/reflect/beanproperty/Property_Test.java
++++ b/fest-reflect/src/test/java/org/fest/reflect/beanproperty/Property_Test.java
+@@ -15,7 +15,7 @@
+  */
+ package org.fest.reflect.beanproperty;
+ 
+-import static org.fest.assertions.Assertions.assertThat;
++import static org.assertj.core.api.Assertions.assertThat;
+ import static org.fest.reflect.util.ExpectedFailures.*;
+ import static org.fest.util.Collections.list;
+ 
+diff --git a/fest-reflect/src/test/java/org/fest/reflect/constructor/Constructor_Test.java b/fest-reflect/src/test/java/org/fest/reflect/constructor/Constructor_Test.java
+index ed996d21..0d86bc71 100644
+--- a/fest-reflect/src/test/java/org/fest/reflect/constructor/Constructor_Test.java
++++ b/fest-reflect/src/test/java/org/fest/reflect/constructor/Constructor_Test.java
+@@ -15,8 +15,8 @@
+  */
+ package org.fest.reflect.constructor;
+ 
+-import static org.fest.assertions.Assertions.assertThat;
+-import static org.fest.assertions.Fail.fail;
++import static org.assertj.core.api.Assertions.assertThat;
++import static org.assertj.core.api.Assertions.fail;
+ import static org.fest.reflect.util.ExpectedFailures.expectIllegalArgumentException;
+ import static org.fest.reflect.util.ExpectedFailures.expectNullPointerException;
+ 
+diff --git a/fest-reflect/src/test/java/org/fest/reflect/core/Reflection_Test.java b/fest-reflect/src/test/java/org/fest/reflect/core/Reflection_Test.java
+index 3b76feb2..2b3086ce 100644
+--- a/fest-reflect/src/test/java/org/fest/reflect/core/Reflection_Test.java
++++ b/fest-reflect/src/test/java/org/fest/reflect/core/Reflection_Test.java
+@@ -15,7 +15,7 @@
+  */
+ package org.fest.reflect.core;
+ 
+-import static org.fest.assertions.Assertions.assertThat;
++import static org.assertj.core.api.Assertions.assertThat;
+ 
+ import org.fest.reflect.beanproperty.PropertyName;
+ import org.fest.reflect.constructor.TargetType;
+diff --git a/fest-reflect/src/test/java/org/fest/reflect/field/Field_field_Test.java b/fest-reflect/src/test/java/org/fest/reflect/field/Field_field_Test.java
+index 690afca3..b64c38d3 100644
+--- a/fest-reflect/src/test/java/org/fest/reflect/field/Field_field_Test.java
++++ b/fest-reflect/src/test/java/org/fest/reflect/field/Field_field_Test.java
+@@ -15,7 +15,7 @@
+  */
+ package org.fest.reflect.field;
+ 
+-import static org.fest.assertions.Assertions.assertThat;
++import static org.assertj.core.api.Assertions.assertThat;
+ import static org.fest.reflect.util.ExpectedFailures.*;
+ import static org.fest.util.Collections.list;
+ 
+diff --git a/fest-reflect/src/test/java/org/fest/reflect/field/Field_staticField_Test.java b/fest-reflect/src/test/java/org/fest/reflect/field/Field_staticField_Test.java
+index 97ced6e3..0216438c 100644
+--- a/fest-reflect/src/test/java/org/fest/reflect/field/Field_staticField_Test.java
++++ b/fest-reflect/src/test/java/org/fest/reflect/field/Field_staticField_Test.java
+@@ -15,7 +15,7 @@
+  */
+ package org.fest.reflect.field;
+ 
+-import static org.fest.assertions.Assertions.assertThat;
++import static org.assertj.core.api.Assertions.assertThat;
+ import static org.fest.reflect.util.ExpectedFailures.*;
+ import static org.fest.util.Collections.list;
+ 
+diff --git a/fest-reflect/src/test/java/org/fest/reflect/innerclass/StaticInnerClass_Test.java b/fest-reflect/src/test/java/org/fest/reflect/innerclass/StaticInnerClass_Test.java
+index 56311cc6..30c996aa 100644
+--- a/fest-reflect/src/test/java/org/fest/reflect/innerclass/StaticInnerClass_Test.java
++++ b/fest-reflect/src/test/java/org/fest/reflect/innerclass/StaticInnerClass_Test.java
+@@ -15,7 +15,7 @@
+  */
+ package org.fest.reflect.innerclass;
+ 
+-import static org.fest.assertions.Assertions.assertThat;
++import static org.assertj.core.api.Assertions.assertThat;
+ import static org.fest.reflect.core.Reflection.*;
+ import static org.fest.reflect.util.ExpectedFailures.*;
+ import org.fest.test.CodeToTest;
+diff --git a/fest-reflect/src/test/java/org/fest/reflect/method/Method_method_Test.java b/fest-reflect/src/test/java/org/fest/reflect/method/Method_method_Test.java
+index 0fafb932..edcf4516 100644
+--- a/fest-reflect/src/test/java/org/fest/reflect/method/Method_method_Test.java
++++ b/fest-reflect/src/test/java/org/fest/reflect/method/Method_method_Test.java
+@@ -15,8 +15,8 @@
+  */
+ package org.fest.reflect.method;
+ 
+-import static org.fest.assertions.Assertions.assertThat;
+-import static org.fest.assertions.Fail.fail;
++import static org.assertj.core.api.Assertions.assertThat;
++import static org.assertj.core.api.Assertions.fail;
+ import static org.fest.reflect.util.ExpectedFailures.*;
+ 
+ import java.util.List;
+diff --git a/fest-reflect/src/test/java/org/fest/reflect/method/Method_staticMethod_Test.java b/fest-reflect/src/test/java/org/fest/reflect/method/Method_staticMethod_Test.java
+index 10e7f5b1..8cc15f3a 100644
+--- a/fest-reflect/src/test/java/org/fest/reflect/method/Method_staticMethod_Test.java
++++ b/fest-reflect/src/test/java/org/fest/reflect/method/Method_staticMethod_Test.java
+@@ -15,7 +15,7 @@
+  */
+ package org.fest.reflect.method;
+ 
+-import static org.fest.assertions.Assertions.assertThat;
++import static org.assertj.core.api.Assertions.assertThat;
+ import static org.fest.reflect.util.ExpectedFailures.*;
+ 
+ import java.util.List;
+diff --git a/fest-reflect/src/test/java/org/fest/reflect/type/Type_Test.java b/fest-reflect/src/test/java/org/fest/reflect/type/Type_Test.java
+index a4382bf5..563a2c27 100644
+--- a/fest-reflect/src/test/java/org/fest/reflect/type/Type_Test.java
++++ b/fest-reflect/src/test/java/org/fest/reflect/type/Type_Test.java
+@@ -21,7 +21,7 @@ import org.fest.reflect.exception.ReflectionError;
+ import org.fest.test.CodeToTest;
+ import org.junit.Test;
+ 
+-import static org.fest.assertions.Assertions.assertThat;
++import static org.assertj.core.api.Assertions.assertThat;
+ import static org.fest.reflect.util.ExpectedFailures.*;
+ 
+ /**
+-- 
+2.39.1
+
