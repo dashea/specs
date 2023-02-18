@@ -1,0 +1,21 @@
+diff -purN MultithreadedTC-1.01-source.orig/src/edu/umd/cs/mtc/TestFramework.java MultithreadedTC-1.01-source/src/edu/umd/cs/mtc/TestFramework.java
+--- MultithreadedTC-1.01-source.orig/src/edu/umd/cs/mtc/TestFramework.java	2023-02-18 00:22:06.038401521 -0500
++++ MultithreadedTC-1.01-source/src/edu/umd/cs/mtc/TestFramework.java	2023-02-18 00:31:46.507540627 -0500
+@@ -758,14 +758,14 @@ public class TestFramework {
+ 	 * This assumes that the provided TestCase instance was used to create
+ 	 * the Test, otherwise it does little good to call the "setUp" and "tearDown"
+ 	 * method in the TestCase.
++         *
++         * Throws any exceptions that occur along the process. In this case, just
++         * use the old uninstrumented test.
+ 	 * 
+ 	 * @param mtc
+ 	 * 			the test to update
+ 	 * @param tc
+ 	 * 			the TestCase that contains the setUp and tearDown methods called
+-	 * @throws
+-	 * 			Any exceptions that occur along the process. In this case, just
+-	 * 			use the old uninstrumented Test.
+ 	 */
+ 	public static void addSetUpAndTearDown(MultithreadedTest mtc, TestCase tc) 
+ 			throws SecurityException, NoSuchMethodException

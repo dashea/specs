@@ -1,0 +1,12 @@
+diff -purN MultithreadedTC-1.01-source.orig/src/edu/umd/cs/mtc/TestFramework.java MultithreadedTC-1.01-source/src/edu/umd/cs/mtc/TestFramework.java
+--- MultithreadedTC-1.01-source.orig/src/edu/umd/cs/mtc/TestFramework.java	2007-08-13 12:56:00.000000000 -0400
++++ MultithreadedTC-1.01-source/src/edu/umd/cs/mtc/TestFramework.java	2023-02-18 00:22:06.038401521 -0500
+@@ -640,7 +640,7 @@ public class TestFramework {
+ 				AssertionError assertionError = new AssertionError(t.getName()
+ 						+ " killed by " + currentThread.getName());
+ 				assertionError.setStackTrace(t.getStackTrace());
+-				t.stop(assertionError);
++				t.stop();
+ 			}
+ 	}
+ 
