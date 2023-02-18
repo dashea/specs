@@ -9,6 +9,8 @@ License: BSD-3-Clause
 URL:     https://github.com/mortennobel/java-image-scaling
 Source0: https://github.com/mortennobel/java-image-scaling/archive/%{gittag}/%{name}-%{version}.tar.gz
 
+Patch0:  0001-Remove-wagon-svn.patch
+
 BuildRequires: maven-local
 BuildRequires: mvn(junit:junit) >= 4.7
 BuildRequires: mvn(com.jhlabs:filters) >= 2.0.235
@@ -27,7 +29,7 @@ Summary: Javadoc for %{name}
 This package contains the API documentation for %{name}.
 
 %prep
-%autosetup
+%autosetup -p1
 
 # pom comes with source/target set to 1.5, update to something supported
 %pom_xpath_set "pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:target" 1.7
