@@ -49,6 +49,7 @@ This package contains the API documentation for %{name}.
 
 %pom_remove_plugin org.vafer:jdeb
 %pom_remove_plugin org.codehaus.mojo:osxappbundle-maven-plugin
+%pom_remove_plugin :maven-assembly-plugin
 
 %build
 # Use xvfb to fake a display for the AWT Robot based tests
