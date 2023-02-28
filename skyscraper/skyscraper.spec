@@ -2,7 +2,7 @@
 
 Name:    skyscraper
 Version: 3.7.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Powerful and versatile game scraper
 
 # The source files say 2 or later, but the LICENSE file it comes with is v3, so go with v3
@@ -11,6 +11,9 @@ URL:     https://github.com/muldjord/skyscraper
 Source0: https://github.com/muldjord/skyscraper/archive/%{gittag}/%{name}-%{version}.tar.gz
 
 Patch0:  0001-Remove-hardcoded-paths.patch
+
+# This patch is against master, but upstream is not currently accepting pull requests
+Patch1:  0001-Add-CreatiVision-support-for-screenscraper.patch
 
 BuildRequires: gcc-c++
 BuildRequires: qt5-qtbase-devel
@@ -40,5 +43,8 @@ make %{?_smp_mflags}
 %config %{_sysconfdir}/skyscraper
 
 %changelog
+* Tue Feb 28 2023 David Shea <reallylongword@gmail.com> - 3.7.7-2
+- Add CreatiVision support
+
 * Mon Feb 27 2023 David Shea <reallylongword@gmail.com> - 3.7.7-1
 - Initial package
