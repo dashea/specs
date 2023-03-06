@@ -1,0 +1,65 @@
+From 1434aac6a6e26c7d210914fc7f9ab30432022f6a Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Sat, 4 Mar 2023 17:52:36 -0500
+Subject: [PATCH 2/2] Add Adventure Vision support for screenscraper
+
+---
+ src/platform.cpp      | 7 +++++++
+ src/screenscraper.cpp | 2 ++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/src/platform.cpp b/src/platform.cpp
+index 204d6c5..e3234a8 100644
+--- a/src/platform.cpp
++++ b/src/platform.cpp
+@@ -43,6 +43,7 @@ QStringList Platform::getPlatforms()
+   QStringList platforms;
+   platforms.append("3do");
+   platforms.append("3ds");
++  platforms.append("advision");
+   platforms.append("amiga");
+   platforms.append("amigacd32");
+   platforms.append("amstradcpc");
+@@ -145,6 +146,8 @@ QStringList Platform::getScrapers(QString platform)
+     scrapers.append("screenscraper");
+   } else if(platform == "3ds") {
+     scrapers.append("screenscraper");
++  } else if(platform == "advision") {
++    scrapers.append("screenscraper");
+   } else if(platform == "amiga") {
+     scrapers.append("openretro");
+     scrapers.append("screenscraper");
+@@ -366,6 +369,8 @@ QString Platform::getFormats(QString platform, QString extensions, QString addEx
+     formats.append("*.iso *.cue *.chd");
+   } else if(platform == "3ds") {
+     formats.append("*.3ds");
++  } else if(platform == "advision") {
++    formats.append("*.bin");
+   } else if(platform == "amiga") {
+     formats.append("*.uae *.adf *.dms *.adz *.rp9 *.lha *.cue *.img *.iso *.hdf");
+   } else if(platform == "amigacd32") {
+@@ -558,6 +563,8 @@ QString Platform::getDefaultScraper(QString platform)
+     scraper = "cache";
+   } else if(platform == "3ds") {
+     scraper = "cache";
++  } else if(platform == "advision") {
++    scraper = "cache";
+   } else if(platform == "amiga") {
+     scraper = "cache";
+   } else if(platform == "amigacd32") {
+diff --git a/src/screenscraper.cpp b/src/screenscraper.cpp
+index 8d8c4c3..83df3c3 100644
+--- a/src/screenscraper.cpp
++++ b/src/screenscraper.cpp
+@@ -630,6 +630,8 @@ QString ScreenScraper::getPlatformId(const QString platform)
+     return "29";
+   } else if(platform == "3ds") {
+     return "17";
++  } else if(platform == "advision") {
++    return "78";
+   } else if(platform == "amiga") {
+     return "64";
+   } else if(platform == "aga") {
+-- 
+2.39.1
+

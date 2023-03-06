@@ -2,7 +2,7 @@
 
 Name:    skyscraper
 Version: 3.7.7
-Release: 2%{?dist}
+Release: 4%{?dist}
 Summary: Powerful and versatile game scraper
 
 # The source files say 2 or later, but the LICENSE file it comes with is v3, so go with v3
@@ -12,8 +12,10 @@ Source0: https://github.com/muldjord/skyscraper/archive/%{gittag}/%{name}-%{vers
 
 Patch0:  0001-Remove-hardcoded-paths.patch
 
-# This patch is against master, but upstream is not currently accepting pull requests
+# These patches are against master, but upstream is not currently accepting pull requests
 Patch1:  0001-Add-CreatiVision-support-for-screenscraper.patch
+Patch2:  0002-Add-Adventure-Vision-support-for-screenscraper.patch
+Patch3:  0003-Add-PV-1000-as-a-platform.patch
 
 BuildRequires: gcc-c++
 BuildRequires: qt5-qtbase-devel
@@ -43,6 +45,12 @@ make %{?_smp_mflags}
 %config %{_sysconfdir}/skyscraper
 
 %changelog
+* Sun Mar  5 2023 David Shea <reallylongword@gmail.com> - 3.7.7-4
+- Add PV-1000 support
+
+* Sat Mar  4 2023 David Shea <reallylongword@gmail.com> - 3.7.7-3
+- Add Adventure Vision support
+
 * Tue Feb 28 2023 David Shea <reallylongword@gmail.com> - 3.7.7-2
 - Add CreatiVision support
 

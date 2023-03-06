@@ -1,0 +1,65 @@
+From df03075c5e00cd9ebdd7e4b8bf536b689c77e00f Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Sun, 5 Mar 2023 23:07:50 -0500
+Subject: [PATCH 3/3] Add PV-1000 as a platform
+
+---
+ src/platform.cpp      | 7 +++++++
+ src/screenscraper.cpp | 2 ++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/src/platform.cpp b/src/platform.cpp
+index e3234a8..051b42c 100644
+--- a/src/platform.cpp
++++ b/src/platform.cpp
+@@ -112,6 +112,7 @@ QStringList Platform::getPlatforms()
+   platforms.append("ps2");
+   platforms.append("psp");
+   platforms.append("psx");
++  platforms.append("pv1000");
+   platforms.append("saturn");
+   platforms.append("scummvm");
+   platforms.append("sega32x");
+@@ -294,6 +295,8 @@ QStringList Platform::getScrapers(QString platform)
+   } else if(platform == "psx") {
+     scrapers.append("screenscraper");
+     scrapers.append("thegamesdb");
++  } else if(platform == "pv1000") {
++    scrapers.append("screenscraper");
+   } else if(platform == "saturn") {
+     scrapers.append("screenscraper");
+   } else if(platform == "scummvm") {
+@@ -507,6 +510,8 @@ QString Platform::getFormats(QString platform, QString extensions, QString addEx
+     formats.append("*.cso *.iso *.pbp");
+   } else if(platform == "psx") {
+     formats.append("*.cue *.cbn *.img *.iso *.m3u *.mdf *.pbp *.toc *.z *.znx *.chd");
++  } else if(platform == "pv1000") {
++    formats.append("*.bin");
+   } else if(platform == "saturn") {
+     formats.append("*.cue *.iso *.mdf *.chd *.m3u");
+   } else if(platform == "scummvm") {
+@@ -701,6 +706,8 @@ QString Platform::getDefaultScraper(QString platform)
+     scraper = "cache";
+   } else if(platform == "psx") {
+     scraper = "cache";
++  } else if(platform == "pv1000") {
++    scraper = "cache";
+   } else if(platform == "saturn") {
+     scraper = "cache";
+   } else if(platform == "scummvm") {
+diff --git a/src/screenscraper.cpp b/src/screenscraper.cpp
+index 83df3c3..0c433bf 100644
+--- a/src/screenscraper.cpp
++++ b/src/screenscraper.cpp
+@@ -772,6 +772,8 @@ QString ScreenScraper::getPlatformId(const QString platform)
+     return "61";
+   } else if(platform == "psx") {
+     return "57";
++  } else if(platform == "pv1000") {
++    return "74";
+   } else if(platform == "saturn") {
+     return "22";
+   } else if(platform == "scummvm") {
+-- 
+2.39.1
+
