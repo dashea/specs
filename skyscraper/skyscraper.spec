@@ -2,7 +2,7 @@
 
 Name:    skyscraper
 Version: 3.7.7
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Powerful and versatile game scraper
 
 # The source files say 2 or later, but the LICENSE file it comes with is v3, so go with v3
@@ -17,6 +17,7 @@ Patch1:  0001-Add-CreatiVision-support-for-screenscraper.patch
 Patch2:  0002-Add-Adventure-Vision-support-for-screenscraper.patch
 Patch3:  0003-Add-PV-1000-as-a-platform.patch
 Patch4:  0004-Add-Super-Cassette-Vision.patch
+Patch5:  0005-Add-GX4000.patch
 
 BuildRequires: gcc-c++
 BuildRequires: qt5-qtbase-devel
@@ -46,6 +47,9 @@ make %{?_smp_mflags}
 %config %{_sysconfdir}/skyscraper
 
 %changelog
+* Wed Mar  8 2023 David Shea <reallylongword@gmail.com> - 3.7.7-6
+- Add GX4000
+
 * Sun Mar  5 2023 David Shea <reallylongword@gmail.com> - 3.7.7-5
 - Add Super Cassette Vision support
 
