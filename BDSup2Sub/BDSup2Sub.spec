@@ -2,7 +2,7 @@
 
 Name:    BDSup2Sub
 Version: 5.1.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A tool to convert and tweak bitmap based subtitle streams
 
 License: Apache-2.0 AND LGPL-2.1-or-later
@@ -57,7 +57,7 @@ This package contains the API documentation for %{name}.
 xvfb-run -s "-screen 0 1024x768x24" -d %mvn_build
 
 %install
-%jpackage_script bdsup2sub.BDSup2Sub "" "" bdsup2sub:bdsup2sub BDSup2Sub true
+%jpackage_script bdsup2sub.BDSup2Sub "" "" "BDSup2Sub/bdsup2sub:apache-commons-cli" BDSup2Sub true
 %mvn_install
 
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/128x128/apps
@@ -84,5 +84,8 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications src/deb/bdsup2su
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Wed Apr 26 2023 David Shea <reallylongword@gmail.com> - 5.1.2-2
+- Fix the jpackage script
+
 * Sat Feb 18 2023 David Shea <reallylongword@gmail.com> - 5.1.2-1
 - Initial package
