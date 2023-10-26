@@ -1,0 +1,27 @@
+From d0800407994440ed06f040e05462f198e8bf01e6 Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Thu, 26 Oct 2023 09:54:09 -0400
+Subject: [PATCH 2/2] Remove the supplementary install
+
+These scripts have hardcoded paths that are more difficult to remove, so
+just remove them from the install and treat them as examples instead.
+---
+ skyscraper.pro | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/skyscraper.pro b/skyscraper.pro
+index 56daf86..637d020 100755
+--- a/skyscraper.pro
++++ b/skyscraper.pro
+@@ -45,7 +45,7 @@ unix:resexamples.files=resources/maskexample.png resources/frameexample.png \
+   resources/scanlines2.png
+ 
+ unix:INSTALLS += target config examples cacheexamples impexamples \
+-  resexamples supplementary
++  resexamples
+ 
+ include(./VERSION)
+ DEFINES+=VERSION=\\\"$$VERSION\\\"
+-- 
+2.41.0
+

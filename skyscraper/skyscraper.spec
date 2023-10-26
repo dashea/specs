@@ -1,23 +1,20 @@
-%global gittag 3.7.7
+%global gittag 3.9.0
 
 Name:    skyscraper
-Version: 3.7.7
-Release: 6%{?dist}
+Version: 3.9.0
+Release: 1%{?dist}
 Summary: Powerful and versatile game scraper
 
 # The source files say 2 or later, but the LICENSE file it comes with is v3, so go with v3
 License: GPL-3.0-or-later
-URL:     https://github.com/muldjord/skyscraper
-Source0: https://github.com/muldjord/skyscraper/archive/%{gittag}/%{name}-%{version}.tar.gz
+URL:     https://github.com/Gemba/skyscraper
+Source0: https://github.com/Gemba/skyscraper/archive/%{gittag}/%{name}-%{version}.tar.gz
 
 Patch0:  0001-Remove-hardcoded-paths.patch
+Patch1:  0002-Remove-the-supplementary-install.patch
 
-# These patches are against master, but upstream is not currently accepting pull requests
-Patch1:  0001-Add-CreatiVision-support-for-screenscraper.patch
-Patch2:  0002-Add-Adventure-Vision-support-for-screenscraper.patch
-Patch3:  0003-Add-PV-1000-as-a-platform.patch
-Patch4:  0004-Add-Super-Cassette-Vision.patch
-Patch5:  0005-Add-GX4000.patch
+Patch3:  0001-Add-additional-screenscraper-platforms.patch
+Patch4:  0002-Split-satellaview-and-sufami-turbo-out-of-snes.patch
 
 BuildRequires: gcc-c++
 BuildRequires: qt5-qtbase-devel
@@ -34,7 +31,7 @@ frontend by combining all of the cached resources.
 %autosetup -p1
 
 %build
-%qmake_qt5 BINDIR=%{_bindir} CONFDIR=%{_sysconfdir}
+%qmake_qt5 BINDIR=%{_bindir} CONFDIR=%{_sysconfdir}/skyscraper
 make %{?_smp_mflags}
 
 %install
@@ -47,6 +44,12 @@ make %{?_smp_mflags}
 %config %{_sysconfdir}/skyscraper
 
 %changelog
+* Thu Oct 26 2023 David Shea <reallylongword@gmail.com> - 3.9.0-1
+- Update to 3.9.0
+
+* Mon Oct 23 2023 David Shea <reallylongword@gmail.com> - 3.7.7-7
+- Add sufami turbo and satellaview as separate platforms
+
 * Wed Mar  8 2023 David Shea <reallylongword@gmail.com> - 3.7.7-6
 - Add GX4000
 

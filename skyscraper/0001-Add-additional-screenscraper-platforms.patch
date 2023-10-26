@@ -1,0 +1,125 @@
+From 879c5008176f23ed113d96c462510905e49ce2db Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Thu, 26 Oct 2023 08:03:40 -0400
+Subject: [PATCH 1/2] Add additional screenscraper platforms
+
+---
+ peas.json           | 46 ++++++++++++++++++++++++++++++++++++++++++++-
+ platforms_idmap.csv |  4 ++++
+ 2 files changed, 49 insertions(+), 1 deletion(-)
+
+diff --git a/peas.json b/peas.json
+index 6d58f4e..9f80051 100644
+--- a/peas.json
++++ b/peas.json
+@@ -36,6 +36,17 @@
+             "thegamesdb"
+         ]
+     },
++    "advision": {
++        "aliases": [
++            "Adventure Vision"
++        ],
++        "formats": [
++            "*.bin"
++        ],
++        "scrapers": [
++            "screenscraper"
++        ]
++    },
+     "ags": {
+         "aliases": [
+             "linux",
+@@ -800,6 +811,17 @@
+             "screenscraper"
+         ]
+     },
++    "gx4000": {
++        "aliases": [],
++        "formats": [
++            "*.cpr",
++            "*.dsk",
++            "*.m3u"
++        ],
++        "scrapers": [
++            "screenscraper"
++        ]
++    },
+     "intellivision": {
+         "aliases": [],
+         "formats": [
+@@ -1733,6 +1755,17 @@
+             "thegamesdb"
+         ]
+     },
++    "pv1000": {
++        "aliases": [
++            "PV-1000"
++        ],
++        "formats": [
++            "*.bin"
++        ],
++        "scrapers": [
++            "screenscraper"
++        ]
++    },
+     "samcoupe": {
+         "aliases": [
+             "SAM Coupé",
+@@ -1787,6 +1820,17 @@
+             "thegamesdb"
+         ]
+     },
++    "scv": {
++        "aliases": [
++            "Super Cassette Vision"
++        ],
++        "formats": [
++            "*.bin"
++        ],
++        "scrapers": [
++            "screenscraper"
++        ]
++    },
+     "sega32x": {
+         "aliases": [
+             "megadrive 32x",
+@@ -2162,4 +2206,4 @@
+             "worldofspectrum"
+         ]
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/platforms_idmap.csv b/platforms_idmap.csv
+index 451eec9..2c0c4bc 100644
+--- a/platforms_idmap.csv
++++ b/platforms_idmap.csv
+@@ -101,6 +101,7 @@ zxspectrum,76,41,4913
+ 
+ 3ds,17,101,4912
+ actionmax,81,-1,4976
++advision,78,-1,-1
+ astrocade,44,160,4968
+ atarijaguarcd,171,-1,29
+ atomiswave,53,-1,23
+@@ -108,6 +109,7 @@ cd32,130,56,4947
+ cdi,133,73,4917
+ cdtv,129,83,-1
+ easyrpg,231,-1,-1
++gx4000,87,-1,-1
+ msx2,116,-1,-1
+ naomi,56,-1,23
+ neogeocd,70,54,4956
+@@ -115,6 +117,8 @@ pcenginecd,114,45,4955
+ plus4,99,115,5007
+ ps3,59,81,12
+ ps4,60,141,4919
++pv1000,74,-1,-1
++scv,67,-1,-1
+ switch,22,203,4971
+ vic20,73,43,4945
+ wiiu,18,132,38
+-- 
+2.41.0
+

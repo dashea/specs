@@ -1,120 +1,77 @@
-From 14fe6dfbee33495e22b23316edee5da94c2e72ce Mon Sep 17 00:00:00 2001
+From 64883a04fd95c9cbab8579424d618f9d82f9abf8 Mon Sep 17 00:00:00 2001
 From: David Shea <reallylongword@gmail.com>
-Date: Mon, 27 Feb 2023 22:16:29 -0500
-Subject: [PATCH] Remove hardcoded paths
+Date: Thu, 26 Oct 2023 09:51:28 -0400
+Subject: [PATCH 1/2] Remove hardcoded paths
 
-Add variables for BINDIR and CONFDIR. Add CONFDIR to the defines for use
-in the file copying performed in loadConfig.
 ---
- skyscraper.pro     | 15 ++++++++-----
- src/skyscraper.cpp | 54 +++++++++++++++++++++++-----------------------
- 2 files changed, 37 insertions(+), 32 deletions(-)
+ skyscraper.pro | 19 ++++++++++++-------
+ src/main.cpp   |  2 +-
+ 2 files changed, 13 insertions(+), 8 deletions(-)
 
 diff --git a/skyscraper.pro b/skyscraper.pro
-index 047dbca..27a29c0 100755
+index d016c10..56daf86 100755
 --- a/skyscraper.pro
 +++ b/skyscraper.pro
-@@ -7,19 +7,24 @@ win32:CONFIG += console
+@@ -7,34 +7,39 @@ win32:CONFIG += console
  QT += core network xml
  QMAKE_CXXFLAGS += -std=c++11
  
 -unix:target.path=/usr/local/bin
 +!defined(BINDIR, var):BINDIR = "/usr/local/bin"
-+!defined(CONFDIR, var):CONFDIR = "/usr/local/etc"
-+
-+DEFINES+=CONFDIR=\\\"$$CONFDIR\\\"
-+
 +unix:target.path=$$BINDIR
  unix:target.files=Skyscraper Skyscraper.app/Contents/MacOS/Skyscraper
  
+-unix:supplementary.path=/usr/local/bin
++!defined(LIBEXECDIR, var):LIBEXECDIR = "/usr/local/bin"
++unix:supplementary.path=$$LIBEXECDIR/skyscraper
+ unix:supplementary.files=\
+   supplementary/scraperdata/check_screenscraper_json_to_idmap.py \
+   supplementary/scraperdata/convert_platforms_json.py \
+   supplementary/scraperdata/peas_and_idmap_verify.py
+ 
+-unix:config.path=/usr/local/etc/skyscraper
++!defined(CONFDIR, var):CONFDIR = "/usr/local/etc/skyscraper"
++DEFINES+=CONFDIR=\\\"$$CONFDIR\\\"
++
++unix:config.path=$$CONFDIR
+ unix:config.files=aliasMap.csv hints.xml mameMap.csv \
+   mobygames_platforms.json peas.json platforms_idmap.csv \
+   screenscraper_platforms.json tgdb_developers.json \
+   tgdb_genres.json tgdb_platforms.json tgdb_publishers.json
+ 
 -unix:examples.path=/usr/local/etc/skyscraper
-+unix:examples.path=$$CONFDIR/skyscraper
- unix:examples.files=config.ini.example README.md hints.xml artwork.xml artwork.xml.example1 artwork.xml.example2 artwork.xml.example3 artwork.xml.example4 aliasMap.csv mameMap.csv docs/ARTWORK.md tgdb_developers.json tgdb_publishers.json
++unix:examples.path=$$CONFDIR
+ unix:examples.files=config.ini.example README.md artwork.xml \
+   artwork.xml.example1 artwork.xml.example2 artwork.xml.example3 \
+   artwork.xml.example4 docs/ARTWORK.md docs/CACHE.md
  
 -unix:cacheexamples.path=/usr/local/etc/skyscraper/cache
-+unix:cacheexamples.path=$$CONFDIR/skyscraper/cache
++unix:cacheexamples.path=$$CONFDIR/cache
  unix:cacheexamples.files=cache/priorities.xml.example docs/CACHE.md
  
 -unix:impexamples.path=/usr/local/etc/skyscraper/import
-+unix:impexamples.path=$$CONFDIR/skyscraper/import
- unix:impexamples.files=docs/IMPORT.md import/definitions.dat.example1 import/definitions.dat.example2
++unix:impexamples.path=$$CONFDIR/import
+ unix:impexamples.files=docs/IMPORT.md import/definitions.dat.example1 \
+   import/definitions.dat.example2
  
 -unix:resexamples.path=/usr/local/etc/skyscraper/resources
-+unix:resexamples.path=$$CONFDIR/skyscraper/resources
- unix:resexamples.files=resources/maskexample.png resources/frameexample.png resources/boxfront.png resources/boxside.png resources/scanlines1.png resources/scanlines2.png
++unix:resexamples.path=$$CONFDIR/resources
+ unix:resexamples.files=resources/maskexample.png resources/frameexample.png \
+   resources/boxfront.png resources/boxside.png resources/scanlines1.png \
+   resources/scanlines2.png
+diff --git a/src/main.cpp b/src/main.cpp
+index b8331e0..cb3862a 100755
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -189,7 +189,7 @@ void setupUserConfig()
+   QDir::setCurrent(skyDir.absolutePath());
  
- unix:INSTALLS += target examples cacheexamples impexamples resexamples
-diff --git a/src/skyscraper.cpp b/src/skyscraper.cpp
-index 415af04..c639e8d 100755
---- a/src/skyscraper.cpp
-+++ b/src/skyscraper.cpp
-@@ -620,39 +620,39 @@ void Skyscraper::loadConfig(const QCommandLineParser &parser)
-      Files that should ALWAYS be updated from distributed default files
-      ----- */
+   // copy configs
+-  QString localEtcPath = QString("/usr/local/etc/skyscraper/");
++  QString localEtcPath = QString(CONFDIR) + QString("/");
  
--  copyFile("/usr/local/etc/skyscraper/config.ini.example", "config.ini.example");
--  copyFile("/usr/local/etc/skyscraper/README.md", "README.md");
--  copyFile("/usr/local/etc/skyscraper/hints.xml", "hints.xml");
--  copyFile("/usr/local/etc/skyscraper/ARTWORK.md", "ARTWORK.md");
--  copyFile("/usr/local/etc/skyscraper/artwork.xml.example1", "artwork.xml.example1");
--  copyFile("/usr/local/etc/skyscraper/artwork.xml.example2", "artwork.xml.example2");
--  copyFile("/usr/local/etc/skyscraper/artwork.xml.example3", "artwork.xml.example3");
--  copyFile("/usr/local/etc/skyscraper/artwork.xml.example4", "artwork.xml.example4");
--  copyFile("/usr/local/etc/skyscraper/mameMap.csv", "mameMap.csv");
--  copyFile("/usr/local/etc/skyscraper/tgdb_developers.json", "tgdb_developers.json");
--  copyFile("/usr/local/etc/skyscraper/tgdb_publishers.json", "tgdb_publishers.json");
--  copyFile("/usr/local/etc/skyscraper/resources/boxfront.png", "resources/boxfront.png");
--  copyFile("/usr/local/etc/skyscraper/resources/boxside.png", "resources/boxside.png");
--  copyFile("/usr/local/etc/skyscraper/docs/CACHE.md", "cache/README.md");
--  copyFile("/usr/local/etc/skyscraper/cache/priorities.xml.example", "cache/priorities.xml.example");
--  copyFile("/usr/local/etc/skyscraper/import/IMPORT.md", "import/README.md");
--  copyFile("/usr/local/etc/skyscraper/import/definitions.dat.example1", "import/definitions.dat.example1");
--  copyFile("/usr/local/etc/skyscraper/import/definitions.dat.example2", "import/definitions.dat.example2");
-+  copyFile(CONFDIR "/skyscraper/config.ini.example", "config.ini.example");
-+  copyFile(CONFDIR "/skyscraper/README.md", "README.md");
-+  copyFile(CONFDIR "/skyscraper/hints.xml", "hints.xml");
-+  copyFile(CONFDIR "/skyscraper/ARTWORK.md", "ARTWORK.md");
-+  copyFile(CONFDIR "/skyscraper/artwork.xml.example1", "artwork.xml.example1");
-+  copyFile(CONFDIR "/skyscraper/artwork.xml.example2", "artwork.xml.example2");
-+  copyFile(CONFDIR "/skyscraper/artwork.xml.example3", "artwork.xml.example3");
-+  copyFile(CONFDIR "/skyscraper/artwork.xml.example4", "artwork.xml.example4");
-+  copyFile(CONFDIR "/skyscraper/mameMap.csv", "mameMap.csv");
-+  copyFile(CONFDIR "/skyscraper/tgdb_developers.json", "tgdb_developers.json");
-+  copyFile(CONFDIR "/skyscraper/tgdb_publishers.json", "tgdb_publishers.json");
-+  copyFile(CONFDIR "/skyscraper/resources/boxfront.png", "resources/boxfront.png");
-+  copyFile(CONFDIR "/skyscraper/resources/boxside.png", "resources/boxside.png");
-+  copyFile(CONFDIR "/skyscraper/docs/CACHE.md", "cache/README.md");
-+  copyFile(CONFDIR "/skyscraper/cache/priorities.xml.example", "cache/priorities.xml.example");
-+  copyFile(CONFDIR "/skyscraper/import/IMPORT.md", "import/README.md");
-+  copyFile(CONFDIR "/skyscraper/import/definitions.dat.example1", "import/definitions.dat.example1");
-+  copyFile(CONFDIR "/skyscraper/import/definitions.dat.example2", "import/definitions.dat.example2");
- 
-   /* -----
-      Files that will only be overwritten if they don't already exist
-      ----- */
- 
-   // Make sure we have a default config.ini file based on the config.ini.example file
--  copyFile("/usr/local/etc/skyscraper/config.ini.example", "config.ini", false);
--  copyFile("/usr/local/etc/skyscraper/artwork.xml", "artwork.xml", false); // False means it won't overwrite if it exists
--  copyFile("/usr/local/etc/skyscraper/aliasMap.csv", "aliasMap.csv", false);
--  copyFile("/usr/local/etc/skyscraper/resources/maskexample.png", "resources/maskexample.png", false);
--  copyFile("/usr/local/etc/skyscraper/resources/frameexample.png", "resources/frameexample.png", false);
--  copyFile("/usr/local/etc/skyscraper/resources/scanlines1.png", "resources/scanlines1.png", false);
--  copyFile("/usr/local/etc/skyscraper/resources/scanlines2.png", "resources/scanlines2.png", false);
--  // Copy one of the example definitions.dat files if none exists
--  copyFile("/usr/local/etc/skyscraper/import/definitions.dat.example2", "import/definitions.dat", false);
-+  copyFile(CONFDIR "/skyscraper/config.ini.example", "config.ini", false);
-+  copyFile(CONFDIR "/skyscraper/artwork.xml", "artwork.xml", false); // False means it won't overwrite if it exists
-+  copyFile(CONFDIR "/skyscraper/aliasMap.csv", "aliasMap.csv", false);
-+  copyFile(CONFDIR "/skyscraper/resources/maskexample.png", "resources/maskexample.png", false);
-+  copyFile(CONFDIR "/skyscraper/resources/frameexample.png", "resources/frameexample.png", false);
-+  copyFile(CONFDIR "/skyscraper/resources/scanlines1.png", "resources/scanlines1.png", false);
-+  copyFile(CONFDIR "/skyscraper/resources/scanlines2.png", "resources/scanlines2.png", false);
-+  // Copy oCONFDIR nle definitions.dat files if none exists
-+  copyFile(CONFDIR "/skyscraper/import/definitions.dat.example2", "import/definitions.dat", false);
- 
-   /* -----
-      END updating files from distribution files
+   if (!QFileInfo::exists(localEtcPath)) {
+     // RetroPie installation type
 -- 
-2.39.1
+2.41.0
 

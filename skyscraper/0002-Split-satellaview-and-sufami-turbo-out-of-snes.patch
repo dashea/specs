@@ -1,0 +1,87 @@
+From 3b544a9b32ca4445a71b512787d6dbf29c899b24 Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Thu, 26 Oct 2023 08:06:58 -0400
+Subject: [PATCH 2/2] Split satellaview and sufami turbo out of snes
+
+---
+ peas.json           | 34 ++++++++++++++++++++++++++++++++--
+ platforms_idmap.csv |  2 ++
+ 2 files changed, 34 insertions(+), 2 deletions(-)
+
+diff --git a/peas.json b/peas.json
+index 9f80051..143d165 100644
+--- a/peas.json
++++ b/peas.json
+@@ -1783,6 +1783,21 @@
+             "thegamesdb"
+         ]
+     },
++    "satellaview": {
++        "aliases": [],
++        "formats": [
++            "*.smc",
++            "*.sfc",
++            "*.fig",
++            "*.swc",
++            "*.mgd",
++            "*.bin",
++            "*.bsx"
++        ],
++        "scrapers": [
++            "screenscraper"
++        ]
++    },
+     "saturn": {
+         "aliases": [
+             "sega saturn"
+@@ -1877,9 +1892,7 @@
+     "snes": {
+         "aliases": [
+             "nintendo power",
+-            "satellaview",
+             "snes - super mario world hacks",
+-            "sufami turbo",
+             "super famicom",
+             "super nintendo",
+             "super nintendo (snes)",
+@@ -1932,6 +1945,23 @@
+         ],
+         "scrapers": []
+     },
++    "sufami": {
++        "aliases": [
++            "sufami turbo"
++        ],
++        "formats": [
++            "*.smc",
++            "*.sfc",
++            "*.fig",
++            "*.swc",
++            "*.fig",
++            "*.mgd",
++            "*.bin"
++        ],
++        "scrapers": [
++            "screenscraper"
++        ]
++    },
+     "switch": {
+         "aliases": [
+             "nintendo switch"
+diff --git a/platforms_idmap.csv b/platforms_idmap.csv
+index 2c0c4bc..efe99f4 100644
+--- a/platforms_idmap.csv
++++ b/platforms_idmap.csv
+@@ -118,7 +118,9 @@ plus4,99,115,5007
+ ps3,59,81,12
+ ps4,60,141,4919
+ pv1000,74,-1,-1
++satellaview,107,-1,-1
+ scv,67,-1,-1
++sufami,108,-1,-1
+ switch,22,203,4971
+ vic20,73,43,4945
+ wiiu,18,132,38
+-- 
+2.41.0
+
