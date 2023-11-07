@@ -1,0 +1,69 @@
+diff -purN xa-2.3.14.orig/Makefile xa-2.3.14/Makefile
+--- xa-2.3.14.orig/Makefile	2023-02-07 16:42:40.000000000 -0500
++++ xa-2.3.14/Makefile	2023-11-07 12:34:50.319931132 -0500
+@@ -41,7 +41,7 @@ load:
+ 	(cd loader && CC="${CC} ${CFLAGS}" ${MAKE})
+ 
+ uncpk:
+-	(cd misc && CC="${CC} ${CFLAGS}" ${MAKE})
++	(cd misc && LD=${LD} CC="${CC} ${CFLAGS}" ${MAKE})
+ 
+ dos: clean
+ 	(cd src && LD=gcc-go32 CC=gcc-go32 CFLAGS="-W -Wall -pedantic" ${MAKE})
+diff -purN xa-2.3.14.orig/misc/Makefile xa-2.3.14/misc/Makefile
+--- xa-2.3.14.orig/misc/Makefile	2019-11-08 19:11:32.000000000 -0500
++++ xa-2.3.14/misc/Makefile	2023-11-07 12:34:32.931764490 -0500
+@@ -9,20 +9,35 @@ LIBS = #-lncurses -ltermcap -lm
+ 
+ all: ../mkrom.sh ../uncpk ../printcbm ../file65 ../reloc65 ../ldo65
+ 
+-../uncpk: uncpk.c
+-	${CC} ${CFLAGS} uncpk.c -o $(XCBMLIB)/uncpk
++../uncpk: uncpk.o
++	${LD} -o $(XCBMLIB)/uncpk uncpk.o ${LDFLAGS}
+ 
+-../printcbm: printcbm.c
+-	${CC} ${CFLAGS} printcbm.c -o $(XCBMLIB)/printcbm
++uncpk.o: uncpk.c
++	${CC} ${CFLAGS} -c uncpk.c -o uncpk.o
+ 
+-../file65: file65.c
+-	${CC} ${CFLAGS} file65.c -o $(XCBMLIB)/file65
++../printcbm: printcbm.o
++	${LD} -o $(XCBMLIB)/printcbm printcbm.o ${LDFLAGS}
+ 
+-../ldo65: ldo65.c
+-	${CC} ${CFLAGS} ldo65.c -o $(XCBMLIB)/ldo65
++printcbm.o: printcbm.c
++	${CC} ${CFLAGS} -c printcbm.c -o printcbm.o
+ 
+-../reloc65: reloc65.c
+-	${CC} ${CFLAGS} reloc65.c -o $(XCBMLIB)/reloc65
++../file65: file65.o
++	${LD} -o $(XCBMLIB)/file65 file65.o ${LDFLAGS}
++
++file65.o: file65.c
++	${CC} ${CFLAGS} -c file65.c -o file65.o
++
++../ldo65: ldo65.o
++	${LD} -o $(XCBMLIB)/ldo65 ldo65.o ${LDFLAGS}
++
++ldo65.o: ldo65.c
++	${CC} ${CFLAGS} -c ldo65.c -o ldo65.o
++
++../reloc65: reloc65.o
++	${LD} -o $(XCBMLIB)/reloc65 reloc65.o ${LDFLAGS}
++
++reloc65.o: reloc65.c
++	${CC} ${CFLAGS} -c reloc65.c -o reloc65.o
+ 
+ ../mkrom.sh: mkrom.sh
+ 	cp mkrom.sh ../mkrom.sh
+@@ -40,6 +55,6 @@ clean:
+ 	rm -f *.o 
+ 
+ mrproper: clean
+-	rm -f ../uncpk ../printcbm ../file65 ../mkrom.sh ../reloc65 ../ldo65
++	rm -f ../uncpk ../printcbm ../file65 ../mkrom.sh ../reloc65 ../ldo65 *.o
+ 	rm -f lt1 lt2 lt
+ 

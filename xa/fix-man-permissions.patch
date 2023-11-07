@@ -1,0 +1,12 @@
+diff -purN xa-2.3.14.orig/Makefile xa-2.3.14/Makefile
+--- xa-2.3.14.orig/Makefile	2023-02-07 16:42:40.000000000 -0500
++++ xa-2.3.14/Makefile	2023-11-07 12:21:27.982633600 -0500
+@@ -62,7 +62,7 @@ install: xa uncpk
+ 	$(MKDIR) $(BINDIR)
+ 	$(MKDIR) $(MANDIR)
+ 	$(INSTALL) xa reloc65 ldo65 file65 printcbm uncpk $(BINDIR)
+-	$(INSTALL) man/file65.1 man/ldo65.1 man/printcbm.1 man/reloc65.1 man/uncpk.1 man/xa.1 $(MANDIR)
++	$(INSTALL) -m 0644 man/file65.1 man/ldo65.1 man/printcbm.1 man/reloc65.1 man/uncpk.1 man/xa.1 $(MANDIR)
+ 	#$(MKDIR) $(DOCDIR)/xa65
+ 
+ dist: clean
