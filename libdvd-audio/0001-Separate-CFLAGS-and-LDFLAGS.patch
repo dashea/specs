@@ -1,0 +1,131 @@
+From c1fc2794221b92a4f8c59dbdc5aa6a3223d62ca7 Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Wed, 15 Nov 2023 14:42:37 -0500
+Subject: [PATCH] Separate CFLAGS and LDFLAGS
+
+---
+ Makefile | 46 +++++++++++++++++++++++-----------------------
+ 1 file changed, 23 insertions(+), 23 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 35ff93b..be1a668 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,4 +1,4 @@
+-FLAGS = -Wall -O2 -g -fPIC
++CFLAGS = -Wall -O2 -g -fPIC
+ LIB_DIR = /usr/local/lib
+ INCLUDE_DIR = /usr/local/include
+ BIN_DIR = /usr/local/bin
+@@ -79,7 +79,7 @@ libdvd-audio.a: $(DVDA_OBJS)
+ 	$(AR) -r $@ $(DVDA_OBJS)
+ 
+ $(SHARED_LIBRARY): $(DVDA_OBJS)
+-	$(CC) $(FLAGS) -Wl,-soname,libdvd-audio.so.$(MAJOR_VERSION) -shared -o $@ $(DVDA_OBJS)
++	$(CC) $(LDFLAGS) -Wl,-soname,libdvd-audio.so.$(MAJOR_VERSION) -shared -o $@ $(DVDA_OBJS)
+ 
+ $(SHARED_LIBRARY_LINK_1): $(SHARED_LIBRARY)
+ 	ln -sf $< $@
+@@ -88,22 +88,22 @@ $(SHARED_LIBRARY_LINK_2): $(SHARED_LIBRARY)
+ 	ln -sf $< $@
+ 
+ dvd-audio.o: include/dvd-audio.h src/dvd-audio.c
+-	$(CC) $(FLAGS) -c src/dvd-audio.c -I include
++	$(CC) $(CFLAGS) -c src/dvd-audio.c -I include
+ 
+ aob.o: src/aob.h src/aob.c
+-	$(CC) $(FLAGS) -c src/aob.c $(AOB_FLAGS)
++	$(CC) $(CFLAGS) -c src/aob.c $(AOB_FLAGS)
+ 
+ packet.o: src/packet.h src/packet.c
+-	$(CC) $(FLAGS) -c src/packet.c
++	$(CC) $(CFLAGS) -c src/packet.c
+ 
+ audio_ts.o: src/audio_ts.h src/audio_ts.c
+-	$(CC) $(FLAGS) -c src/audio_ts.c
++	$(CC) $(CFLAGS) -c src/audio_ts.c
+ 
+ pcm.o: src/pcm.h src/pcm.c
+-	$(CC) $(FLAGS) -c src/pcm.c
++	$(CC) $(CFLAGS) -c src/pcm.c
+ 
+ mlp.o: src/mlp.h src/mlp.c $(CODEBOOKS)
+-	$(CC) $(FLAGS) -c src/mlp.c
++	$(CC) $(CFLAGS) -c src/mlp.c
+ 
+ src/mlp_codebook1.h: src/mlp_codebook1.json huffman
+ 	./huffman -i src/mlp_codebook1.json > $@
+@@ -115,55 +115,55 @@ src/mlp_codebook3.h: src/mlp_codebook3.json huffman
+ 	./huffman -i src/mlp_codebook3.json > $@
+ 
+ cppm.o: src/cppm/cppm.h src/cppm/cppm.c
+-	$(CC) $(FLAGS) -c src/cppm/cppm.c
++	$(CC) $(CFLAGS) -c src/cppm/cppm.c
+ 
+ ioctl.o: src/cppm/ioctl.h src/cppm/ioctl.c
+-	$(CC) $(FLAGS) -c src/cppm/ioctl.c -DHAVE_LINUX_DVD_STRUCT -DDVD_STRUCT_IN_LINUX_CDROM_H
++	$(CC) $(CFLAGS) -c src/cppm/ioctl.c -DHAVE_LINUX_DVD_STRUCT -DDVD_STRUCT_IN_LINUX_CDROM_H
+ 
+ dvd_css.o: src/cppm/dvd_css.h src/cppm/dvd_css.c
+-	$(CC) $(FLAGS) -c src/cppm/dvd_css.c
++	$(CC) $(CFLAGS) -c src/cppm/dvd_css.c
+ 
+ dvda-debug-info: utils/dvda-debug-info.c libdvd-audio.a
+-	$(CC) $(FLAGS) -o $@ utils/dvda-debug-info.c libdvd-audio.a -I include -lm
++	$(CC) $(LDFLAGS) -o $@ utils/dvda-debug-info.c libdvd-audio.a -I include -lm
+ 
+ dvda2wav: utils/dvda2wav.c libdvd-audio.a
+-	$(CC) $(FLAGS) -o $@ utils/dvda2wav.c libdvd-audio.a -I include -I src -lm
++	$(CC) $(LDFLAGS) -o $@ utils/dvda2wav.c libdvd-audio.a -I include -I src -lm
+ 
+ $(PKG_CONFIG_METADATA): libdvd-audio.pc.m4
+ 	m4 -DLIB_DIR=$(LIB_DIR) -DINCLUDE_DIR=$(INCLUDE_DIR) -DMAJOR_VERSION=$(MAJOR_VERSION) -DMINOR_VERSION=$(MINOR_VERSION) -DRELEASE_VERSION=$(RELEASE_VERSION) $< > $@
+ 
+ huffman: src/huffman.c src/huffman.h parson.o
+-	$(CC) $(FLAGS) -o huffman src/huffman.c parson.o -DEXECUTABLE
++	$(CC) $(LDFLAGS) -o huffman src/huffman.c parson.o -DEXECUTABLE
+ 
+ bitstream.o: src/bitstream.c src/bitstream.h $(BITSTREAM_TABLES)
+-	$(CC) $(FLAGS) -c src/bitstream.c
++	$(CC) $(CFLAGS) -c src/bitstream.c
+ 
+ array.o: src/array.h src/array.c
+-	$(CC) $(FLAGS) -c src/array.c
++	$(CC) $(CFLAGS) -c src/array.c
+ 
+ huffman.o: src/huffman.c src/huffman.h
+-	$(CC) $(FLAGS) -c src/huffman.c -DSTANDALONE
++	$(CC) $(CFLAGS) -c src/huffman.c -DSTANDALONE
+ 
+ func_io.o: src/func_io.c src/func_io.h
+-	$(CC) $(FLAGS) -c src/func_io.c
++	$(CC) $(CFLAGS) -c src/func_io.c
+ 
+ mini-gmp.o: src/mini-gmp.c src/mini-gmp.h
+-	$(CC) $(FLAGS) -c src/mini-gmp.c
++	$(CC) $(CFLAGS) -c src/mini-gmp.c
+ 
+ bitstream.a: $(BITSTREAM_OBJS)
+ 	$(AR) -r $@ $(BITSTREAM_OBJS)
+ 
+ bitstream: src/bitstream.c src/bitstream.h huffman.o func_io.o mini-gmp.o $(BITSTREAM_TABLES)
+-	$(CC) $(FLAGS) src/bitstream.c huffman.o func_io.o mini-gmp.o -DEXECUTABLE -o $@
++	$(CC) $(LDFLAGS) src/bitstream.c huffman.o func_io.o mini-gmp.o -DEXECUTABLE -o $@
+ 
+ array: src/array.c src/array.h
+-	$(CC) $(FLAGS) src/array.c -DEXECUTABLE -o $@
++	$(CC) $(LDFLAGS) src/array.c -DEXECUTABLE -o $@
+ 
+ parson.o: src/parson.c src/parson.h
+-	$(CC) $(FLAGS) -c src/parson.c
++	$(CC) $(CFLAGS) -c src/parson.c
+ 
+ bitstream-table: src/bitstream-table.c array.o
+-	$(CC) $(FLAGS) -o $@ src/bitstream-table.c array.o
++	$(CC) $(LDFLAGS) -o $@ src/bitstream-table.c array.o
+ 
+ src/read_bits_table_be.h: bitstream-table
+ 	./bitstream-table --rb --be > $@
+-- 
+2.41.0
+

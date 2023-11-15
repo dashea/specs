@@ -1,0 +1,32 @@
+From 51019222df29b9298a8ed59cccba3a7d53810747 Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Wed, 15 Nov 2023 15:33:28 -0500
+Subject: [PATCH 3/3] Dynamically link executables
+
+---
+ Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 9370d4b..10facbd 100644
+--- a/Makefile
++++ b/Makefile
+@@ -127,13 +127,13 @@ dvda-debug-info.o: utils/dvda-debug-info.c include/dvd-audio.h
+ 	$(CC) $(CFLAGS) -c utils/dvda-debug-info.c -I include -o $@
+ 
+ dvda-debug-info: dvda-debug-info.o libdvd-audio.a
+-	$(CC) $(LDFLAGS) -o $@ dvda-debug-info.o libdvd-audio.a -lm
++	$(CC) $(LDFLAGS) -o $@ dvda-debug-info.o -L$(PWD) -ldvd-audio -lm
+ 
+ dvda2wav.o: utils/dvda2wav.c include/dvd-audio.h src/bitstream.h
+ 	$(CC) $(CFLAGS) -c utils/dvda2wav.c -I include -I src -o $@
+ 
+ dvda2wav: dvda2wav.o libdvd-audio.a
+-	$(CC) $(LDFLAGS) -o $@ dvda2wav.o libdvd-audio.a -lm
++	$(CC) $(LDFLAGS) -o $@ dvda2wav.o -L$(PWD) -ldvd-audio -lm
+ 
+ $(PKG_CONFIG_METADATA): libdvd-audio.pc.m4
+ 	m4 -DLIB_DIR=$(LIB_DIR) -DINCLUDE_DIR=$(INCLUDE_DIR) -DMAJOR_VERSION=$(MAJOR_VERSION) -DMINOR_VERSION=$(MINOR_VERSION) -DRELEASE_VERSION=$(RELEASE_VERSION) $< > $@
+-- 
+2.41.0
+

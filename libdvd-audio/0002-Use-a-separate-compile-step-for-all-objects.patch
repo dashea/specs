@@ -1,0 +1,63 @@
+From 4da84e3d4eae3f8e70979c5a07eac8658e23cf76 Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Wed, 15 Nov 2023 15:06:25 -0500
+Subject: [PATCH 2/2] Use a separate compile step for all objects
+
+---
+ Makefile | 28 ++++++++++++++++++++--------
+ 1 file changed, 20 insertions(+), 8 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index be1a668..9370d4b 100644
+--- a/Makefile
++++ b/Makefile
+@@ -123,17 +123,26 @@ ioctl.o: src/cppm/ioctl.h src/cppm/ioctl.c
+ dvd_css.o: src/cppm/dvd_css.h src/cppm/dvd_css.c
+ 	$(CC) $(CFLAGS) -c src/cppm/dvd_css.c
+ 
+-dvda-debug-info: utils/dvda-debug-info.c libdvd-audio.a
+-	$(CC) $(LDFLAGS) -o $@ utils/dvda-debug-info.c libdvd-audio.a -I include -lm
++dvda-debug-info.o: utils/dvda-debug-info.c include/dvd-audio.h
++	$(CC) $(CFLAGS) -c utils/dvda-debug-info.c -I include -o $@
+ 
+-dvda2wav: utils/dvda2wav.c libdvd-audio.a
+-	$(CC) $(LDFLAGS) -o $@ utils/dvda2wav.c libdvd-audio.a -I include -I src -lm
++dvda-debug-info: dvda-debug-info.o libdvd-audio.a
++	$(CC) $(LDFLAGS) -o $@ dvda-debug-info.o libdvd-audio.a -lm
++
++dvda2wav.o: utils/dvda2wav.c include/dvd-audio.h src/bitstream.h
++	$(CC) $(CFLAGS) -c utils/dvda2wav.c -I include -I src -o $@
++
++dvda2wav: dvda2wav.o libdvd-audio.a
++	$(CC) $(LDFLAGS) -o $@ dvda2wav.o libdvd-audio.a -lm
+ 
+ $(PKG_CONFIG_METADATA): libdvd-audio.pc.m4
+ 	m4 -DLIB_DIR=$(LIB_DIR) -DINCLUDE_DIR=$(INCLUDE_DIR) -DMAJOR_VERSION=$(MAJOR_VERSION) -DMINOR_VERSION=$(MINOR_VERSION) -DRELEASE_VERSION=$(RELEASE_VERSION) $< > $@
+ 
+-huffman: src/huffman.c src/huffman.h parson.o
+-	$(CC) $(LDFLAGS) -o huffman src/huffman.c parson.o -DEXECUTABLE
++huffman: huffman_exec.o parson.o
++	$(CC) $(LDFLAGS) -o huffman huffman_exec.o parson.o
++
++huffman_exec.o: src/huffman.c src/huffman.h
++	$(CC) $(CFLAGS) -DEXECUTABLE -c src/huffman.c -o $@
+ 
+ bitstream.o: src/bitstream.c src/bitstream.h $(BITSTREAM_TABLES)
+ 	$(CC) $(CFLAGS) -c src/bitstream.c
+@@ -162,8 +171,11 @@ array: src/array.c src/array.h
+ parson.o: src/parson.c src/parson.h
+ 	$(CC) $(CFLAGS) -c src/parson.c
+ 
+-bitstream-table: src/bitstream-table.c array.o
+-	$(CC) $(LDFLAGS) -o $@ src/bitstream-table.c array.o
++bitstream-table.o: src/bitstream-table.c src/array.h
++	$(CC) $(CFLAGS) -c src/bitstream-table.c -o $@
++
++bitstream-table: bitstream-table.o array.o
++	$(CC) $(LDFLAGS) -o $@ bitstream-table.o array.o
+ 
+ src/read_bits_table_be.h: bitstream-table
+ 	./bitstream-table --rb --be > $@
+-- 
+2.41.0
+
