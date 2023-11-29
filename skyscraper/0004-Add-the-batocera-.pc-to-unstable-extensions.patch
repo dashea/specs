@@ -1,0 +1,12 @@
+diff -purN skyscraper-3.9.0.orig/src/nametools.cpp skyscraper-3.9.0/src/nametools.cpp
+--- skyscraper-3.9.0.orig/src/nametools.cpp	2023-10-20 08:23:31.000000000 -0400
++++ skyscraper-3.9.0/src/nametools.cpp	2023-11-20 14:50:07.680828244 -0500
+@@ -504,7 +504,7 @@ QString NameTools::getCacheId(const QFil
+      info.suffix() == "gdi" || info.suffix() == "ml" ||
+      info.suffix() == "bat" || info.suffix() == "au3" ||
+      info.suffix() == "po" || info.suffix() == "dsk" ||
+-     info.suffix() == "nib") {
++     info.suffix() == "nib" || info.suffix() == "pc") {
+     cacheIdFromData = false;
+   }
+   // If file is larger than 50 MBs, use filename checksum for cache id for optimization reasons

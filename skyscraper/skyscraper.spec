@@ -2,7 +2,7 @@
 
 Name:    skyscraper
 Version: 3.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Powerful and versatile game scraper
 
 # The source files say 2 or later, but the LICENSE file it comes with is v3, so go with v3
@@ -15,6 +15,10 @@ Patch1:  0002-Remove-the-supplementary-install.patch
 
 Patch3:  0001-Add-additional-screenscraper-platforms.patch
 Patch4:  0002-Split-satellaview-and-sufami-turbo-out-of-snes.patch
+
+# Add ".pc" to "unstable" extensions, where the sha1sum of the filename will be used instead of the contents of the file
+# This simplifies setting up the cache setup needed for a batocera-based dosbox system
+Patch5:  0004-Add-the-batocera-.pc-to-unstable-extensions.patch
 
 BuildRequires: gcc-c++
 BuildRequires: qt5-qtbase-devel
@@ -44,6 +48,9 @@ make %{?_smp_mflags}
 %config %{_sysconfdir}/skyscraper
 
 %changelog
+* Mon Nov 20 2023 David Shea <reallylongword@gmail.com> - 3.9.0-2
+- Add batocera's ".pc" extension to the unstable extension list
+
 * Thu Oct 26 2023 David Shea <reallylongword@gmail.com> - 3.9.0-1
 - Update to 3.9.0
 
