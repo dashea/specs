@@ -1,0 +1,79 @@
+From bb4aaaa2e8e4bdfc02f9d98ab2982074051c4eb2 Mon Sep 17 00:00:00 2001
+Message-ID: <bb4aaaa2e8e4bdfc02f9d98ab2982074051c4eb2.1702642817.git.pmatilai@redhat.com>
+From: Panu Matilainen <pmatilai@redhat.com>
+Date: Fri, 15 Dec 2023 13:15:29 +0200
+Subject: [PATCH] Fix regression in Lua scriptlet runaway child detection
+
+Commit a8107659ef3dd4855729bf65aa4d70f784cb5a5f moved the detection
+to parent using waitpid(), but this causes it to complain on any
+process in the same process group. In the usual rpm context we don't
+have any, but we can't very well tell API users not to have any
+children. And then failed to detect a runaway Lua child in one of
+our own tests. Uff.
+
+rpmlog() in the child has the issues mentioned in the originating
+commit, but that's a problem that needs to be solved elsewhere.
+Revert back to issuing a warning when we actually *are* in the child
+process, so there are no false positive possible. Use EXIT_FAILURE
+like in the original version, dunno why I'd changed that.
+
+Update the rpmlua test to expect the deserved warning, and use
+stdio for printing its "normal" output, the catch there is that we
+need to flush the io in the child.
+
+Reported at https://bugzilla.redhat.com/show_bug.cgi?id=2254463
+---
+ rpmio/rpmlua.c    | 10 +++-------
+ tests/rpmmacro.at |  9 ++++-----
+ 2 files changed, 7 insertions(+), 12 deletions(-)
+
+diff --git a/rpmio/rpmlua.c b/rpmio/rpmlua.c
+index 8ef90e779..854fd469d 100644
+--- a/rpmio/rpmlua.c
++++ b/rpmio/rpmlua.c
+@@ -239,17 +239,13 @@ static int luaopt(int c, const char *oarg, int oint, void *data)
+ static int rpm_pcall(lua_State *L, int nargs, int nresults, int errfunc)
+ {
+     pid_t pid = getpid();
+-    int status;
+ 
+     int rc = lua_pcall(L, nargs, nresults, errfunc);
+ 
+     /* Terminate unhandled fork from Lua script */
+-    if (pid != getpid())
+-	_exit(1);
+-
+-    if (waitpid(0, &status, WNOHANG) == 0) {
+-	rpmlog(RPMLOG_WARNING,
+-		_("runaway fork() in Lua script\n"));
++    if (pid != getpid()) {
++	rpmlog(RPMLOG_WARNING, _("runaway fork() in Lua script\n"));
++	_exit(EXIT_FAILURE);
+     }
+ 
+     return rc;
+diff --git a/tests/rpmmacro.at b/tests/rpmmacro.at
+index 0ebcc050c..47a13ef2b 100644
+--- a/tests/rpmmacro.at
++++ b/tests/rpmmacro.at
+@@ -1322,13 +1322,12 @@ nil	No such file or directory	2.0
+ ],
+ [])
+ 
+-# This uses io.stderr:write() because the grue from the previous test 
+-# appears to have eaten stdout of the forked child, or something.
+ RPMTEST_CHECK([
+-runroot_other rpmlua -e 'pid = posix.fork(); if pid == 0 then a,b,c=rpm.redirect2null(-1); io.stderr:write(string.format("%s\t%s\t%s\n", a,b,c)) else posix.wait(pid) end'
++runroot_other rpmlua -e 'pid = posix.fork(); if pid == 0 then a,b,c=rpm.redirect2null(-1); print(string.format("%s\t%s\t%s", a,b,c)); io.flush() else posix.wait(pid) end'
+ ],
+ [0],
+-[],
+ [nil	Bad file descriptor	9.0
+-])
++],
++[warning: runaway fork() in Lua script]
++)
+ RPMTEST_CLEANUP
+-- 
+2.43.0
+

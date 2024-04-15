@@ -1,0 +1,63 @@
+From 4f925ea5fcbc49605e1bd37548c6b09dbbe09fad Mon Sep 17 00:00:00 2001
+From: David Shea <reallylongword@gmail.com>
+Date: Mon, 15 Apr 2024 10:24:53 -0400
+Subject: [PATCH] Remove the '%patchN is deprecated' warnings
+
+---
+ build/parsePrep.c         | 6 ------
+ build/rpmbuild_internal.h | 2 --
+ build/spec.c              | 1 -
+ 3 files changed, 9 deletions(-)
+
+diff --git a/build/parsePrep.c b/build/parsePrep.c
+index 07d9a69..2c058bf 100644
+--- a/build/parsePrep.c
++++ b/build/parsePrep.c
+@@ -347,7 +347,6 @@ static rpmRC doPatchMacro(rpmSpec spec, const char *line)
+     /* Convert %patchN to %patch -PN to simplify further processing */
+     if (! strchr(" \t\n", line[6])) {
+ 	rasprintf(&buf, "%%patch -P %s", line + 6);
+-	spec->numConverted++;
+     }
+     poptParseArgvString(buf ? buf : line, &argc, &argv);
+ 
+@@ -447,11 +446,6 @@ int parsePrep(rpmSpec spec)
+ 	}
+     }
+ 
+-    if (spec->numConverted)
+-	rpmlog(RPMLOG_WARNING,
+-	       _("%%patchN is deprecated (%i usages found), "
+-	         "use %%patch N (or %%patch -P N)\n"), spec->numConverted);
+-
+ exit:
+     argvFree(saveLines);
+ 
+diff --git a/build/rpmbuild_internal.h b/build/rpmbuild_internal.h
+index 9021def..c04c861 100644
+--- a/build/rpmbuild_internal.h
++++ b/build/rpmbuild_internal.h
+@@ -148,8 +148,6 @@ struct rpmSpec_s {
+     StringBuf parsed;		/*!< parsed spec contents */
+ 
+     Package packages;		/*!< Package list. */
+-
+-    int numConverted;		/*!< no. of automatic %patchN conversions */
+ };
+ 
+ #define PACKAGE_NUM_DEPS 12
+diff --git a/build/spec.c b/build/spec.c
+index 4e7301d..9af4239 100644
+--- a/build/spec.c
++++ b/build/spec.c
+@@ -235,7 +235,6 @@ rpmSpec newSpec(void)
+     spec->numSources = 0;
+     spec->autonum_patch = -1;
+     spec->autonum_source = -1;
+-    spec->numConverted = 0;
+ 
+     spec->sourceRpmName = NULL;
+     spec->sourcePkgId = NULL;
+-- 
+2.44.0
+
