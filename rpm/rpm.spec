@@ -36,7 +36,7 @@
 Summary: The RPM package management system
 Name: rpm
 Version: %{rpmver}
-Release: %{?snapver:0.%{snapver}.}%{baserelease}%{?dist}
+Release: %{?snapver:0.%{snapver}.}%{baserelease}%{?dist}.1
 Url: http://www.rpm.org/
 License: GPL-2.0-or-later
 
@@ -54,7 +54,7 @@ Requires: coreutils
 Requires: popt%{_isa} >= 1.10.2.1
 Requires: curl
 Conflicts: systemd < 253.5-6
-Obsoletes: python2-rpm < %{version}-%{release}
+Obsoletes: python2-rpm < %{epoch}:%{version}-%{release}
 
 # XXX generally assumed to be installed but make it explicit as rpm
 # is a bit special...
@@ -158,7 +158,7 @@ the package like its version, a description, etc.
 %package libs
 Summary:  Libraries for manipulating RPM packages
 License:  GPL-2.0-or-later OR LGPL-2.1-or-later
-Requires(meta): %{name} = %{version}-%{release}
+Requires(meta): %{name} = %{epoch}:%{version}-%{release}
 %if %{with sequoia}
 # >= 1.4.0 required for pgpVerifySignature2() and pgpPrtParams2()
 Requires: rpm-sequoia%{_isa} >= 1.4.0
@@ -169,14 +169,14 @@ This package contains the RPM shared libraries.
 
 %package build-libs
 Summary:  Libraries for building RPM packages
-Requires: rpm-libs%{_isa} = %{version}-%{release}
+Requires: rpm-libs%{_isa} = %{epoch}:%{version}-%{release}
 
 %description build-libs
 This package contains the RPM shared libraries for building packages.
 
 %package sign-libs
 Summary:  Libraries for signing RPM packages
-Requires: rpm-libs%{_isa} = %{version}-%{release}
+Requires: rpm-libs%{_isa} = %{epoch}:%{version}-%{release}
 Requires: %{_bindir}/gpg2
 
 %description sign-libs
@@ -185,10 +185,10 @@ This package contains the RPM shared libraries for signing packages.
 %package devel
 Summary:  Development files for manipulating RPM packages
 License:  GPL-2.0-or-later OR LGPL-2.1-or-later
-Requires: %{name} = %{version}-%{release}
-Requires: %{name}-libs%{_isa} = %{version}-%{release}
-Requires: %{name}-build-libs%{_isa} = %{version}-%{release}
-Requires: %{name}-sign-libs%{_isa} = %{version}-%{release}
+Requires: %{name} = %{epoch}:%{version}-%{release}
+Requires: %{name}-libs%{_isa} = %{epoch}:%{version}-%{release}
+Requires: %{name}-build-libs%{_isa} = %{epoch}:%{version}-%{release}
+Requires: %{name}-sign-libs%{_isa} = %{epoch}:%{version}-%{release}
 Requires: popt-devel%{_isa}
 
 %description devel
@@ -204,7 +204,7 @@ will manipulate RPM packages and databases.
 
 %package build
 Summary: Scripts and executable programs used to build packages
-Requires: rpm = %{version}-%{release}
+Requires: rpm = %{epoch}:%{version}-%{release}
 Requires: elfutils >= 0.128 binutils
 Requires: findutils sed grep gawk diffutils file patch >= 2.5
 Requires: tar unzip gzip bzip2 cpio xz
@@ -228,7 +228,7 @@ that are used to build packages using the RPM Package Manager.
 
 %package sign
 Summary: Package signing support
-Requires: rpm-sign-libs%{_isa} = %{version}-%{release}
+Requires: rpm-sign-libs%{_isa} = %{epoch}:%{version}-%{release}
 
 %description sign
 This package contains support for digitally signing RPM packages.
@@ -237,9 +237,9 @@ This package contains support for digitally signing RPM packages.
 Summary: Python 3 bindings for apps which will manipulate RPM packages
 BuildRequires: python3-devel
 %{?python_provide:%python_provide python3-%{name}}
-Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-Provides: %{name}-python3 = %{version}-%{release}
-Obsoletes: %{name}-python3 < %{version}-%{release}
+Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+Provides: %{name}-python3 = %{epoch}:%{version}-%{release}
+Obsoletes: %{name}-python3 < %{epoch}:%{version}-%{release}
 
 %description -n python3-%{name}
 The python3-rpm package contains a module that permits applications
@@ -260,7 +260,7 @@ that will manipulate RPM packages and databases.
 %package cron
 Summary: Create daily logs of installed packages.
 BuildArch: noarch
-Requires: crontabs logrotate rpm = %{version}-%{release}
+Requires: crontabs logrotate rpm = %{epoch}:%{version}-%{release}
 
 %description cron
 This package contains a cron job which creates daily logs of installed
@@ -269,7 +269,7 @@ packages on a system.
 %if %{with plugins}
 %package plugin-selinux
 Summary: Rpm plugin for SELinux functionality
-Requires: rpm-libs%{_isa} = %{version}-%{release}
+Requires: rpm-libs%{_isa} = %{epoch}:%{version}-%{release}
 Requires(meta): selinux-policy-base
 
 %description plugin-selinux
@@ -277,14 +277,14 @@ Requires(meta): selinux-policy-base
 
 %package plugin-syslog
 Summary: Rpm plugin for syslog functionality
-Requires: rpm-libs%{_isa} = %{version}-%{release}
+Requires: rpm-libs%{_isa} = %{epoch}:%{version}-%{release}
 
 %description plugin-syslog
 %{summary}.
 
 %package plugin-systemd-inhibit
 Summary: Rpm plugin for systemd inhibit functionality
-Requires: rpm-libs%{_isa} = %{version}-%{release}
+Requires: rpm-libs%{_isa} = %{epoch}:%{version}-%{release}
 
 %description plugin-systemd-inhibit
 This plugin blocks systemd from entering idle, sleep or shutdown while an rpm
@@ -293,7 +293,7 @@ transaction is running using the systemd-inhibit mechanism.
 %if %{with libimaevm}
 %package plugin-ima
 Summary: Rpm plugin ima file signatures
-Requires: rpm-libs%{_isa} = %{version}-%{release}
+Requires: rpm-libs%{_isa} = %{epoch}:%{version}-%{release}
 
 %description plugin-ima
 %{summary}.
@@ -301,7 +301,7 @@ Requires: rpm-libs%{_isa} = %{version}-%{release}
 
 %package plugin-prioreset
 Summary: Rpm plugin for resetting scriptlet priorities for SysV init
-Requires: rpm-libs%{_isa} = %{version}-%{release}
+Requires: rpm-libs%{_isa} = %{epoch}:%{version}-%{release}
 
 %description plugin-prioreset
 %{summary}.
@@ -311,7 +311,7 @@ nice/ionice priorities. Should not be used on systemd systems.
 
 %package plugin-audit
 Summary: Rpm plugin for logging audit events on package operations
-Requires: rpm-libs%{_isa} = %{version}-%{release}
+Requires: rpm-libs%{_isa} = %{epoch}:%{version}-%{release}
 
 %description plugin-audit
 %{summary}.
@@ -319,7 +319,7 @@ Requires: rpm-libs%{_isa} = %{version}-%{release}
 %if %{with fsverity}
 %package plugin-fsverity
 Summary: Rpm plugin for fsverity file signatures
-Requires: rpm-libs%{_isa} = %{version}-%{release}
+Requires: rpm-libs%{_isa} = %{epoch}:%{version}-%{release}
 
 %description plugin-fsverity
 %{summary}.
@@ -327,8 +327,8 @@ Requires: rpm-libs%{_isa} = %{version}-%{release}
 
 %package plugin-fapolicyd
 Summary: Rpm plugin for fapolicyd support
-Requires: rpm-libs%{_isa} = %{version}-%{release}
-Provides: fapolicyd-plugin = %{version}-%{release}
+Requires: rpm-libs%{_isa} = %{epoch}:%{version}-%{release}
+Provides: fapolicyd-plugin = %{epoch}:%{version}-%{release}
 # fapolicyd-dnf-plugin currently at 1.0.4
 Obsoletes: fapolicyd-dnf-plugin < 1.0.5
 
@@ -340,7 +340,7 @@ the fapolicyd daemon.
 
 %package plugin-dbus-announce
 Summary: Rpm plugin for announcing transactions on the DBUS
-Requires: rpm-libs%{_isa} = %{version}-%{release}
+Requires: rpm-libs%{_isa} = %{epoch}:%{version}-%{release}
 
 %description plugin-dbus-announce
 The plugin announces basic information about rpm transactions to the
@@ -621,6 +621,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Mon Apr 15 2024 David Shea <dshea@redhat.com> - 4.19.1.1-1.1
+- Add epoch to all of the self-requires
+
 * Wed Feb 07 2024 Michal Domonkos <mdomonko@redhat.com> - 4.19.1.1-1
 - Update to 4.19.1.1 (https://rpm.org/wiki/Releases/4.19.1.1)
 
