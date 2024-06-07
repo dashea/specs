@@ -36,7 +36,7 @@
 Summary: The RPM package management system
 Name: rpm
 Version: %{rpmver}
-Release: %{?snapver:0.%{snapver}.}%{baserelease}%{?dist}.1
+Release: %{?snapver:0.%{snapver}.}%{baserelease}%{?dist}.2
 Url: http://www.rpm.org/
 License: GPL-2.0-or-later
 
@@ -359,9 +359,6 @@ change.
 
 mkdir _build
 cd _build
-# Using the %%cmake macro creates a confusing and unworkable mirror-in-mirror
-# effect on rpm platform setup. Use the old-fashioned way, only definining
-# minimal paths.
 cmake \
       -DCMAKE_INSTALL_PREFIX=%{_usr} \
       -DCMAKE_INSTALL_SHAREDSTATEDIR:PATH=%{_var}/lib \
@@ -595,6 +592,7 @@ fi
 %{_mandir}/man8/rpmsign.8*
 
 %files -n python3-%{name}
+%dir %{python3_sitearch}/rpm
 %{python3_sitearch}/rpm-%{rpmver}*.egg-info
 %{python3_sitearch}/rpm/__init__.py
 %{python3_sitearch}/rpm/transaction.py
@@ -621,6 +619,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Mon Apr 15 2024 David Shea <dshea@redhat.com> - 4.19.1.1-1.2
+- Update against upstream spec
+
 * Mon Apr 15 2024 David Shea <dshea@redhat.com> - 4.19.1.1-1.1
 - Add epoch to all of the self-requires
 
